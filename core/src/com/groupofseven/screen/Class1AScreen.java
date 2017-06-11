@@ -82,8 +82,6 @@ public class Class1AScreen extends AbstractScreen {
 
 	@Override
 	public void show() {
-		//Gdx.input.setInputProcessor(this);
-
 		map = new TmxMapLoader().load("maps/Class 1A.tmx");
 
 		renderer = new OrthogonalTiledMapRenderer(map);
@@ -92,15 +90,8 @@ public class Class1AScreen extends AbstractScreen {
 		
 		mp3music.play();
 		
-		//uncommenting this crashes the program when you press a key with a nullpointerexception
-		//is it because of the multiple Gdx.input.setInputProcessor thingies here?
-		
-		//Gdx.input.setInputProcessor(input);
-		
-		
-		//inputMultiplexer stuff I found online, dunno if it works or not (it still gives a nullpointerexception)
-		
 		InputProcessor inputProcessorOne = new PlayerInput(player);
+		//does this line actually work? (see below)
 		InputProcessor inputProcessorTwo = new Class1AScreen(app);
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(this);

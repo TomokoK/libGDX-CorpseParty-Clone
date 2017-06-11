@@ -20,25 +20,25 @@ public class PlayerInput extends InputAdapter {
 		//pressing W A S or D crashes the program with a nullpointerexception
 		if (keycode == Keys.W) {
 			// *** UNCOMMENTING THIS WILL GIVE A NULLPOINTEREXCEPTION ***
-			player.move(0, 1);
+			this.player.move(0, 1);
 			System.out.println("PRESSING W");
 		}
 		
 		if (keycode == Keys.A){
 			// *** UNCOMMENTING THIS WILL GIVE A NULLPOINTEREXCEPTION ***
-			player.move(-1, 0);
+			this.player.move(-1, 0);
 			System.out.println("PRESSING A");
 		}
 		
 		if (keycode == Keys.S) {
 			// *** UNCOMMENTING THIS WILL GIVE A NULLPOINTEREXCEPTION ***
-			player.move(0, -1);
+			this.player.move(0, -1);
 			System.out.println("PRESSING S");
 		}
 		
 		if(keycode == Keys.D) {
 			// *** UNCOMMENTING THIS WILL GIVE A NULLPOINTEREXCEPTION ***
-			player.move(1, 0);
+			this.player.move(1, 0);
 			System.out.println("PRESSING D");
 		}
 		return false;

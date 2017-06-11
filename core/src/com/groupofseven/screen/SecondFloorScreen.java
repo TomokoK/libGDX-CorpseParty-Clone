@@ -1,6 +1,8 @@
 package com.groupofseven.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
@@ -12,12 +14,15 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.groupofseven.game.Seven;
+import com.groupofseven.input.PlayerInput;
 //import com.groupofseven.input.PlayerInput;
 import com.groupofseven.model.Player;
 
 public class SecondFloorScreen extends AbstractScreen {
 	
 	private Player player;
+	
+	private PlayerInput input;
 	
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
@@ -30,6 +35,10 @@ public class SecondFloorScreen extends AbstractScreen {
 	
 	public SecondFloorScreen(Seven app) {
 		super(app);
+		
+		player = new Player(0, 0);
+		
+		input = new PlayerInput(player);
 	}
 
 	@Override
@@ -72,9 +81,7 @@ public class SecondFloorScreen extends AbstractScreen {
 	}
 
 	@Override
-	public void show() {
-		Gdx.input.setInputProcessor(this);
-		
+	public void show() {		
 		map = new TmxMapLoader().load("maps/Second floor.tmx");
 		
 		renderer = new OrthogonalTiledMapRenderer(map);
@@ -82,6 +89,14 @@ public class SecondFloorScreen extends AbstractScreen {
 		camera = new OrthographicCamera();
 				
 		mp3music.play();
+		
+		InputProcessor inputProcessorOne = new PlayerInput(player);
+		//does this line actually work? (see below)
+		InputProcessor inputProcessorTwo = new Class1AScreen(app);
+		InputMultiplexer inputMultiplexer = new InputMultiplexer();
+		inputMultiplexer.addProcessor(this);
+		inputMultiplexer.addProcessor(input);
+		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 
 	@Override
