@@ -7,28 +7,40 @@ import com.groupofseven.model.Player;
 public class PlayerInput extends InputAdapter {
 
 	private Player player;
-	
+		
 	public PlayerInput(Player p) {
 		this.player = p;
+		
+		//Player player = new Player(0, 0);
 	}
 	
 	@Override
 	public boolean keyDown(int keycode) {
-//		if (keycode == Keys.W) {
-//			player.move(0, 1);
-//		}
-//		
-//		if (keycode == Keys.A){
-//			player.move(-1, 0);
-//		}
-//		
-//		if (keycode == Keys.S) {
-//			player.move(0, -1);
-//		}
-//		
-//		if(keycode == Keys.D) {
-//			player.move(1, 0);
-//		}
+		//Player player = new Player(0, 0);
+		//pressing W A S or D crashes the program with a nullpointerexception
+		if (keycode == Keys.W) {
+			// *** UNCOMMENTING THIS WILL GIVE A NULLPOINTEREXCEPTION ***
+			//player.move(0, 1);
+			System.out.println("PRESSING W");
+		}
+		
+		if (keycode == Keys.A){
+			// *** UNCOMMENTING THIS WILL GIVE A NULLPOINTEREXCEPTION ***
+			//player.move(-1, 0);
+			System.out.println("PRESSING A");
+		}
+		
+		if (keycode == Keys.S) {
+			// *** UNCOMMENTING THIS WILL GIVE A NULLPOINTEREXCEPTION ***
+			//player.move(0, -1);
+			System.out.println("PRESSING S");
+		}
+		
+		if(keycode == Keys.D) {
+			// *** UNCOMMENTING THIS WILL GIVE A NULLPOINTEREXCEPTION ***
+			//player.move(1, 0);
+			System.out.println("PRESSING D");
+		}
 		return false;
 	}
 	

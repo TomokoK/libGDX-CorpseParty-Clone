@@ -12,8 +12,15 @@ public class Player implements Renderable {
 	/** player Sprite */
 	Sprite sprite;
 	
+	private Player player;
+	
 	public int x;
 	public int y;
+		
+	public Player(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 	
 	public void move(int dx, int dy) {
 		x += dx;
@@ -32,6 +39,8 @@ public class Player implements Renderable {
 
 		// init sprite here
 		sprite = new Sprite(new Texture("sprites/Ayumi.png"));
+		
+		player = new Player(0, 0);
 				
 	}
 

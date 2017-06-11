@@ -12,7 +12,7 @@ public class Seven extends Game implements ApplicationListener {
 
 	private Screen screen;
 	
-	public Player playerObject = new Player();
+	public Player playerObject = new Player(0, 0);
 	
 	@Override
 	public void create() {

@@ -82,7 +82,7 @@ public class Class1AScreen extends AbstractScreen {
 
 	@Override
 	public void show() {
-		Gdx.input.setInputProcessor(this);
+		//Gdx.input.setInputProcessor(this);
 
 		map = new TmxMapLoader().load("maps/Class 1A.tmx");
 
@@ -100,12 +100,12 @@ public class Class1AScreen extends AbstractScreen {
 		
 		//inputMultiplexer stuff I found online, dunno if it works or not (it still gives a nullpointerexception)
 		
-//		InputProcessor inputProcessorOne = new PlayerInput(player);
-//		InputProcessor inputProcessorTwo = new Class1AScreen(app);
-//		InputMultiplexer inputMultiplexer = new InputMultiplexer();
-//		inputMultiplexer.addProcessor(this);
-//		inputMultiplexer.addProcessor(input);
-//		Gdx.input.setInputProcessor(inputMultiplexer);
+		InputProcessor inputProcessorOne = new PlayerInput(player);
+		InputProcessor inputProcessorTwo = new Class1AScreen(app);
+		InputMultiplexer inputMultiplexer = new InputMultiplexer();
+		inputMultiplexer.addProcessor(this);
+		inputMultiplexer.addProcessor(input);
+		Gdx.input.setInputProcessor(inputMultiplexer);
 		
 	}
 
@@ -119,22 +119,6 @@ public class Class1AScreen extends AbstractScreen {
 			this.app.setScreen(screen);
 		}
 		
-		//pressing W A S or D crashes the program with a nullpointerexception
-		if (keycode == Keys.W) {
-			player.move(0, 1);
-		}
-		
-		if (keycode == Keys.A){
-			player.move(-1, 0);
-		}
-		
-		if (keycode == Keys.S) {
-			player.move(0, -1);
-		}
-		
-		if(keycode == Keys.D) {
-			player.move(1, 0);
-		}
 		return false;
 	}
 	
