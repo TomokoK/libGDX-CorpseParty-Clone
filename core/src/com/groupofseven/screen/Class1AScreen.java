@@ -3,6 +3,8 @@ package com.groupofseven.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -92,6 +94,17 @@ public class Class1AScreen extends AbstractScreen {
 		//is it because of the multiple Gdx.input.setInputProcessor thingies here?
 		
 		//Gdx.input.setInputProcessor(input);
+		
+		
+		//inputMultiplexer stuff I found online, dunno if it works or not (it still gives a nullpointerexception)
+		
+//		InputProcessor inputProcessorOne = new PlayerInput(player);
+//		InputProcessor inputProcessorTwo = new Class1AScreen(app);
+//		InputMultiplexer inputMultiplexer = new InputMultiplexer();
+//		inputMultiplexer.addProcessor(this);
+//		inputMultiplexer.addProcessor(input);
+//		Gdx.input.setInputProcessor(inputMultiplexer);
+		
 	}
 
 	@Override
@@ -102,6 +115,22 @@ public class Class1AScreen extends AbstractScreen {
 			screen = new SecondFloorScreen(this.app);
 
 			this.app.setScreen(screen);
+		}
+		
+		if (keycode == Keys.W) {
+			player.move(0, 1);
+		}
+		
+		if (keycode == Keys.A){
+			player.move(-1, 0);
+		}
+		
+		if (keycode == Keys.S) {
+			player.move(0, -1);
+		}
+		
+		if(keycode == Keys.D) {
+			player.move(1, 0);
 		}
 		return false;
 	}

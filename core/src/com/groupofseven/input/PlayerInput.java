@@ -14,21 +14,21 @@ public class PlayerInput extends InputAdapter {
 	
 	@Override
 	public boolean keyDown(int keycode) {
-		if (keycode == Keys.W) {
-			player.move(0, 1);
-		}
-		
-		if (keycode == Keys.A){
-			player.move(-1, 0);
-		}
-		
-		if (keycode == Keys.S) {
-			player.move(0, -1);
-		}
-		
-		if(keycode == Keys.D) {
-			player.move(1, 0);
-		}
+//		if (keycode == Keys.W) {
+//			player.move(0, 1);
+//		}
+//		
+//		if (keycode == Keys.A){
+//			player.move(-1, 0);
+//		}
+//		
+//		if (keycode == Keys.S) {
+//			player.move(0, -1);
+//		}
+//		
+//		if(keycode == Keys.D) {
+//			player.move(1, 0);
+//		}
 		return false;
 	}
 	
