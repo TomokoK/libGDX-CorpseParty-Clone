@@ -36,9 +36,9 @@ public class Class1AScreen extends AbstractScreen {
 	public Class1AScreen(Seven app) {
 		super(app);
 		
-		input = new PlayerInput(player);
-		
 		player = new Player(0, 0);
+		
+		input = new PlayerInput(player);
 	}
 
 	@Override
