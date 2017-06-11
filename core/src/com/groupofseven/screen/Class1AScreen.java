@@ -94,10 +94,12 @@ public class Class1AScreen extends AbstractScreen {
 		//does this line actually work? (see below)
 		InputProcessor inputProcessorTwo = new Class1AScreen(app);
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
-		inputMultiplexer.addProcessor(this);
-		inputMultiplexer.addProcessor(input);
+		//NOTICE: using the above variables (inputProcessorTwo, inputProcessorOne) in place of (this) and (input)
+		//below will mess about with the program (e.g. mp3music.stop() never triggers, just keeps recreating
+		//mp3music.play(). If you press X, you will never be able to get back for some reason.)
+		inputMultiplexer.addProcessor(inputProcessorOne);
+		inputMultiplexer.addProcessor(inputProcessorTwo);
 		Gdx.input.setInputProcessor(inputMultiplexer);
-		
 	}
 
 	@Override

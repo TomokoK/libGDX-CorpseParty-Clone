@@ -12,8 +12,6 @@ public class Player implements Renderable {
 	/** player Sprite */
 	Sprite sprite;
 	
-	private Player player;
-	
 	public int x;
 	public int y;
 		
@@ -39,9 +37,7 @@ public class Player implements Renderable {
 
 		// init sprite here
 		sprite = new Sprite(new Texture("sprites/Ayumi.png"));
-		
-		player = new Player(0, 0);
-				
+						
 	}
 
 	// implementation of update()
