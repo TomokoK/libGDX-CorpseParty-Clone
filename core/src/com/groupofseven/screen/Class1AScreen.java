@@ -12,7 +12,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.groupofseven.game.Seven;
-//import com.groupofseven.input.PlayerInput;
+import com.groupofseven.input.PlayerInput;
 import com.groupofseven.model.Player;
 import com.groupofseven.model.Renderable;
 
@@ -21,6 +21,8 @@ public class Class1AScreen extends AbstractScreen {
 
 	private Player player;
 		
+	private PlayerInput input;
+	
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
@@ -31,6 +33,8 @@ public class Class1AScreen extends AbstractScreen {
 	
 	public Class1AScreen(Seven app) {
 		super(app);
+		
+		input = new PlayerInput(player);
 	}
 
 	@Override
@@ -83,6 +87,11 @@ public class Class1AScreen extends AbstractScreen {
 		camera = new OrthographicCamera();
 		
 		mp3music.play();
+		
+		//uncommenting this crashes the program when you press a key with a nullpointerexception
+		//is it because of the multiple Gdx.input.setInputProcessor thingies here?
+		
+		//Gdx.input.setInputProcessor(input);
 	}
 
 	@Override

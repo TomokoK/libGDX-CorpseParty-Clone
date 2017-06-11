@@ -12,19 +12,19 @@ public class Player implements Renderable {
 	/** player Sprite */
 	Sprite sprite;
 	
-	private int x;
-	private int y;
+	public int x;
+	public int y;
 	
-	private void move(int dx, int dy) {
+	public void move(int dx, int dy) {
 		x += dx;
 		y += dy;
 	}
 	
-	private int getX() {
+	public int getX() {
 		return x;
 	}
 	
-	private int getY() {
+	public int getY() {
 		return y;
 	}
 	
