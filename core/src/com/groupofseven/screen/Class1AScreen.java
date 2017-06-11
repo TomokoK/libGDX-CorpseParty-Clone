@@ -32,11 +32,13 @@ public class Class1AScreen extends AbstractScreen {
 	private Screen screen;
 
 	public Music mp3music = Gdx.audio.newMusic(Gdx.files.internal("music/01 Puzzled.mp3"));
-	
+		
 	public Class1AScreen(Seven app) {
 		super(app);
 		
 		input = new PlayerInput(player);
+		
+		player = new Player(0, 0);
 	}
 
 	@Override
@@ -117,6 +119,7 @@ public class Class1AScreen extends AbstractScreen {
 			this.app.setScreen(screen);
 		}
 		
+		//pressing W A S or D crashes the program with a nullpointerexception
 		if (keycode == Keys.W) {
 			player.move(0, 1);
 		}
