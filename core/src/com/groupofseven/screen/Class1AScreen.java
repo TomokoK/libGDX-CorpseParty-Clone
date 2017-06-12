@@ -19,7 +19,7 @@ import com.groupofseven.model.Player;
 // extend the AbstractScreen which has a reference of the Seven.java, aka our "Game Class"
 public class Class1AScreen extends AbstractScreen {
 
-	private Player player;
+	private Player me;
 	
 	SpriteBatch batch;
 			
@@ -34,7 +34,7 @@ public class Class1AScreen extends AbstractScreen {
 	public Class1AScreen(Seven app) {
 		super(app);
 		
-		player = new Player(0, 0, app);
+		me = new Player(0, 0, app);
 		
 		//input = new PlayerInput(player);
 	}
@@ -66,7 +66,7 @@ public class Class1AScreen extends AbstractScreen {
 		renderer.setView(camera);
 		renderer.render();
 		
-		this.app.playerObject.render(delta, batch);
+		this.app.me.render(delta, batch);
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class Class1AScreen extends AbstractScreen {
 		
 		mp3music.play();
 		
-		Gdx.input.setInputProcessor(player.getInput());
+		Gdx.input.setInputProcessor(me.getInput());
 		//Gdx.input.setInputProcessor(input);
 		//Gdx.input.setInputProcessor(this);
 	}

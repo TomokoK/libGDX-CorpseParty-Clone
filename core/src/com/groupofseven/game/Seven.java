@@ -19,7 +19,7 @@ public class Seven extends Game implements ApplicationListener {
 	Sprite sprite;
 	
 	//init player at (0,0)
-	public Player playerObject = new Player(0, 0, this);
+	public Player me = new Player(0, 0, this);
 	
 	@Override
 	public void create() {
@@ -28,7 +28,7 @@ public class Seven extends Game implements ApplicationListener {
 		this.setScreen(screen);
 		
 		//run the loadGFX method in Player class, which loads the sprite into the GPU
-		playerObject.loadGFX();
+		me.loadGFX();
 				
 		batch = new SpriteBatch();
 	}
@@ -51,7 +51,7 @@ public class Seven extends Game implements ApplicationListener {
 		update(delta);
 				
 		//reference player
-		playerObject.render(delta, batch);
+		me.render(delta, batch);
 		
 		//calls the render method of the active screen
 		super.render();

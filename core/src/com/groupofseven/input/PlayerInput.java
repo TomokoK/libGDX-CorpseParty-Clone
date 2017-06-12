@@ -8,43 +8,43 @@ import com.groupofseven.screen.SecondFloorScreen;
 
 public class PlayerInput extends InputAdapter {
 
-	private Player player;
+	private Player me;
 			
 	public PlayerInput(Player p) {
-		this.player = p;
+		this.me = p;
 		}
 	
 	//console output is fine, player doesn't move though.
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.W) {
-			this.player.move(0, 1);
+			this.me.move(0, 1);
 			System.out.println("PRESSING W");
 		}
 		
 		if (keycode == Keys.A){
-			this.player.move(-1, 0);
+			this.me.move(-1, 0);
 			System.out.println("PRESSING A");
 		}
 		
 		if (keycode == Keys.S) {
-			this.player.move(0, -1);
+			this.me.move(0, -1);
 			System.out.println("PRESSING S");
 		}
 		
 		if(keycode == Keys.D) {
-			this.player.move(1, 0);
+			this.me.move(1, 0);
 			System.out.println("PRESSING D");
 		}
 		
 		if (keycode == Keys.X) {
 		     
 		    // if the current screen is Class1ASCreen
-		    if (app.getScreen() == Class1AScreen.class) {
-		      player.getApp().setScreen(new SecondFloorScreen(player.getApp));
+		    if (me.app.getScreen() == Class1AScreen.class) {
+		      me.getApp().setScreen(new SecondFloorScreen(me.getApp()));
 		    }
 		    else if (app.getScreen() == SecondFloorScreen.class) {
-		      player.getApp().setScreen(new Class1AScreen(player.getApp));
+		      me.getApp().setScreen(new Class1AScreen(me.getApp()));
 		    }
 		}
 		

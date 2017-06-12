@@ -66,7 +66,7 @@ public class SecondFloorScreen extends AbstractScreen {
 		renderer.setView(camera);
 		renderer.render();
 		
-		this.app.playerObject.render(delta, batch);
+		this.app.me.render(delta, batch);
 	}
 
 	@Override
