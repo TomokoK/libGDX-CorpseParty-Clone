@@ -20,6 +20,7 @@ public class Class1AScreen extends AbstractScreen {
 
 	private Player player;
 		
+	@SuppressWarnings("unused")
 	private PlayerInput input;
 	
 	private TiledMap map;
@@ -87,17 +88,19 @@ public class Class1AScreen extends AbstractScreen {
 		
 		mp3music.play();
 		
+		//here be dragons
 		InputProcessor inputProcessorOne = new PlayerInput(player);
 		//does this line actually work? (see below)
 		InputProcessor inputProcessorTwo = new Class1AScreen(app);
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		//NOTICE: using the above variables (inputProcessorTwo, inputProcessorOne) in place of (this) and (input)
-		//below will mess about with the program (e.g. mp3music.stop() never triggers, just keeps recreating
-		//mp3music.play(). If you press X, you will never be able to get back for some reason.)
+		//below will mess about with the program (i.e. mp3music.stop() never triggers, just keeps recreating
+		//mp3music.play().)
 		inputMultiplexer.addProcessor(inputProcessorOne);
 		inputMultiplexer.addProcessor(inputProcessorTwo);
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		//Gdx.input.setInputProcessor(input);
+		//Gdx.input.setInputProcessor(this);
 	}
 
 	@Override
