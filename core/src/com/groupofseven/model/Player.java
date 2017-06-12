@@ -18,12 +18,15 @@ public class Player implements Renderable {
 	
 	private final PlayerInput input;
 		
-	public Player(int x, int y, Seven app) {
+	public Player(Seven app) {
 		this.app = app;
 		input = new PlayerInput(this);
-		sprite.setPosition(x, y);
 	}
 	
+	public Sprite getSprite() {
+		return sprite;
+	}
+
 	public Seven getApp() {
 		return app;
 	}
