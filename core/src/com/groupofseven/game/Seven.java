@@ -19,7 +19,7 @@ public class Seven extends Game implements ApplicationListener {
 	Sprite sprite;
 	
 	//init player at (0,0)
-	public Player playerObject = new Player(0, 0);
+	public Player playerObject = new Player(0, 0, this);
 	
 	@Override
 	public void create() {

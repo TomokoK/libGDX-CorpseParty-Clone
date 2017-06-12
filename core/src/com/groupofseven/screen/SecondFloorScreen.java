@@ -34,7 +34,7 @@ public class SecondFloorScreen extends AbstractScreen {
 	public SecondFloorScreen(Seven app) {
 		super(app);
 		
-		player = new Player(0, 0);
+		player = new Player(0, 0, app);
 		
 		//input = new PlayerInput(player);
 	}

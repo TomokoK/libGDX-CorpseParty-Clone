@@ -9,9 +9,7 @@ import com.groupofseven.screen.SecondFloorScreen;
 public class PlayerInput extends InputAdapter {
 
 	private Player player;
-		
-	Player.getApp();
-	
+			
 	public PlayerInput(Player p) {
 		this.player = p;
 		}

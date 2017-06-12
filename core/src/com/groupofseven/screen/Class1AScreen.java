@@ -91,6 +91,7 @@ public class Class1AScreen extends AbstractScreen {
 		
 		mp3music.play();
 		
+		Gdx.input.setInputProcessor(player.getInput());
 		//Gdx.input.setInputProcessor(input);
 		//Gdx.input.setInputProcessor(this);
 	}
