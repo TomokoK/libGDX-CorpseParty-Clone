@@ -98,6 +98,7 @@ public class Class1AScreen extends AbstractScreen {
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		//NOTICE: using the above variables (inputProcessorTwo, inputProcessorOne) in place of (this) and (input)
 		//below is still experimental. Not even sure if I've done this correctly or not.
+		//TODO: look into the use of Class1AScreen(app) in inputMultiplexer context
 		inputMultiplexer.addProcessor(inputProcessorOne);
 		inputMultiplexer.addProcessor(inputProcessorTwo);
 		Gdx.input.setInputProcessor(inputMultiplexer);

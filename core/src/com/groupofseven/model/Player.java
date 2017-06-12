@@ -48,6 +48,7 @@ public class Player implements Renderable {
 	// implementation of render
 	public void render(float delta, SpriteBatch batch) {
 		update(delta);
+		
 		batch = new SpriteBatch();
 		batch.begin();
 		batch.draw(sprite,
@@ -55,6 +56,9 @@ public class Player implements Renderable {
 				getY()*Settings.TILE_SIZE, 
 				Settings.SPRITE_WIDTH, 
 				Settings.SPRITE_HEIGHT);
+//		System.out.println(Settings.TILE_SIZE);
+//		System.out.println(x);
+//		System.out.println(y);
 		batch.end();
 	}
 
