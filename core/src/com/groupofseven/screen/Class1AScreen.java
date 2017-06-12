@@ -29,7 +29,7 @@ public class Class1AScreen extends AbstractScreen {
 
 	private Screen screen;
 
-	public Music mp3music = Gdx.audio.newMusic(Gdx.files.internal("music/01 Puzzled.mp3"));
+	public Music mp3music = Gdx.audio.newMusic(Gdx.files.internal("music/11 Chapter 1 Main Theme.mp3"));
 		
 	public Class1AScreen(Seven app) {
 		super(app);
@@ -43,6 +43,9 @@ public class Class1AScreen extends AbstractScreen {
 	public void dispose() {
 		map.dispose();
 		renderer.dispose();
+		//if you don't dispose the music, it will never stop.
+		//this fixes the multiple music bug I was struggling with.
+		mp3music.dispose();
 	}
 
 	@Override
@@ -94,8 +97,7 @@ public class Class1AScreen extends AbstractScreen {
 		InputProcessor inputProcessorTwo = new Class1AScreen(app);
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		//NOTICE: using the above variables (inputProcessorTwo, inputProcessorOne) in place of (this) and (input)
-		//below will mess about with the program (i.e. mp3music.stop() never triggers, just keeps recreating
-		//mp3music.play().)
+		//below is still experimental. Not even sure if I've done this correctly or not.
 		inputMultiplexer.addProcessor(inputProcessorOne);
 		inputMultiplexer.addProcessor(inputProcessorTwo);
 		Gdx.input.setInputProcessor(inputMultiplexer);
