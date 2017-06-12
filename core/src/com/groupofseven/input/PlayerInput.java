@@ -10,6 +10,8 @@ public class PlayerInput extends InputAdapter {
 
 	private Player player;
 		
+	Player.getApp();
+	
 	public PlayerInput(Player p) {
 		this.player = p;
 		}
@@ -37,14 +39,25 @@ public class PlayerInput extends InputAdapter {
 			System.out.println("PRESSING D");
 		}
 		
-		//Class1AScreen code
 		if (keycode == Keys.X) {
-			mp3music.stop();
-			
-			screen = new SecondFloorScreen(this.app);
-
-			this.app.setScreen(screen);
+		     
+		    // if the current screen is Class1ASCreen
+		    if (app.getScreen() == Class1AScreen.class) {
+		      player.getApp().setScreen(new SecondFloorScreen(player.getApp));
+		    }
+		    else if (app.getScreen() == SecondFloorScreen.class) {
+		      player.getApp().setScreen(new Class1AScreen(player.getApp));
+		    }
 		}
+		
+		//Class1AScreen code
+//		if (keycode == Keys.X) {
+//			mp3music.stop();
+//			
+//			screen = new SecondFloorScreen(this.app);
+//
+//			this.app.setScreen(screen);
+//		}
 		
 		//SecondFloorScreen code
 //		if (keycode == Keys.X) {

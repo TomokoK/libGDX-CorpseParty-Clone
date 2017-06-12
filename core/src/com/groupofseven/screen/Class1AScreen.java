@@ -34,7 +34,7 @@ public class Class1AScreen extends AbstractScreen {
 	public Class1AScreen(Seven app) {
 		super(app);
 		
-		player = new Player(0, 0);
+		player = new Player(0, 0, app);
 		
 		//input = new PlayerInput(player);
 	}

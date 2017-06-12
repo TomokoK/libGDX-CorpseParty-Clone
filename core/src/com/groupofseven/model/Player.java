@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.groupofseven.game.Settings;
+import com.groupofseven.game.Seven;
+import com.groupofseven.input.PlayerInput;
 import com.groupofseven.model.Renderable;
 
 public class Player implements Renderable {	
@@ -12,14 +14,28 @@ public class Player implements Renderable {
 	/** player Sprite */
 	private Sprite sprite;
 	
+	private final Seven app; //final reference to Game object
+	
+	private final PlayerInput input;
+	
 	public int x;
 	public int y;
 		
-	public Player(int x, int y) {
+	public Player(int x, int y, Seven app) {
+		this.app = app;
+		input = new PlayerInput(this);
 		this.x = x;
 		this.y = y;
 	}
 	
+	public Seven getApp() {
+		return app;
+	}
+
+	public PlayerInput getInput() {
+		return input;
+	}
+
 	public void move(int dx, int dy) {
 		System.out.println(Settings.TILE_SIZE);
 		System.out.println(x);
