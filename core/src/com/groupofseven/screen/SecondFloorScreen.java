@@ -8,6 +8,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -18,6 +19,8 @@ import com.groupofseven.model.Player;
 public class SecondFloorScreen extends AbstractScreen {
 	
 	private Player player;
+	
+	SpriteBatch batch;
 	
 	@SuppressWarnings("unused")
 	private PlayerInput input;
@@ -66,7 +69,7 @@ public class SecondFloorScreen extends AbstractScreen {
 		renderer.setView(camera);
 		renderer.render();
 		
-		this.app.playerObject.render(delta, null);
+		this.app.playerObject.render(delta, batch);
 	}
 
 	@Override

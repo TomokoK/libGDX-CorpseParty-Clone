@@ -30,7 +30,6 @@ public class Seven extends Game implements ApplicationListener {
 		//run the loadGFX method in Player class, which loads the sprite into the GPU
 		playerObject.loadGFX();
 				
-		// begin temp. checks
 		batch = new SpriteBatch();
 	}
 	
