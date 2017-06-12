@@ -4,7 +4,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.groupofseven.game.Seven;
 
-public abstract class AbstractScreen implements Screen, InputProcessor {
+public abstract class AbstractScreen implements Screen {
 
 	protected final Seven app;
 

@@ -10,7 +10,7 @@ public class Player implements Renderable {
 	// store all player data here
 	
 	/** player Sprite */
-	Sprite sprite;
+	private Sprite sprite;
 	
 	public int x;
 	public int y;
@@ -21,15 +21,20 @@ public class Player implements Renderable {
 	}
 	
 	public void move(int dx, int dy) {
+		System.out.println(Settings.TILE_SIZE);
+		System.out.println(x);
+		System.out.println(y);
 		x += dx;
 		y += dy;
 	}
 	
 	public int getX() {
+		System.out.println("getX() = " + x);
 		return x;
 	}
 	
 	public int getY() {
+		System.out.println("getY() = " + y);
 		return y;
 	}
 	
@@ -51,14 +56,17 @@ public class Player implements Renderable {
 		
 		batch = new SpriteBatch();
 		batch.begin();
+		System.out.println("BEFORE batch.draw tile size is " + Settings.TILE_SIZE);
+		System.out.println("BEFORE batch.draw x is " + x);
+		System.out.println("BEFORE batch.draw y is " + y);
 		batch.draw(sprite,
 				getX()*Settings.TILE_SIZE, 
 				getY()*Settings.TILE_SIZE, 
 				Settings.SPRITE_WIDTH, 
 				Settings.SPRITE_HEIGHT);
-//		System.out.println(Settings.TILE_SIZE);
-//		System.out.println(x);
-//		System.out.println(y);
+		System.out.println("AFTER batch.draw tile size is " + Settings.TILE_SIZE);
+		System.out.println("AFTER batch.draw x is " + x);
+		System.out.println("AFTER batch.draw y is " + y);
 		batch.end();
 	}
 

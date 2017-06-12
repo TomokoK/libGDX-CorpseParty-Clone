@@ -3,6 +3,8 @@ package com.groupofseven.input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.groupofseven.model.Player;
+import com.groupofseven.screen.Class1AScreen;
+import com.groupofseven.screen.SecondFloorScreen;
 
 public class PlayerInput extends InputAdapter {
 
@@ -34,6 +36,26 @@ public class PlayerInput extends InputAdapter {
 			this.player.move(1, 0);
 			System.out.println("PRESSING D");
 		}
+		
+		//Class1AScreen code
+		if (keycode == Keys.X) {
+			mp3music.stop();
+			
+			screen = new SecondFloorScreen(this.app);
+
+			this.app.setScreen(screen);
+		}
+		
+		//SecondFloorScreen code
+//		if (keycode == Keys.X) {
+//			//stop the currently playing music (but it doesn't actually for some reason)
+//			mp3music.stop();
+//			
+//			screen = new Class1AScreen(this.app);
+//
+//			this.app.setScreen(screen);
+//		}
+		
 		return false;
 	}
 	

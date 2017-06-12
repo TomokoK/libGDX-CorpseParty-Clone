@@ -22,10 +22,7 @@ public class Class1AScreen extends AbstractScreen {
 	private Player player;
 	
 	SpriteBatch batch;
-		
-	@SuppressWarnings("unused")
-	private PlayerInput input;
-	
+			
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
@@ -39,7 +36,7 @@ public class Class1AScreen extends AbstractScreen {
 		
 		player = new Player(0, 0);
 		
-		input = new PlayerInput(player);
+		//input = new PlayerInput(player);
 	}
 
 	@Override
@@ -94,75 +91,8 @@ public class Class1AScreen extends AbstractScreen {
 		
 		mp3music.play();
 		
-		//here be dragons
-		InputProcessor inputProcessorOne = new PlayerInput(player);
-		//does this line actually work? (see below)
-		InputProcessor inputProcessorTwo = new Class1AScreen(app);
-		InputMultiplexer inputMultiplexer = new InputMultiplexer();
-		//NOTICE: using the above variables (inputProcessorTwo, inputProcessorOne) in place of (this) and (input)
-		//below is still experimental. Not even sure if I've done this correctly or not.
-		//TODO: look into the use of Class1AScreen(app) in inputMultiplexer context
-		inputMultiplexer.addProcessor(inputProcessorOne);
-		inputMultiplexer.addProcessor(inputProcessorTwo);
-		Gdx.input.setInputProcessor(inputMultiplexer);
 		//Gdx.input.setInputProcessor(input);
 		//Gdx.input.setInputProcessor(this);
 	}
-
-	@Override
-	public boolean keyDown(int keycode) {
-		if (keycode == Keys.X) {
-			mp3music.stop();
-			
-			screen = new SecondFloorScreen(this.app);
-
-			this.app.setScreen(screen);
-		}
-		
-		return false;
-	}
-	
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 
 }
