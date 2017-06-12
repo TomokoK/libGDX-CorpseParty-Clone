@@ -12,6 +12,7 @@ public class Seven extends Game implements ApplicationListener {
 
 	private Screen screen;
 	
+	//init player at (0,0)
 	public Player playerObject = new Player(0, 0);
 	
 	@Override
@@ -20,6 +21,7 @@ public class Seven extends Game implements ApplicationListener {
 		screen = new Class1AScreen(this);
 		this.setScreen(screen);
 		
+		//run the loadGFX method in Player class, which loads the sprite into the GPU
 		playerObject.loadGFX();
 	}
 	
