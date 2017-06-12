@@ -71,14 +71,6 @@ public class Class1AScreen extends AbstractScreen {
 		
 		this.app.me.render(delta, batch);
 		
-		update(delta);
-		
-		batch.draw(sprite,
-				getX()*Settings.TILE_SIZE, 
-				getY()*Settings.TILE_SIZE, 
-				Settings.SPRITE_WIDTH, 
-				Settings.SPRITE_HEIGHT);
-		
 		batch.end();
 	}
 

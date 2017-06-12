@@ -23,12 +23,12 @@ public class Seven extends Game implements ApplicationListener {
 	
 	@Override
 	public void create() {
+		//run the loadGFX method in Player class, which loads the sprite into the GPU
+		me.loadGFX();
+		
 		//set the screen to be Class1AScreen
 		screen = new Class1AScreen(this);
 		this.setScreen(screen);
-		
-		//run the loadGFX method in Player class, which loads the sprite into the GPU
-		me.loadGFX();
 				
 		batch = new SpriteBatch();
 	}
