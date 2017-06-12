@@ -14,7 +14,6 @@ public class PlayerInput extends InputAdapter {
 		this.me = p;
 		}
 	
-	//console output is fine, player doesn't move though.
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.W) {

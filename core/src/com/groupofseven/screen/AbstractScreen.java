@@ -1,6 +1,5 @@
 package com.groupofseven.screen;
 
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.groupofseven.game.Seven;
 

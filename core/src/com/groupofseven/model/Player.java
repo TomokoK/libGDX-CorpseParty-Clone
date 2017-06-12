@@ -3,7 +3,6 @@ package com.groupofseven.model;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
 import com.groupofseven.model.Renderable;
@@ -62,13 +61,6 @@ public class Player implements Renderable {
 
 	// implementation of render
 	public void render(float delta, SpriteBatch batch) {
-//		update(delta);
-//		
-//		batch.draw(sprite,
-//				getX()*Settings.TILE_SIZE, 
-//				getY()*Settings.TILE_SIZE, 
-//				Settings.SPRITE_WIDTH, 
-//				Settings.SPRITE_HEIGHT);
 		sprite.draw(batch);
 	}
 
