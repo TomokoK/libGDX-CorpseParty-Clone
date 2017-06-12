@@ -8,14 +8,11 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
-//import com.groupofseven.input.PlayerInput;
 import com.groupofseven.model.Player;
 
 public class SecondFloorScreen extends AbstractScreen {
@@ -92,7 +89,7 @@ public class SecondFloorScreen extends AbstractScreen {
 		
 		InputProcessor inputProcessorOne = new PlayerInput(player);
 		//does this line actually work? (see below)
-		InputProcessor inputProcessorTwo = new Class1AScreen(app);
+		InputProcessor inputProcessorTwo = new SecondFloorScreen(app);
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		//NOTICE: using the above variables (inputProcessorTwo, inputProcessorOne) in place of (this) and (input)
 		//below will mess about with the program (e.g. mp3music.stop() never triggers, just keeps recreating

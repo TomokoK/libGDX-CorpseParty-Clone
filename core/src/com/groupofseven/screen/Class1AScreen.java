@@ -8,15 +8,12 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
 import com.groupofseven.model.Player;
-import com.groupofseven.model.Renderable;
 
 // extend the AbstractScreen which has a reference of the Seven.java, aka our "Game Class"
 public class Class1AScreen extends AbstractScreen {
@@ -81,7 +78,7 @@ public class Class1AScreen extends AbstractScreen {
 	}
 
 	@Override
-	public void show() {
+	public void show() {		
 		map = new TmxMapLoader().load("maps/Class 1A.tmx");
 
 		renderer = new OrthogonalTiledMapRenderer(map);
@@ -100,6 +97,7 @@ public class Class1AScreen extends AbstractScreen {
 		inputMultiplexer.addProcessor(inputProcessorOne);
 		inputMultiplexer.addProcessor(inputProcessorTwo);
 		Gdx.input.setInputProcessor(inputMultiplexer);
+		//Gdx.input.setInputProcessor(input);
 	}
 
 	@Override
