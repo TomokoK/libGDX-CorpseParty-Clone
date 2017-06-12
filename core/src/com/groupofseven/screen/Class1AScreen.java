@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
 import com.groupofseven.model.Player;
@@ -21,7 +22,7 @@ public class Class1AScreen extends AbstractScreen {
 
 	private Player me;
 	
-	SpriteBatch batch;
+	SpriteBatch batch = new SpriteBatch();
 			
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
@@ -63,10 +64,22 @@ public class Class1AScreen extends AbstractScreen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		batch.begin();
+		
 		renderer.setView(camera);
 		renderer.render();
 		
 		this.app.me.render(delta, batch);
+		
+		update(delta);
+		
+		batch.draw(sprite,
+				getX()*Settings.TILE_SIZE, 
+				getY()*Settings.TILE_SIZE, 
+				Settings.SPRITE_WIDTH, 
+				Settings.SPRITE_HEIGHT);
+		
+		batch.end();
 	}
 
 	@Override

@@ -40,10 +40,10 @@ public class PlayerInput extends InputAdapter {
 		if (keycode == Keys.X) {
 		     
 		    // if the current screen is Class1ASCreen
-		    if (me.app.getScreen() == Class1AScreen.class) {
+		    if (me.getApp().getScreen().getClass() == Class1AScreen.class) {
 		      me.getApp().setScreen(new SecondFloorScreen(me.getApp()));
 		    }
-		    else if (app.getScreen() == SecondFloorScreen.class) {
+		    else if (me.getApp().getScreen().getClass() == SecondFloorScreen.class) {
 		      me.getApp().setScreen(new Class1AScreen(me.getApp()));
 		    }
 		}

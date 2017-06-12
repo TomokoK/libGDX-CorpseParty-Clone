@@ -17,15 +17,11 @@ public class Player implements Renderable {
 	private final Seven app; //final reference to Game object
 	
 	private final PlayerInput input;
-	
-	public int x;
-	public int y;
 		
 	public Player(int x, int y, Seven app) {
 		this.app = app;
 		input = new PlayerInput(this);
-		this.x = x;
-		this.y = y;
+		sprite.setPosition(x, y);
 	}
 	
 	public Seven getApp() {
@@ -37,21 +33,16 @@ public class Player implements Renderable {
 	}
 
 	public void move(int dx, int dy) {
-		System.out.println(Settings.TILE_SIZE);
-		System.out.println(x);
-		System.out.println(y);
-		x += dx;
-		y += dy;
+		sprite.setX(sprite.getX() + dx);
+		sprite.setY(sprite.getY() + dy);
 	}
 	
-	public int getX() {
-		System.out.println("getX() = " + x);
-		return x;
+	public float getX() {
+		return sprite.getX();
 	}
 	
-	public int getY() {
-		System.out.println("getY() = " + y);
-		return y;
+	public float getY() {
+		return sprite.getY();
 	}
 	
 	public void loadGFX() {
@@ -68,22 +59,14 @@ public class Player implements Renderable {
 
 	// implementation of render
 	public void render(float delta, SpriteBatch batch) {
-		update(delta);
-		
-		batch = new SpriteBatch();
-		batch.begin();
-		System.out.println("BEFORE batch.draw tile size is " + Settings.TILE_SIZE);
-		System.out.println("BEFORE batch.draw x is " + x);
-		System.out.println("BEFORE batch.draw y is " + y);
-		batch.draw(sprite,
-				getX()*Settings.TILE_SIZE, 
-				getY()*Settings.TILE_SIZE, 
-				Settings.SPRITE_WIDTH, 
-				Settings.SPRITE_HEIGHT);
-		System.out.println("AFTER batch.draw tile size is " + Settings.TILE_SIZE);
-		System.out.println("AFTER batch.draw x is " + x);
-		System.out.println("AFTER batch.draw y is " + y);
-		batch.end();
+//		update(delta);
+//		
+//		batch.draw(sprite,
+//				getX()*Settings.TILE_SIZE, 
+//				getY()*Settings.TILE_SIZE, 
+//				Settings.SPRITE_WIDTH, 
+//				Settings.SPRITE_HEIGHT);
+		sprite.draw(batch);
 	}
 
 	public void dispose() {
