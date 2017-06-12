@@ -36,7 +36,6 @@ public class Class1AScreen extends AbstractScreen {
 		super(app);
 		
 		me = app.me;
-		//input = new PlayerInput(player);
 	}
 
 	@Override
@@ -68,7 +67,7 @@ public class Class1AScreen extends AbstractScreen {
 		renderer.setView(camera);
 		renderer.render();
 		
-		this.app.me.render(delta, batch);
+		me.render(delta, batch);
 		
 		batch.end();
 	}
@@ -96,8 +95,6 @@ public class Class1AScreen extends AbstractScreen {
 		mp3music.play();
 		
 		Gdx.input.setInputProcessor(me.getInput());
-		//Gdx.input.setInputProcessor(input);
-		//Gdx.input.setInputProcessor(this);
 	}
 
 }
