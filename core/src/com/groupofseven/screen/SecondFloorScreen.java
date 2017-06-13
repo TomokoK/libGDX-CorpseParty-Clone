@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.model.Player;
 
@@ -56,6 +57,10 @@ public class SecondFloorScreen extends AbstractScreen {
 		renderer.setView(camera);
 		renderer.render();
 		
+		camera.position.x = (// I NEED TO DO sprite.getX() + (dx * Settings.TILE_SIZE));
+		camera.position.y = (// I NEED TO DO sprite.getX() + (dx * Settings.TILE_SIZE));
+		camera.update();
+		
 		batch.begin();
 		
 		me.render(delta, batch);
@@ -67,7 +72,9 @@ public class SecondFloorScreen extends AbstractScreen {
 	public void resize(int width, int height) {
 		camera.viewportWidth = width;
 		camera.viewportHeight = height;
-		camera.update();
+//		camera.position.x = me.getX();
+//		camera.position.y = me.getY();
+//		camera.update();
 	}
 
 	@Override

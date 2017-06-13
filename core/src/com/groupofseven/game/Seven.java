@@ -18,18 +18,17 @@ public class Seven extends Game implements ApplicationListener {
 	
 	Sprite sprite;
 	
+	//init player at (0,0)
 	public Player me = new Player(this);
 	
 	@Override
 	public void create() {
-		//init spritebatch
 		batch = new SpriteBatch();
 		
 		//run the loadGFX method in Player class, which loads the sprite into the GPU
 		me.loadGFX();
 		
-		//get sprite and set position to be at 0, 0
-//		/me.getSprite().setPosition(0,0);
+		me.getSprite().setPosition(0,0);
 		
 		//set the screen to be Class1AScreen
 		screen = new Class1AScreen(this);
@@ -42,7 +41,6 @@ public class Seven extends Game implements ApplicationListener {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		//call active screen
 		super.render();
 	}
 	
