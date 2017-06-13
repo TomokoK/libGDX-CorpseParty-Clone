@@ -2,7 +2,6 @@ package com.groupofseven.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -54,9 +53,11 @@ public class Class1AScreen extends AbstractScreen {
 		//Gdx.gl.glClearColor(0, 0, 0, 1);
 		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		//start camera for the classroom map
 		renderer.setView(camera);
 		renderer.render();
 		
+		//render sprite
 		batch.begin();
 		
 		me.render(delta, batch);
@@ -66,6 +67,7 @@ public class Class1AScreen extends AbstractScreen {
 
 	@Override
 	public void resize(int width, int height) {
+		//set camera options here
 		camera.viewportWidth = width;
 		camera.viewportHeight = height;
 		camera.position.x = 200;
@@ -80,14 +82,18 @@ public class Class1AScreen extends AbstractScreen {
 
 	@Override
 	public void show() {		
+		//set our map
 		map = new TmxMapLoader().load("maps/Class 1A.tmx");
 
+		//render map
 		renderer = new OrthogonalTiledMapRenderer(map);
 
 		camera = new OrthographicCamera();
 				
+		//play music
 		mp3music.play();
 		
+		//set our input processor
 		Gdx.input.setInputProcessor(me.getInput());
 	}
 
