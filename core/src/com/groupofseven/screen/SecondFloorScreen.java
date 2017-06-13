@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.model.Player;
 
@@ -63,12 +62,14 @@ public class SecondFloorScreen extends AbstractScreen {
 		//camera.position.y = (720 / me.getY() + (me.lastYChange * Settings.TILE_SIZE));
 		//camera.translate((me.getX() + (me.lastXChange * Settings.TILE_SIZE)),(me.getY() + (me.lastYChange * Settings.TILE_SIZE)));
 		//camera.update();
-//		System.out.println("getY = " + me.getY());
-//		System.out.println("getX = " + me.getX());
+		System.out.println("getY = " + me.getY());
+		System.out.println("getX = " + me.getX());
+		//camera.viewportHeight = 2500;
+		//camera.viewportWidth = 2500;
 		camera.position.x = me.getX();
 		camera.position.y = me.getY();
-//		System.out.println("Camera Pos X = " + camera.position.x);
-//		System.out.println("Camera Pos Y = " + camera.position.y);
+		System.out.println("Camera Pos X = " + camera.position.x);
+		System.out.println("Camera Pos Y = " + camera.position.y);
 		camera.update();
 		
 		batch.begin();
@@ -84,7 +85,7 @@ public class SecondFloorScreen extends AbstractScreen {
 		camera.viewportHeight = height;
 //		camera.position.x = me.getX();
 //		camera.position.y = me.getY();
-//		camera.update();
+		camera.update();
 	}
 
 	@Override

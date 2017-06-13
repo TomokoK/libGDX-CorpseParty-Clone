@@ -18,9 +18,9 @@ public class Player implements Renderable {
 	
 	private final PlayerInput input;
 
-	public int lastYChange;
+	public float lastYChange;
 
-	public int lastXChange;
+	public float lastXChange;
 		
 	public Player(Seven app) {
 		this.app = app;
@@ -42,17 +42,17 @@ public class Player implements Renderable {
 	}
 
 	public void move(int dx, int dy) {
-		this.lastYChange = dy;
-		this.lastXChange = dx;
 		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
+		this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
 		sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
-	}
+		this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
+		}
 	
-	public int getLastY() {
+	public float getLastY() {
 		return lastYChange;
 	}
 	
-	public int getLastX() {
+	public float getLastX() {
 		return lastXChange;
 	}
 	
