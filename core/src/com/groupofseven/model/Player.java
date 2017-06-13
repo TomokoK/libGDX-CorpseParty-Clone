@@ -24,6 +24,7 @@ public class Player implements Renderable {
 	}
 	
 	public Sprite getSprite() {
+		//set properties of the sprite here
 		return sprite;
 	}
 

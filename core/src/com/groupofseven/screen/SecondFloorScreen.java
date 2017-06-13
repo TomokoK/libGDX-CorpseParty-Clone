@@ -53,6 +53,9 @@ public class SecondFloorScreen extends AbstractScreen {
 		//Gdx.gl.glClearColor(0, 0, 0, 1);
 		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		renderer.setView(camera);
+		renderer.render();
+		
 		batch.begin();
 		
 		me.render(delta, batch);

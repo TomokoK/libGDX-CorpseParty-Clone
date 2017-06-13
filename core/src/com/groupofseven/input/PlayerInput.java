@@ -18,22 +18,18 @@ public class PlayerInput extends InputAdapter {
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.W) {
 			this.me.move(0, 1);
-			System.out.println("PRESSING W");
 		}
 		
 		if (keycode == Keys.A){
 			this.me.move(-1, 0);
-			System.out.println("PRESSING A");
 		}
 		
 		if (keycode == Keys.S) {
 			this.me.move(0, -1);
-			System.out.println("PRESSING S");
 		}
 		
 		if(keycode == Keys.D) {
 			this.me.move(1, 0);
-			System.out.println("PRESSING D");
 		}
 		
 		if (keycode == Keys.X) {

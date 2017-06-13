@@ -2,6 +2,7 @@ package com.groupofseven.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -53,6 +54,9 @@ public class Class1AScreen extends AbstractScreen {
 		//Gdx.gl.glClearColor(0, 0, 0, 1);
 		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		renderer.setView(camera);
+		renderer.render();
+		
 		batch.begin();
 		
 		me.render(delta, batch);
@@ -64,6 +68,8 @@ public class Class1AScreen extends AbstractScreen {
 	public void resize(int width, int height) {
 		camera.viewportWidth = width;
 		camera.viewportHeight = height;
+		camera.position.x = 200;
+		camera.position.y = 250;
 		camera.update();
 	}
 
