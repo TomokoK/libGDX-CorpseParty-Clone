@@ -57,8 +57,18 @@ public class SecondFloorScreen extends AbstractScreen {
 		renderer.setView(camera);
 		renderer.render();
 		
-		camera.position.x = (// I NEED TO DO sprite.getX() + (dx * Settings.TILE_SIZE));
-		camera.position.y = (// I NEED TO DO sprite.getX() + (dx * Settings.TILE_SIZE));
+		//TODO: Fix camera math so it actually follows the player
+		
+		//camera.position.x = (1280 / me.getX() + (me.lastXChange * Settings.TILE_SIZE));
+		//camera.position.y = (720 / me.getY() + (me.lastYChange * Settings.TILE_SIZE));
+		//camera.translate((me.getX() + (me.lastXChange * Settings.TILE_SIZE)),(me.getY() + (me.lastYChange * Settings.TILE_SIZE)));
+		//camera.update();
+//		System.out.println("getY = " + me.getY());
+//		System.out.println("getX = " + me.getX());
+		camera.position.x = me.getX();
+		camera.position.y = me.getY();
+//		System.out.println("Camera Pos X = " + camera.position.x);
+//		System.out.println("Camera Pos Y = " + camera.position.y);
 		camera.update();
 		
 		batch.begin();

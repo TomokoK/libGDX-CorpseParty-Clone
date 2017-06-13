@@ -17,6 +17,10 @@ public class Player implements Renderable {
 	private final Seven app; //final reference to Game object
 	
 	private final PlayerInput input;
+
+	public int lastYChange;
+
+	public int lastXChange;
 		
 	public Player(Seven app) {
 		this.app = app;
@@ -25,6 +29,7 @@ public class Player implements Renderable {
 	
 	public Sprite getSprite() {
 		//set properties of the sprite here
+		sprite.setSize(32, 48);
 		return sprite;
 	}
 
@@ -37,8 +42,18 @@ public class Player implements Renderable {
 	}
 
 	public void move(int dx, int dy) {
+		this.lastYChange = dy;
+		this.lastXChange = dx;
 		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
 		sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
+	}
+	
+	public int getLastY() {
+		return lastYChange;
+	}
+	
+	public int getLastX() {
+		return lastXChange;
 	}
 	
 	public float getX() {
