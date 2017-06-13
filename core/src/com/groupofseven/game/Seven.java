@@ -41,7 +41,7 @@ public class Seven extends Game implements ApplicationListener {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
-		screen.render(0);
+		super.render();
 	}
 	
 }

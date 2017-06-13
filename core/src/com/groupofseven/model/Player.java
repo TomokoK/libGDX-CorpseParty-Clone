@@ -3,6 +3,7 @@ package com.groupofseven.model;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
 import com.groupofseven.model.Renderable;
@@ -35,8 +36,8 @@ public class Player implements Renderable {
 	}
 
 	public void move(int dx, int dy) {
-		sprite.setX(sprite.getX() + dx);
-		sprite.setY(sprite.getY() + dy);
+		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
+		sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
 	}
 	
 	public float getX() {

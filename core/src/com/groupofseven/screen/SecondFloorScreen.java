@@ -2,7 +2,6 @@ package com.groupofseven.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -22,13 +21,12 @@ public class SecondFloorScreen extends AbstractScreen {
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
 	
-	public 	Music mp3music = Gdx.audio.newMusic(Gdx.files.internal("music/01 Puzzled.mp3"));
+	public Music mp3music = Gdx.audio.newMusic(Gdx.files.internal("music/01 Puzzled.mp3"));
 	
 	public SecondFloorScreen(Seven app) {
 		super(app);
 		
 		me = app.me;
-		//input = new PlayerInput(player);
 	}
 
 	@Override
@@ -52,15 +50,12 @@ public class SecondFloorScreen extends AbstractScreen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		//Gdx.gl.glClearColor(0, 0, 0, 1);
+		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
 		
-		renderer.setView(camera);
-		renderer.render();
-		
-		this.app.me.render(delta, batch);
+		me.render(delta, batch);
 		
 		batch.end();
 	}
@@ -88,8 +83,6 @@ public class SecondFloorScreen extends AbstractScreen {
 		mp3music.play();
 		
 		Gdx.input.setInputProcessor(me.getInput());
-		//Gdx.input.setInputProcessor(input);
-		//Gdx.input.setInputProcessor(this);
 	}
 
 }

@@ -40,31 +40,12 @@ public class PlayerInput extends InputAdapter {
 		     
 		    // if the current screen is Class1ASCreen
 		    if (me.getApp().getScreen().getClass() == Class1AScreen.class) {
-		      me.getApp().setScreen(new SecondFloorScreen(me.getApp()));
+		    	me.getApp().setScreen(new SecondFloorScreen(me.getApp()));
 		    }
 		    else if (me.getApp().getScreen().getClass() == SecondFloorScreen.class) {
-		      me.getApp().setScreen(new Class1AScreen(me.getApp()));
+		    	me.getApp().setScreen(new Class1AScreen(me.getApp()));
 		    }
 		}
-		
-		//Class1AScreen code
-//		if (keycode == Keys.X) {
-//			mp3music.stop();
-//			
-//			screen = new SecondFloorScreen(this.app);
-//
-//			this.app.setScreen(screen);
-//		}
-		
-		//SecondFloorScreen code
-//		if (keycode == Keys.X) {
-//			//stop the currently playing music (but it doesn't actually for some reason)
-//			mp3music.stop();
-//			
-//			screen = new Class1AScreen(this.app);
-//
-//			this.app.setScreen(screen);
-//		}
 		
 		return false;
 	}
