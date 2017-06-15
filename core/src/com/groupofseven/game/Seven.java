@@ -12,24 +12,26 @@ import com.groupofseven.screen.Class1AScreen;
 
 public class Seven extends Game implements ApplicationListener {
 
+	//init objects
 	private Screen screen;
 	
 	SpriteBatch batch;
 	
 	Sprite sprite;
 	
-	//init player at (0,0)
+	//init player
 	public Player me = new Player(this);
 	
 	@Override
 	public void create() {
+		//create a new spritebatch for the sprite
 		batch = new SpriteBatch();
 		
 		//run the loadGFX method in Player class, which loads the sprite into the GPU
 		me.loadGFX();
 		
-		//me.getSprite().setPosition((1280/2),(780/2));
-		me.getSprite().setPosition(0, 0);
+		//set sprite position to 275, 55
+		me.getSprite().setPosition(275, 55);
 		
 		//set the screen to be Class1AScreen
 		screen = new Class1AScreen(this);
@@ -42,6 +44,7 @@ public class Seven extends Game implements ApplicationListener {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		//call the currently active screen to render
 		super.render();
 	}
 	

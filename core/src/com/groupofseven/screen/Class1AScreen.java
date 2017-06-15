@@ -13,6 +13,7 @@ import com.groupofseven.model.Player;
 // extend the AbstractScreen which has a reference of the Seven.java, aka our "Game Class"
 public class Class1AScreen extends AbstractScreen {
 
+	//init objects
 	private Player me;
 	
 	SpriteBatch batch = new SpriteBatch();
@@ -21,8 +22,10 @@ public class Class1AScreen extends AbstractScreen {
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
 
+	//define music for screen
 	public Music mp3music = Gdx.audio.newMusic(Gdx.files.internal("music/11 Chapter 1 Main Theme.mp3"));
 		
+	//store a reference to Seven
 	public Class1AScreen(Seven app) {
 		super(app);
 		
@@ -31,7 +34,9 @@ public class Class1AScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
+		//dispose of the map
 		map.dispose();
+		//dispose of the renderer (the OrthogonalTiledMapRenderer)
 		renderer.dispose();
 		//if you don't dispose the music, it will never stop.
 		//this fixes the multiple music bug I was struggling with.
@@ -40,6 +45,7 @@ public class Class1AScreen extends AbstractScreen {
 
 	@Override
 	public void hide() {
+		//call the disposal method
 		dispose();
 	}
 
@@ -57,18 +63,23 @@ public class Class1AScreen extends AbstractScreen {
 		renderer.setView(camera);
 		renderer.render();
 		
+		//set camera position to follow player coords
 		camera.position.x = me.getX();
 		camera.position.y = me.getY();
 		
+		//update the camera each render loop
 		camera.update();
 		
 		//render sprite
 		batch.begin();
 		
+		//allow the camera matrix to sync with the sprite matrix
 		batch.setProjectionMatrix(camera.combined);
 		
+		//render the batch with delta time
 		me.render(delta, batch);
 		
+		//end batch
 		batch.end();
 	}
 
@@ -95,7 +106,7 @@ public class Class1AScreen extends AbstractScreen {
 		renderer = new OrthogonalTiledMapRenderer(map);
 
 		camera = new OrthographicCamera();
-				
+						
 		//play music
 		mp3music.play();
 		

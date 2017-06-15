@@ -10,10 +10,12 @@ public class PlayerInput extends InputAdapter {
 
 	private Player me;
 			
+	//store a reference of Player as this class.player = p
 	public PlayerInput(Player p) {
 		this.me = p;
 		}
 	
+	//player input method
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.W) {
@@ -38,6 +40,7 @@ public class PlayerInput extends InputAdapter {
 		    if (me.getApp().getScreen().getClass() == Class1AScreen.class) {
 		    	me.getApp().setScreen(new SecondFloorScreen(me.getApp()));
 		    }
+		    // if the current screen is SecondFloorScreen
 		    else if (me.getApp().getScreen().getClass() == SecondFloorScreen.class) {
 		    	me.getApp().setScreen(new Class1AScreen(me.getApp()));
 		    }

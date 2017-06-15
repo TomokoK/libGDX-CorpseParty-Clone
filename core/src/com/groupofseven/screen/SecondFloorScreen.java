@@ -13,6 +13,7 @@ import com.groupofseven.model.Player;
 //extend the AbstractScreen which has a reference of the Seven.java, aka our "Game Class"
 public class SecondFloorScreen extends AbstractScreen {
 	
+	//init objects
 	private Player me;
 	
 	SpriteBatch batch = new SpriteBatch();
@@ -21,8 +22,10 @@ public class SecondFloorScreen extends AbstractScreen {
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
 	
+	//define music for screen
 	public Music mp3music = Gdx.audio.newMusic(Gdx.files.internal("music/01 Puzzled.mp3"));
 	
+	//store a reference to seven
 	public SecondFloorScreen(Seven app) {
 		super(app);
 		
@@ -31,7 +34,9 @@ public class SecondFloorScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
+		//dispose of the map
 		map.dispose();
+		//dispose of the renderer
 		renderer.dispose();
 		//if you don't dispose the music, it will never stop.
 		//this fixes the multiple music bug I was struggling with.
@@ -40,6 +45,7 @@ public class SecondFloorScreen extends AbstractScreen {
 
 	@Override
 	public void hide() {
+		//call the disposal method
 		dispose();
 	}
 
@@ -53,25 +59,33 @@ public class SecondFloorScreen extends AbstractScreen {
 		//Gdx.gl.glClearColor(0, 0, 0, 1);
 		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		//start camera for the classroom map
 		renderer.setView(camera);
 		renderer.render();
-				
+		
+		//set camera position to follow player coords
 		camera.position.x = me.getX();
 		camera.position.y = me.getY();
 		
+		//update the camera each render loop
 		camera.update();
 		
+		//render sprite
 		batch.begin();
 		
+		//allow the camera matrix to sync with the sprite matrix
 		batch.setProjectionMatrix(camera.combined);
 		
+		//render the batch with delta time
 		me.render(delta, batch);
 		
+		//end batch
 		batch.end();
 	}
 
 	@Override
 	public void resize(int width, int height) {
+		//set camera options here
 		camera.viewportWidth = width;
 		camera.viewportHeight = height;
 
@@ -85,14 +99,18 @@ public class SecondFloorScreen extends AbstractScreen {
 
 	@Override
 	public void show() {		
+		//set our map
 		map = new TmxMapLoader().load("maps/Second floor.tmx");
 		
+		//render the map
 		renderer = new OrthogonalTiledMapRenderer(map);
 		
 		camera = new OrthographicCamera();
 				
+		//play music
 		mp3music.play();
 		
+		//set input processor
 		Gdx.input.setInputProcessor(me.getInput());
 	}
 

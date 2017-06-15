@@ -9,9 +9,8 @@ import com.groupofseven.input.PlayerInput;
 import com.groupofseven.model.Renderable;
 
 public class Player implements Renderable {	
-	// store all player data here
-	
-	/** player Sprite */
+
+	//store references
 	private Sprite sprite;
 	
 	private final Seven app; //final reference to Game object
@@ -29,7 +28,7 @@ public class Player implements Renderable {
 	
 	public Sprite getSprite() {
 		//set properties of the sprite here
-		sprite.setSize(32, 48);
+		sprite.setSize(32, 48); // set the size of the sprite
 		return sprite;
 	}
 
@@ -41,6 +40,7 @@ public class Player implements Renderable {
 		return input;
 	}
 
+	//method to move the sprite
 	public void move(int dx, int dy) {
 		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
 		this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
@@ -67,7 +67,7 @@ public class Player implements Renderable {
 	public void loadGFX() {
 
 		// init sprite here
-		sprite = new Sprite(new Texture("sprites/Ayumi.png"));
+		sprite = new Sprite(new Texture("sprites/AyumiNoAnims.png"));
 						
 	}
 
