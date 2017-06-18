@@ -46,9 +46,9 @@ public class Player implements Renderable {
 	//method to move the sprite
 	public void move(int dx, int dy) {
 		float oldX = getX(), oldY = getY();
-		float tileWidth = collisionLayer.getTileWidth(), tileHeight = collisionLayer.getTileHeight();
-		boolean collideX = false, collideY = false;
 		this.collisionLayer = collisionLayer;
+		float tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
+		boolean collideX = false, collideY = false;
 		
 		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
 		this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
