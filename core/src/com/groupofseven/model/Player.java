@@ -24,9 +24,10 @@ public class Player implements Renderable {
 	
 	private TiledMapTileLayer collisionLayer;
 		
-	public Player(Seven app) {
+	public Player(Seven app, TiledMapTileLayer collisionLayer) {
 		this.app = app;
 		input = new PlayerInput(this);
+		this.collisionLayer = collisionLayer;
 	}
 	
 	public Sprite getSprite() {
@@ -46,7 +47,6 @@ public class Player implements Renderable {
 	//method to move the sprite
 	public void move(int dx, int dy) {
 		float oldX = getX(), oldY = getY();
-		this.collisionLayer = collisionLayer;
 		float tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 		boolean collideX = false, collideY = false;
 		

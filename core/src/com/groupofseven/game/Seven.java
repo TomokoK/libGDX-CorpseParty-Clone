@@ -7,6 +7,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.groupofseven.model.Player;
 import com.groupofseven.screen.Class1AScreen;
 
@@ -15,12 +17,14 @@ public class Seven extends Game implements ApplicationListener {
 	//init objects
 	private Screen screen;
 	
+	private TiledMap map;
+	
 	SpriteBatch batch;
 	
 	Sprite sprite;
 	
 	//init player
-	public Player me = new Player(this);
+	public Player me = new Player(this, (TiledMapTileLayer) map.getLayers().get(0));
 	
 	@Override
 	public void create() {
