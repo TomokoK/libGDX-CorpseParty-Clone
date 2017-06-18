@@ -33,6 +33,8 @@ public class Seven extends Game implements ApplicationListener {
 	public void create() {
 		map = new TmxMapLoader().load("maps/Class 1A.tmx");
 
+		System.out.println(map.getLayers().get(0) == null);
+		
 		me = new Player(this, (TiledMapTileLayer) map.getLayers().get(0));
 		//create a new spritebatch for the sprite
 		batch = new SpriteBatch();
