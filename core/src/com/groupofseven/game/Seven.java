@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.groupofseven.model.Player;
 import com.groupofseven.screen.Class1AScreen;
 
@@ -18,21 +17,17 @@ public class Seven extends Game implements ApplicationListener {
 	//init objects
 	private Screen screen;
 	
+	private TiledMap map;
+	
 	SpriteBatch batch;
 	
 	Sprite sprite;
 	
-	private TiledMap map;
-	
-	public Player me;
-
 	//init player
-//	public Player me = new Player(this, (TiledMapTileLayer) map.getLayers().get(0));
+	public Player me = new Player(this, (TiledMapTileLayer) map.getLayers().get(0));
 	
 	@Override
 	public void create() {
-		map = new TmxMapLoader().load("maps/Class 1A.tmx");
-		Player me = new Player(this, (TiledMapTileLayer) map.getLayers().get(0));
 		//create a new spritebatch for the sprite
 		batch = new SpriteBatch();
 		
