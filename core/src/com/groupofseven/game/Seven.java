@@ -25,10 +25,7 @@ public class Seven extends Game implements ApplicationListener {
 	Sprite sprite;
 	
 	public Player me;
-	
-	//init player
-//	public Player me = new Player(this, (TiledMapTileLayer) map.getLayers().get(0));
-	
+		
 	@Override
 	public void create() {
 		map = new TmxMapLoader().load("maps/Class 1A.tmx");

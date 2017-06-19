@@ -8,6 +8,7 @@ import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
 import com.groupofseven.model.Renderable;
+import com.groupofseven.screen.Class1AScreen;
 
 public class Player implements Renderable {	
 
@@ -50,9 +51,11 @@ public class Player implements Renderable {
 		float tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 		boolean collideX = false, collideY = false;
 		
-		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
-		this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
-		
+//		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
+//		this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
+	   
+		if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
+
 		if (lastXChange < 0) {
 			//top left
 			collideX = collisionLayer.getCell((int) (lastXChange / tileWidth),
@@ -88,13 +91,24 @@ public class Player implements Renderable {
 			}
 		}
 		
-		if(collideX) {
-			sprite.setX(oldX);
+		if(!collideX) {
+		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
+		this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
 		}
 		
-		sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
-		this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
+		if(collideX) {
+			sprite.setX(oldX);
+		}}
+		else {
+			sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
+			this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
+		}
 		
+//		sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
+//		this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
+	   
+		if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
+
 		if (lastYChange < 0) {
 			//bottom left
 			collideY = collisionLayer.getCell((int) (lastXChange / tileWidth),
@@ -133,7 +147,18 @@ public class Player implements Renderable {
 			if(collideY) {
 				sprite.setY(oldY);
 			}
+			
+			if(!collideY) {
+			sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
+			this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
+			}
+			
+		}}
+		else {
+			sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
+			this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
 		}
+
 		
 	}
 	
