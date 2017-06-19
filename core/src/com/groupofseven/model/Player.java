@@ -20,10 +20,6 @@ public class Player implements Renderable {
 
 	private final PlayerInput input; // final referencce to player input
 
-	public float lastYChange = 384;
-
-	public float lastXChange = 312;
-
 	private TiledMapTileLayer collisionLayer;
 
 	// setup constructor
@@ -58,8 +54,43 @@ public class Player implements Renderable {
 	// here be dragons
 	public void move(int dx, int dy) {
 		float tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
-		float futureX = getLastX() + tileWidth;
-		float futureY = getLastY() + tileHeight;
+
+		float futureX; // will be calculated to simulate 1 tile in advance with
+						// respect to dx
+
+		// Calculate future x.
+		// cases: dx == 0 -> future x is current x (no movement)
+		// dx == 1 -> future x is trying to move right one tile
+		// dx == -1 -> future x is trying to move left one tile
+		if (dx == 1) {
+			// case 1 ... simulation of 1 tile movement right
+			futureX = sprite.getX() + 24;
+		} else if (dx == -1) {
+			// case: -1 ... simulation of 1 tile movement left
+			futureX = sprite.getX() - 24;
+		} else {
+			// case: 0 or invalid dx value -> no movement
+			futureX = sprite.getX();
+		}
+
+		float futureY; // will be calculated to simulate 1 tile in advance with
+						// respect to dx
+
+		// Calculate future y.
+		// cases: dy == 0 -> future y is current y (no movement)
+		// dy == 1 -> future y is going to move right one tile
+		// dy == -1 -> future y is going to move left one tile
+		if (dy == 1) {
+			// move 1 tile right
+			futureY = sprite.getY() + 24;
+		} else if (dx == -1) {
+			// move 1 time left
+			futureY = sprite.getY() - 24;
+		} else {
+			// do not move
+			futureY = sprite.getY();
+		}
+
 		Cell cell = collisionLayer.getCell((int) futureX, (int) futureY);
 		boolean collideX = false, collideY = false;
 		// begin movement stuff
@@ -67,39 +98,31 @@ public class Player implements Renderable {
 		if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
 			// case: cell exists and the cell is not a blocked tile
 			// post: if case is legal, future x is legal. else x is not legal
-			//handle the Class1AMap
+			// handle the Class1AMap
 			if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
-					collideX = false;
-				} else {
-					collideX = true;
-				}
-		
+				collideX = false;
+			} else {
+				collideX = true;
+			}
+
 			if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
-					collideY = false;
-				} else {
-					collideY = true;
-				}
-			
+				collideY = false;
+			} else {
+				collideY = true;
+			}
+
 			if (!collideX && !collideY) {
 				sprite.setX(sprite.getX() + (dx * 24));
 				sprite.setY(sprite.getY() + (dx * 24));
 			}
 		}
-		
-			//handle the SecondFloorMap
-			else {
-				sprite.setX(sprite.getX() + (dx * 24));
-				sprite.setY(sprite.getY() + (dy * 24));
-			}
-		
+
+		// handle the SecondFloorMap
+		else {
+			sprite.setX(sprite.getX() + (dx * 24));
+			sprite.setY(sprite.getY() + (dy * 24));
 		}
 
-	public float getLastY() {
-		return lastYChange;
-	}
-
-	public float getLastX() {
-		return lastXChange;
 	}
 
 	public float getX() {
