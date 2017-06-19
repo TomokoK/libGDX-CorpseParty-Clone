@@ -44,7 +44,7 @@ public class PlayerInput extends InputAdapter {
 		    // if the current screen is SecondFloorScreen
 		    else if (me.getApp().getScreen().getClass() == SecondFloorScreen.class) {
 		    	me.getApp().setScreen(new Class1AScreen(me.getApp()));
-				me.getSprite().setPosition(275, 55);
+				me.getSprite().setPosition(300, 375);
 		    }
 		}
 		

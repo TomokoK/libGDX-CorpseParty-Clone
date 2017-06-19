@@ -45,7 +45,7 @@ public class Seven extends Game implements ApplicationListener {
 		me.loadGFX();
 		
 		//set sprite position to 275, 55
-		me.getSprite().setPosition(275, 55);
+		me.getSprite().setPosition(312, 384);
 		
 		//set the screen to be Class1AScreen
 		screen = new Class1AScreen(this);
