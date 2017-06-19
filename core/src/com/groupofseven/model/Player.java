@@ -19,9 +19,9 @@ public class Player implements Renderable {
 	
 	private final PlayerInput input; //final referencce to player input
 
-	public float lastYChange;
+	public float lastYChange = 384;
 
-	public float lastXChange;
+	public float lastXChange = 312;
 	
 	private TiledMapTileLayer collisionLayer;
 		
@@ -58,9 +58,6 @@ public class Player implements Renderable {
 		float oldX = getX(), oldY = getY();
 		float tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 		boolean collideX = false, collideY = false;
-		
-		lastXChange = 312;
-		lastYChange = 384;
 		//begin movement stuff
 		
 //		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
