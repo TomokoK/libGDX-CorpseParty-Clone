@@ -81,10 +81,10 @@ public class Player implements Renderable {
 		// dy == 1 -> future y is going to move right one tile
 		// dy == -1 -> future y is going to move left one tile
 		if (dy == 1) {
-			// move 1 tile right
+			// move 1 tile up
 			futureY = sprite.getY() + 24;
 		} else if (dx == -1) {
-			// move 1 time left
+			// move 1 time down
 			futureY = sprite.getY() - 24;
 		} else {
 			// do not move
@@ -113,7 +113,7 @@ public class Player implements Renderable {
 
 			if (!collideX && !collideY) {
 				sprite.setX(sprite.getX() + (dx * 24));
-				sprite.setY(sprite.getY() + (dx * 24));
+				sprite.setY(sprite.getY() + (dy * 24));
 			}
 		}
 
