@@ -72,7 +72,7 @@ public class Player implements Renderable {
 		} else if(lastXChange > 0) {
 			//top right
 			collideX = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH) / tileWidth),
-					(int) (lastYChange + Settings.SPRITE_HEIGHT))
+					(int) ((lastYChange + Settings.SPRITE_HEIGHT) / tileHeight))
 					.getTile().getProperties().containsKey("blocked");
 			//mid right
 			if(!collideX) {
