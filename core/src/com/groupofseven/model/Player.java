@@ -65,12 +65,26 @@ public class Player implements Renderable {
 		if (dx == 1) {
 			// case 1 ... simulation of 1 tile movement right
 			futureX = sprite.getX() + 24;
+			System.out.println(futureX);
+			for (int x=0; x<552; x+=24)
+				  for (int y=0; y<432; y+=24)
+				    {
+				        Cell cell = collisionLayer.getCell(x,y);
+				        if (cell == null)
+				          System.out.println("cell: " + x/24 + "," + y/24 + " is null");
+
+				        if (cell != null && cell.getTile().getProperties().containsKey("blocked"))
+				          System.out.println("cell: " + x/24 + "," + y/24 + " is blocked"); 
+
+				    }
 		} else if (dx == -1) {
 			// case: -1 ... simulation of 1 tile movement left
 			futureX = sprite.getX() - 24;
+			System.out.println(futureX);
 		} else {
 			// case: 0 or invalid dx value -> no movement
 			futureX = sprite.getX();
+			System.out.println(futureX);
 		}
 
 		float futureY; // will be calculated to simulate 1 tile in advance with
@@ -83,12 +97,15 @@ public class Player implements Renderable {
 		if (dy == 1) {
 			// move 1 tile up
 			futureY = sprite.getY() + 24;
+			System.out.println(futureY);
 		} else if (dx == -1) {
 			// move 1 time down
 			futureY = sprite.getY() - 24;
+			System.out.println(futureY);
 		} else {
 			// do not move
 			futureY = sprite.getY();
+			System.out.println(futureY);
 		}
 
 		Cell cell = collisionLayer.getCell((int) futureX, (int) futureY);
@@ -99,17 +116,22 @@ public class Player implements Renderable {
 			// case: cell exists and the cell is not a blocked tile
 			// post: if case is legal, future x is legal. else x is not legal
 			// handle the Class1AMap
+			
 			if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
 				collideX = false;
 				collideY = false;
+				System.out.println("cell is not blocked");
 			} else {
 				collideX = true;
 				collideY = true;
+				System.out.println("cell is blocked");
 			}
 
-			if (!collideX && !collideY) {
+			if (!collideX || !collideY) {
 				sprite.setX(futureX);
+				System.out.println(futureX);
 				sprite.setY(futureY);
+				System.out.println(futureY);
 			}
 		}
 
