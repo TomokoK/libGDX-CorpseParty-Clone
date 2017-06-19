@@ -17,7 +17,7 @@ public class Player implements Renderable {
 	
 	private final Seven app; //final reference to Game object
 	
-	private final PlayerInput input;
+	private final PlayerInput input; //final referencce to player input
 
 	public float lastYChange;
 
@@ -25,6 +25,7 @@ public class Player implements Renderable {
 	
 	private TiledMapTileLayer collisionLayer;
 		
+	//setup constructor 
 	public Player(Seven app, TiledMapTileLayer collisionLayer) {
 		this.app = app;
 		input = new PlayerInput(this);
@@ -46,13 +47,20 @@ public class Player implements Renderable {
 	}
 
 	//method to move the sprite
+	/*
+	 * NOTICE: Collision detection is VERY buggy. Sprite is unable to move around too much and can walk off the map,
+	 * causing a nullpointerexception. If you switch screens with X and move around, the game will also crash
+	 * with a nullpointerexception when you switch back to the original screen and try to move. Collision detection
+	 * is hard, yo.
+	 */
+	//here be dragons
 	public void move(int dx, int dy) {
 		float oldX = getX(), oldY = getY();
 		float tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 		boolean collideX = false, collideY = false;
 		
-//		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
-//		this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
+		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
+		this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
 	   
 		if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
 
@@ -91,10 +99,10 @@ public class Player implements Renderable {
 			}
 		}
 		
-		if(!collideX) {
-		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
-		this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
-		}
+//		if(!collideX) {
+//		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
+//		this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
+//		}
 		
 		if(collideX) {
 			sprite.setX(oldX);
@@ -104,8 +112,8 @@ public class Player implements Renderable {
 			this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
 		}
 		
-//		sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
-//		this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
+		sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
+		this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
 	   
 		if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
 
@@ -148,10 +156,10 @@ public class Player implements Renderable {
 				sprite.setY(oldY);
 			}
 			
-			if(!collideY) {
-			sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
-			this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
-			}
+//			if(!collideY) {
+//			sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
+//			this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
+//			}
 			
 		}}
 		else {

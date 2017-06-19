@@ -28,10 +28,13 @@ public class Seven extends Game implements ApplicationListener {
 		
 	@Override
 	public void create() {
+		//set map for our player 
 		map = new TmxMapLoader().load("maps/Class 1A.tmx");
 
+		//debug line
 		System.out.println(map.getLayers().get(0));
 		
+		//set the player parameters
 		me = new Player(this, (TiledMapTileLayer) map.getLayers().get(0));
 		//create a new spritebatch for the sprite
 		batch = new SpriteBatch();
