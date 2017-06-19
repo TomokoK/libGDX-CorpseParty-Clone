@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
@@ -55,8 +56,10 @@ public class Player implements Renderable {
 	 */
 	//here be dragons
 	public void move(int dx, int dy) {
-		float oldX = getX(), oldY = getY();
 		float tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
+		float futureX = getLastX()+tileWidth;
+		float futureY = getLastY()+tileHeight;
+		Cell cell = collisionLayer.getCell((int)futureX, (int)futureY);
 		boolean collideX = false, collideY = false;
 		//begin movement stuff
 		
@@ -64,109 +67,119 @@ public class Player implements Renderable {
 //		this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
 	   
 		if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
-
-		if (lastXChange < 0) {
-//			//top left
-//			collideX = collisionLayer.getCell((int) (lastXChange / tileWidth),
-//					(int) ((lastYChange + Settings.SPRITE_HEIGHT) / tileHeight))
-//					.getTile().getProperties().containsKey("blocked");
-//			//mid left
-//			if(!collideX) {
-			collideX = collisionLayer.getCell((int) (lastXChange / tileWidth),
-					(int) ((lastYChange + Settings.SPRITE_HEIGHT / 2) / tileHeight))
-					.getTile().getProperties().containsKey("blocked");
-//			}
-//			//bottom left
-//			if(!collideX) {
-//			collideX = collisionLayer.getCell((int) (lastXChange / tileWidth),
-//					(int) (lastYChange / tileHeight)).getTile().getProperties().containsKey("blocked");
-//			}
-		} else if(lastXChange > 0) {
-//			//top right
-//			collideX = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH) / tileWidth),
-//					(int) ((lastYChange + Settings.SPRITE_HEIGHT) / tileHeight))
-//					.getTile().getProperties().containsKey("blocked");
-//			//mid right
-//			if(!collideX) {
-				collideX = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH) / tileWidth),
-						(int) ((lastYChange + Settings.SPRITE_HEIGHT / 2) / tileHeight))
-						.getTile().getProperties().containsKey("blocked");
-//			}
-//			//bottom right
-//			if(!collideX) {
-//				collideX = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH) / tileWidth),
-//						(int) (lastYChange / tileHeight))
-//						.getTile().getProperties().containsKey("blocked");
-//			}
-		}
-		
-		if(collideX) {
-			sprite.setX(oldX);
-		}	
-			
-		if(!collideX) {
-		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
-		this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
-		}}
-		else {
-			sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
-			this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
-		}
-		
-//		sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
-//		this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
-	   
-		if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
-
-		if (lastYChange < getX()) {
-//			//bottom left
-//			collideY = collisionLayer.getCell((int) (lastXChange / tileWidth),
-//					(int) (lastYChange / tileHeight))
-//					.getTile().getProperties().containsKey("blocked");
-			//bottom mid
-//			if(!collideY) {
-				collideY = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH / 2) / tileWidth),
-						(int) (lastYChange / tileHeight))
-						.getTile().getProperties().containsKey("blocked");
-//			}
-//			//bottom right
-//			if(!collideY) {
-//				collideY = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH) / tileWidth),
-//						(int) (lastYChange / tileHeight))
-//						.getTile().getProperties().containsKey("blocked");
+			collideX = cell.getTile().getProperties().containsKey("blocked");
+			if(cell != null && !collideX) {
+				sprite.setX(sprite.getX() + (dx * 24));
+				this.lastXChange = (sprite.getX() + (dx * 24));
 			}
-		} else if(lastYChange > getY()) {
-//			//top left
-//			collideY = collisionLayer.getCell((int) (lastXChange / tileWidth),
-//					(int) ((lastYChange + Settings.SPRITE_HEIGHT) / tileHeight))
+		}
+		
+		else {
+			sprite.setX(sprite.getX() + (dx * 24));
+		}
+
+//		if (lastXChange < 0) {
+////			//top left
+////			collideX = collisionLayer.getCell((int) (lastXChange / tileWidth),
+////					(int) ((lastYChange + Settings.SPRITE_HEIGHT) / tileHeight))
+////					.getTile().getProperties().containsKey("blocked");
+////			//mid left
+////			if(!collideX) {
+//			collideX = collisionLayer.getCell((int) (lastXChange / tileWidth),
+//					(int) ((lastYChange + Settings.SPRITE_HEIGHT / 2) / tileHeight))
 //					.getTile().getProperties().containsKey("blocked");
-//			//top middle
-//			if(!collideY) {
-				collideY = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH / 2) / tileWidth),
-						(int) ((lastYChange + Settings.SPRITE_HEIGHT) / tileHeight))
-						.getTile().getProperties().containsKey("blocked");
+////			}
+////			//bottom left
+////			if(!collideX) {
+////			collideX = collisionLayer.getCell((int) (lastXChange / tileWidth),
+////					(int) (lastYChange / tileHeight)).getTile().getProperties().containsKey("blocked");
+////			}
+//		} else if(lastXChange > 0) {
+////			//top right
+////			collideX = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH) / tileWidth),
+////					(int) ((lastYChange + Settings.SPRITE_HEIGHT) / tileHeight))
+////					.getTile().getProperties().containsKey("blocked");
+////			//mid right
+////			if(!collideX) {
+//				collideX = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH) / tileWidth),
+//						(int) ((lastYChange + Settings.SPRITE_HEIGHT / 2) / tileHeight))
+//						.getTile().getProperties().containsKey("blocked");
+////			}
+////			//bottom right
+////			if(!collideX) {
+////				collideX = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH) / tileWidth),
+////						(int) (lastYChange / tileHeight))
+////						.getTile().getProperties().containsKey("blocked");
+////			}
+//		}
+//		
+//		if(collideX) {
+//			sprite.setX(oldX);
+//		}	
+//			
+//		if(!collideX) {
+//		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
+//		this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
+//		}}
+//		else {
+//			sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
+//			this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
+//		}
+//		
+////		sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
+////		this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
+//	   
+//		if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
+//
+//		if (lastYChange < getX()) {
+////			//bottom left
+////			collideY = collisionLayer.getCell((int) (lastXChange / tileWidth),
+////					(int) (lastYChange / tileHeight))
+////					.getTile().getProperties().containsKey("blocked");
+//			//bottom mid
+////			if(!collideY) {
+//				collideY = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH / 2) / tileWidth),
+//						(int) (lastYChange / tileHeight))
+//						.getTile().getProperties().containsKey("blocked");
+////			}
+////			//bottom right
+////			if(!collideY) {
+////				collideY = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH) / tileWidth),
+////						(int) (lastYChange / tileHeight))
+////						.getTile().getProperties().containsKey("blocked");
 //			}
-			//top right
-//			if(!collideY) {
-//				collideY = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH) / tileWidth),
+//		} else if(lastYChange > getY()) {
+////			//top left
+////			collideY = collisionLayer.getCell((int) (lastXChange / tileWidth),
+////					(int) ((lastYChange + Settings.SPRITE_HEIGHT) / tileHeight))
+////					.getTile().getProperties().containsKey("blocked");
+////			//top middle
+////			if(!collideY) {
+//				collideY = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH / 2) / tileWidth),
 //						(int) ((lastYChange + Settings.SPRITE_HEIGHT) / tileHeight))
 //						.getTile().getProperties().containsKey("blocked");
+////			}
+//			//top right
+////			if(!collideY) {
+////				collideY = collisionLayer.getCell((int) ((lastXChange + Settings.SPRITE_WIDTH) / tileWidth),
+////						(int) ((lastYChange + Settings.SPRITE_HEIGHT) / tileHeight))
+////						.getTile().getProperties().containsKey("blocked");
+////			}
+//			
+//			if(collideY) {
+//				sprite.setY(oldY);
+//			}}
+//			
+//			if(!collideY) {
+//			sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
+//			this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
 //			}
-			
-			if(collideY) {
-				sprite.setY(oldY);
-			}}
-			
-			if(!collideY) {
-			sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
-			this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
-			}
-			
-//		}}
-		else {
-			sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
-			this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
-		}
+//			
+////		}}
+//		else {
+//			sprite.setY(sprite.getY() + (dy * Settings.TILE_SIZE));
+//			this.lastYChange = (sprite.getY() + (dy * Settings.TILE_SIZE));
+//		}
 
 		
 	}
