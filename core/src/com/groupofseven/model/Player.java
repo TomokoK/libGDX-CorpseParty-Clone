@@ -101,19 +101,15 @@ public class Player implements Renderable {
 			// handle the Class1AMap
 			if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
 				collideX = false;
-			} else {
-				collideX = true;
-			}
-
-			if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
 				collideY = false;
 			} else {
+				collideX = true;
 				collideY = true;
 			}
 
 			if (!collideX && !collideY) {
-				sprite.setX(sprite.getX() + (dx * 24));
-				sprite.setY(sprite.getY() + (dy * 24));
+				sprite.setX(futureX);
+				sprite.setY(futureY);
 			}
 		}
 
