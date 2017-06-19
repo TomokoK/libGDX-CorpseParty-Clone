@@ -59,6 +59,8 @@ public class Player implements Renderable {
 		float tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 		boolean collideX = false, collideY = false;
 		
+		//begin movement stuff
+		
 		sprite.setX(sprite.getX() + (dx * Settings.TILE_SIZE));
 		this.lastXChange = (sprite.getX() + (dx * Settings.TILE_SIZE));
 	   

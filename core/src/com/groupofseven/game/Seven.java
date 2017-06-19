@@ -25,6 +25,8 @@ public class Seven extends Game implements ApplicationListener {
 	Sprite sprite;
 	
 	public Player me;
+	
+	int[] layers = {0, 1};
 		
 	@Override
 	public void create() {
@@ -32,10 +34,10 @@ public class Seven extends Game implements ApplicationListener {
 		map = new TmxMapLoader().load("maps/Class 1A.tmx");
 
 		//debug line
-		System.out.println(map.getLayers().get(0));
+		System.out.println(map.getLayers().get(layers[0]));
 		
 		//set the player parameters
-		me = new Player(this, (TiledMapTileLayer) map.getLayers().get(0));
+		me = new Player(this, (TiledMapTileLayer) map.getLayers().get(layers[0]));
 		//create a new spritebatch for the sprite
 		batch = new SpriteBatch();
 		
