@@ -44,14 +44,6 @@ public class Player implements Renderable {
 	}
 
 	// method to move the sprite
-	/*
-	 * NOTICE: Collision detection is VERY buggy. Sprite is unable to move
-	 * around too much and can walk off the map, causing a nullpointerexception.
-	 * If you switch screens with X and move around, the game will also crash
-	 * with a nullpointerexception when you switch back to the original screen
-	 * and try to move. Collision detection is hard, yo.
-	 */
-	// here be dragons
 	public void move(int dx, int dy) {
 		float tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 
@@ -66,17 +58,6 @@ public class Player implements Renderable {
 			// case 1 ... simulation of 1 tile movement right
 			futureX = sprite.getX() + 24;
 			System.out.println(futureX);
-			for (int x=0; x<552; x+=24)
-				  for (int y=0; y<432; y+=24)
-				    {
-				        Cell cell = collisionLayer.getCell(x,y);
-				        if (cell == null)
-				          System.out.println("cell: " + x/24 + "," + y/24 + " is null");
-
-				        if (cell != null && cell.getTile().getProperties().containsKey("blocked"))
-				          System.out.println("cell: " + x/24 + "," + y/24 + " is blocked"); 
-
-				    }
 		} else if (dx == -1) {
 			// case: -1 ... simulation of 1 tile movement left
 			futureX = sprite.getX() - 24;
@@ -98,7 +79,7 @@ public class Player implements Renderable {
 			// move 1 tile up
 			futureY = sprite.getY() + 24;
 			System.out.println(futureY);
-		} else if (dx == -1) {
+		} else if (dy == -1) {
 			// move 1 time down
 			futureY = sprite.getY() - 24;
 			System.out.println(futureY);
@@ -108,7 +89,7 @@ public class Player implements Renderable {
 			System.out.println(futureY);
 		}
 
-		Cell cell = collisionLayer.getCell((int) futureX, (int) futureY);
+		Cell cell = collisionLayer.getCell((int) futureX / 24, (int) futureY / 24);
 		boolean collideX = false, collideY = false;
 		// begin movement stuff
 
