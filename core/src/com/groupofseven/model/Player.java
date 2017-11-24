@@ -18,7 +18,7 @@ public class Player implements Renderable {
 
 	private final Seven app; // final reference to Game object
 
-	private final PlayerInput input; // final referencce to player input
+	private final PlayerInput input; // final reference to player input
 
 	private TiledMapTileLayer collisionLayer;
 
@@ -45,7 +45,7 @@ public class Player implements Renderable {
 
 	// method to move the sprite
 	public void move(int dx, int dy) {
-		float tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
+		int tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 
 		float futureX; // will be calculated to simulate 1 tile in advance with
 						// respect to dx
@@ -56,11 +56,11 @@ public class Player implements Renderable {
 		// dx == -1 -> future x is trying to move left one tile
 		if (dx == 1) {
 			// case 1 ... simulation of 1 tile movement right
-			futureX = sprite.getX() + 24;
+			futureX = sprite.getX() + tileWidth;
 			System.out.println(futureX);
 		} else if (dx == -1) {
 			// case: -1 ... simulation of 1 tile movement left
-			futureX = sprite.getX() - 24;
+			futureX = sprite.getX() - tileWidth;
 			System.out.println(futureX);
 		} else {
 			// case: 0 or invalid dx value -> no movement
@@ -77,11 +77,11 @@ public class Player implements Renderable {
 		// dy == -1 -> future y is going to move left one tile
 		if (dy == 1) {
 			// move 1 tile up
-			futureY = sprite.getY() + 24;
+			futureY = sprite.getY() + tileHeight;
 			System.out.println(futureY);
 		} else if (dy == -1) {
 			// move 1 time down
-			futureY = sprite.getY() - 24;
+			futureY = sprite.getY() - tileHeight;
 			System.out.println(futureY);
 		} else {
 			// do not move
@@ -89,7 +89,7 @@ public class Player implements Renderable {
 			System.out.println(futureY);
 		}
 
-		Cell cell = collisionLayer.getCell((int) futureX / 24, (int) futureY / 24);
+		Cell cell = collisionLayer.getCell((int) futureX / tileWidth, (int) futureY / tileHeight);
 		boolean collideX = false, collideY = false;
 		// begin movement stuff
 
@@ -97,7 +97,7 @@ public class Player implements Renderable {
 			// case: cell exists and the cell is not a blocked tile
 			// post: if case is legal, future x is legal. else x is not legal
 			// handle the Class1AMap
-			
+
 			if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
 				collideX = false;
 				collideY = false;
