@@ -1,7 +1,9 @@
 # libGDX-CorpseParty-Clone
 
-This is not a final game at all, and it probably won't have any more commits until May/June 2018, if at all.
+Map, sprite, and music assets are copyright Team GrisGris, 2011.
 
-I don't actually own these assets, they've all been ripped from http://w11.zetaboards.com/corpseparty/topic/8617458/1/
+Project deadline: Late June 2018
 
-special thanks to #libGDX from freenode for putting up with my constant questions (they're still going on right now!)
+Special thanks to #tiled and #libgdx on Freenode!
+
+Refer to the TODO in DesktopLauncher.java for more information.
