@@ -31,8 +31,10 @@ public class Player implements Renderable {
 	public float x; 
 	public float y;
 	
+	public int direction = 0;
+	
 	// Objects here
-	Animation<TextureRegion> walkAnimation; // declare frame type (texture region)
+	ArrayList<Animation<TextureRegion>> walkAnimation; // declare frame type (texture region)
 	Texture walkSheet;
 	SpriteBatch spriteBatch;
 		
@@ -155,7 +157,7 @@ public class Player implements Renderable {
 		
 		// Load sprite sheet as a texture
 		walkSheet = new Texture("sprites/Ayumi.png");
-		walkAnimation = new ArrayList<>(4);
+		walkAnimation = new ArrayList<Animation<TextureRegion>>(4);
 
 		// Use the split utility method to create a 2D array of TextureRegions. This is
 		// possible because this sprite sheet contains frames of equal size and they are
