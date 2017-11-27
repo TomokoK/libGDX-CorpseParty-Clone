@@ -43,7 +43,7 @@ public class Player implements Renderable {
 
 	public Sprite getSprite() {
 		// set properties of the sprite here
-		//sprite.setSize(32, 48); // set the size of the sprite
+		sprite.setSize(32, 48); // set the size of the sprite
 		return sprite;
 	}
 
@@ -137,11 +137,11 @@ public class Player implements Renderable {
 	}
 
 	public float getX() {
-		return walkSheet.getX();
+		return sprite.getX();
 	}
 
 	public float getY() {
-		return walkSheet.getY();
+		return sprite.getY();
 	}
 
 	public void loadGFX() {
@@ -197,7 +197,8 @@ public class Player implements Renderable {
 	}
 
 	public void dispose() {
-
+		spriteBatch.dispose();
+		walkSheet.dispose();
 	}
 
 }
