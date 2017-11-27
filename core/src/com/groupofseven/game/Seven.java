@@ -38,6 +38,7 @@ public class Seven extends Game implements ApplicationListener {
 
 		// set the player parameters
 		me = new Player(this, (TiledMapTileLayer) map.getLayers().get(layers[0]));
+		
 		// create a new spritebatch for the sprite
 		batch = new SpriteBatch();
 
@@ -45,7 +46,8 @@ public class Seven extends Game implements ApplicationListener {
 		me.loadGFX();
 
 		// set sprite position to a # divisible by the tile size
-		//me.getSprite().setPosition(144, 168);
+		me.x = 144;
+		me.y = 168;
 
 		// set the screen to be Class1AScreen
 		screen = new Class1AScreen(this);

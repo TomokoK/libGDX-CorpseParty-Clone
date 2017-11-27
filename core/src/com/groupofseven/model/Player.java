@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -48,11 +47,11 @@ public class Player implements Renderable {
 		this.collisionLayer = collisionLayer;
 	}
 
-	public Sprite getSprite() {
+	//public Sprite getSprite() {
 		// set properties of the sprite here
-		sprite.setSize(32, 48); // set the size of the sprite
-		return sprite;
-	}
+		//sprite.setSize(32, 48); // set the size of the sprite
+		//return sprite;
+	//}
 
 	public Seven getApp() {
 		return app;
@@ -76,10 +75,12 @@ public class Player implements Renderable {
 		if (dx == 1) {
 			// case 1 ... simulation of 1 tile movement right
 			futureX = x + tileWidth;
+			direction = 2;
 			System.out.println(futureX);
 		} else if (dx == -1) {
 			// case: -1 ... simulation of 1 tile movement left
 			futureX = x - tileWidth;
+			direction = 1;
 			System.out.println(futureX);
 		} else {
 			// case: 0 or invalid dx value -> no movement
@@ -97,10 +98,12 @@ public class Player implements Renderable {
 		if (dy == 1) {
 			// move 1 tile up
 			futureY = y + tileHeight;
+			direction = 3;
 			System.out.println(futureY);
 		} else if (dy == -1) {
 			// move 1 time down
 			futureY = y - tileHeight;
+			direction = 0;
 			System.out.println(futureY);
 		} else {
 			// do not move
@@ -185,11 +188,11 @@ public class Player implements Renderable {
 	// implementation of render
 	public void render(float delta, SpriteBatch batch) {
 		//sprite.draw(batch);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clear screen
+		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clear screen
 		stateTime += Gdx.graphics.getDeltaTime(); // Accumulate elapsed animation time
 		
 		// Get current frame of animation for the current stateTime
-		TextureRegion currentFrame = walkAnimation.getKeyFrame(stateTime, true);
+		TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(stateTime, true);
 		spriteBatch.begin();
 		spriteBatch.draw(currentFrame, x, y); // Draw current frame at (X, Y)
 		spriteBatch.end();
