@@ -3,7 +3,6 @@ package com.groupofseven.model;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -193,9 +192,9 @@ public class Player implements Renderable {
 		
 		// Get current frame of animation for the current stateTime
 		TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(stateTime, true);
-		spriteBatch.begin();
-		spriteBatch.draw(currentFrame, x, y); // Draw current frame at (X, Y)
-		spriteBatch.end();
+		//batch.begin();
+		batch.draw(currentFrame, x, y); // Draw current frame at (X, Y)
+		//batch.end();
 	}
 
 	public void dispose() {
