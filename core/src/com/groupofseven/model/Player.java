@@ -150,7 +150,6 @@ public class Player implements Renderable {
 	public void loadGFX() {
 
 		// init sprite here
-		// sprite = new Sprite(new Texture("sprites/AyumiNoAnims.png"));
 		
 		// Load sprite sheet as a texture
 		walkSheet = new Texture("sprites/Ayumi.png");
@@ -161,18 +160,10 @@ public class Player implements Renderable {
 		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / Settings.SPRITE_COLUMNS,
 				walkSheet.getHeight() / Settings.SPRITE_ROWS);
 
-		// Place the regions into a 1D array in the correct order, starting from the top
-		// left, going across first. The Animation constructor requires a 1D array.
-		TextureRegion[] walkFrames = new TextureRegion[Settings.SPRITE_COLUMNS * Settings.SPRITE_ROWS];
-		int index = 0;
-		for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
-			for (int j = 0; j < Settings.SPRITE_COLUMNS; j++) {
-				walkFrames[index++] = tmp[i][j];
-			}
+		//walk animations
+		for(int i = 0; i < Settings.SPRITE_ROWS; i++) {
+			walkAnimation.add(new Animation<TextureRegion>(0.025f, tmp[i]));
 		}
-
-		// Initialize the Animation with the frame interval and array of frames
-		walkAnimation = new Animation<TextureRegion>(0.025f, walkFrames);
 
 		// Instantiate a SpriteBatch for drawing and reset the elapsed animation
 		// time to 0
@@ -195,7 +186,7 @@ public class Player implements Renderable {
 		// Get current frame of animation for the current stateTime
 		TextureRegion currentFrame = walkAnimation.getKeyFrame(stateTime, true);
 		spriteBatch.begin();
-		spriteBatch.draw(currentFrame, x, y); // Draw current frame at (50, 50)
+		spriteBatch.draw(currentFrame, x, y); // Draw current frame at (X, Y)
 		spriteBatch.end();
 	}
 
