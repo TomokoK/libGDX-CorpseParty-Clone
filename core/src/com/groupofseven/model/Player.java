@@ -26,6 +26,9 @@ public class Player implements Renderable {
 
 	private TiledMapTileLayer collisionLayer;
 	
+	public float x; 
+	public float y;
+	
 	// Objects here
 	Animation<TextureRegion> walkAnimation; // declare frame type (texture region)
 	Texture walkSheet;
@@ -137,11 +140,11 @@ public class Player implements Renderable {
 	}
 
 	public float getX() {
-		return sprite.getX();
+		return x;
 	}
 
 	public float getY() {
-		return sprite.getY();
+		return y;
 	}
 
 	public void loadGFX() {
@@ -150,7 +153,7 @@ public class Player implements Renderable {
 		// sprite = new Sprite(new Texture("sprites/AyumiNoAnims.png"));
 		
 		// Load sprite sheet as a texture
-		walkSheet = (new Texture("sprites/Ayumi.png"));
+		walkSheet = new Texture("sprites/Ayumi.png");
 
 		// Use the split utility method to create a 2D array of TextureRegions. This is
 		// possible because this sprite sheet contains frames of equal size and they are
@@ -192,7 +195,7 @@ public class Player implements Renderable {
 		// Get current frame of animation for the current stateTime
 		TextureRegion currentFrame = walkAnimation.getKeyFrame(stateTime, true);
 		spriteBatch.begin();
-		spriteBatch.draw(currentFrame, 50, 50); // Draw current frame at (50, 50)
+		spriteBatch.draw(currentFrame, x, y); // Draw current frame at (50, 50)
 		spriteBatch.end();
 	}
 
