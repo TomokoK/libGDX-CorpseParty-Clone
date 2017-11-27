@@ -21,6 +21,8 @@
  * 	Add tile layers to each map for better collision detection (e.g. sprite behind podium)
  * 	Add voice acting
  * 	Sprite animations *PRIORITY*
+ * 	Fix TextureRender size
+ * 		Either through code or resize the source PNG
  * 	Main menu
  * 		Save/Load
  * 		Exit
