@@ -38,7 +38,7 @@ public class Seven extends Game implements ApplicationListener {
 
 		// set the player parameters
 		me = new Player(this, (TiledMapTileLayer) map.getLayers().get(layers[0]));
-		
+
 		// create a new spritebatch for the sprite
 		batch = new SpriteBatch();
 

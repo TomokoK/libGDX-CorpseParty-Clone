@@ -18,24 +18,22 @@ import com.groupofseven.screen.Class1AScreen;
 public class Player implements Renderable {
 
 	// store references
-	//private Sprite sprite;
-
 	private final Seven app; // final reference to Game object
 
 	private final PlayerInput input; // final reference to player input
 
 	private TiledMapTileLayer collisionLayer;
-	
-	public float x; 
+
+	public float x;
 	public float y;
-	
+
 	public int direction = 0;
-	
+
 	// Objects here
 	ArrayList<Animation<TextureRegion>> walkAnimation; // declare frame type (texture region)
 	Texture walkSheet;
 	SpriteBatch spriteBatch;
-		
+
 	// this float is used to track elapsed animation time
 	float stateTime;
 
@@ -45,12 +43,6 @@ public class Player implements Renderable {
 		input = new PlayerInput(this);
 		this.collisionLayer = collisionLayer;
 	}
-
-	//public Sprite getSprite() {
-		// set properties of the sprite here
-		//sprite.setSize(32, 48); // set the size of the sprite
-		//return sprite;
-	//}
 
 	public Seven getApp() {
 		return app;
@@ -156,7 +148,7 @@ public class Player implements Renderable {
 	public void loadGFX() {
 
 		// init sprite here
-		
+
 		// Load sprite sheet as a texture
 		walkSheet = new Texture("sprites/Ayumi.png");
 		walkAnimation = new ArrayList<Animation<TextureRegion>>(4);
@@ -167,8 +159,8 @@ public class Player implements Renderable {
 		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / Settings.SPRITE_COLUMNS,
 				walkSheet.getHeight() / Settings.SPRITE_ROWS);
 
-		//walk animations
-		for(int i = 0; i < Settings.SPRITE_ROWS; i++) {
+		// walk animations
+		for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
 			walkAnimation.add(new Animation<TextureRegion>(0.025f, tmp[i]));
 		}
 
@@ -186,15 +178,13 @@ public class Player implements Renderable {
 
 	// implementation of render
 	public void render(float delta, SpriteBatch batch) {
-		//sprite.draw(batch);
-		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clear screen
 		stateTime += Gdx.graphics.getDeltaTime(); // Accumulate elapsed animation time
-		
+
 		// Get current frame of animation for the current stateTime
 		TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(stateTime, true);
-		//batch.begin();
+
 		batch.draw(currentFrame, x, y); // Draw current frame at (X, Y)
-		//batch.end();
+
 	}
 
 	public void dispose() {

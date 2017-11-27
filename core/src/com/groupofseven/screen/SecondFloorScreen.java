@@ -56,10 +56,7 @@ public class SecondFloorScreen extends AbstractScreen {
 
 	@Override
 	public void render(float delta) {
-		// Gdx.gl.glClearColor(0, 0, 0, 1);
-		// Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		// start camera for the classroom map
+		// start camera for the second floor map
 		renderer.setView(camera);
 		renderer.render();
 
