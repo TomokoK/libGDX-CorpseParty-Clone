@@ -18,6 +18,7 @@
  * 				   replace with the new tileset and tmx file
  * 		***END NEW PROCESS***
  * 	Add + improve collision detection
+ * 	Add tile layers to each map for better collision detection (e.g. sprite behind podium)
  * 	Add voice acting
  * 	Sprite animations *PRIORITY*
  * 	Main menu

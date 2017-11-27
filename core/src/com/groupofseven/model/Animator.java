@@ -22,7 +22,7 @@ public class Animator implements ApplicationListener {
 	@Override
 	public void create() {
 		// Load sprite sheet as a texture
-		walkSheet = new Texture(Gdx.files.internal("maps/Ayumi.png"));
+		walkSheet = new Texture(Gdx.files.internal("sprites/Ayumi.png"));
 
 		// Use the split utility method to create a 2D array of TextureRegions. This is 
 		// possible because this sprite sheet contains frames of equal size and they are 
