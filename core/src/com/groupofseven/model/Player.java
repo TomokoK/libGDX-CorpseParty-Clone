@@ -150,7 +150,7 @@ public class Player implements Renderable {
 		// sprite = new Sprite(new Texture("sprites/AyumiNoAnims.png"));
 		
 		// Load sprite sheet as a texture
-		walkSheet = new Sprite(new Texture("sprites/Ayumi.png"));
+		walkSheet = (new Texture("sprites/Ayumi.png"));
 
 		// Use the split utility method to create a 2D array of TextureRegions. This is
 		// possible because this sprite sheet contains frames of equal size and they are
