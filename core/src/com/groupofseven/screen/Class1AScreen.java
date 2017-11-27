@@ -16,7 +16,7 @@ public class Class1AScreen extends AbstractScreen {
 	// init objects
 	private Player me;
 
-	SpriteBatch batch = new SpriteBatch();
+	SpriteBatch batch;
 
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
@@ -32,7 +32,7 @@ public class Class1AScreen extends AbstractScreen {
 	// store a reference to Seven
 	public Class1AScreen(Seven app) {
 		super(app);
-
+		batch = app.batch;
 		me = app.me;
 	}
 

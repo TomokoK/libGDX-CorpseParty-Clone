@@ -20,7 +20,7 @@ public class Seven extends Game implements ApplicationListener {
 
 	private TiledMap map;
 
-	SpriteBatch batch;
+	public SpriteBatch batch;
 
 	Sprite sprite;
 
