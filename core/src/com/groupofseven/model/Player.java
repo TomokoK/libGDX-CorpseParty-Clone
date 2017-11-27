@@ -18,7 +18,7 @@ import com.groupofseven.screen.Class1AScreen;
 public class Player implements Renderable {
 
 	// store references
-	private Sprite sprite;
+	//private Sprite sprite;
 
 	private final Seven app; // final reference to Game object
 
@@ -71,15 +71,15 @@ public class Player implements Renderable {
 		// dx == -1 -> future x is trying to move left one tile
 		if (dx == 1) {
 			// case 1 ... simulation of 1 tile movement right
-			futureX = sprite.getX() + tileWidth;
+			futureX = x + tileWidth;
 			System.out.println(futureX);
 		} else if (dx == -1) {
 			// case: -1 ... simulation of 1 tile movement left
-			futureX = sprite.getX() - tileWidth;
+			futureX = x - tileWidth;
 			System.out.println(futureX);
 		} else {
 			// case: 0 or invalid dx value -> no movement
-			futureX = sprite.getX();
+			futureX = x;
 			System.out.println(futureX);
 		}
 
@@ -92,15 +92,15 @@ public class Player implements Renderable {
 		// dy == -1 -> future y is going to move left one tile
 		if (dy == 1) {
 			// move 1 tile up
-			futureY = sprite.getY() + tileHeight;
+			futureY = y + tileHeight;
 			System.out.println(futureY);
 		} else if (dy == -1) {
 			// move 1 time down
-			futureY = sprite.getY() - tileHeight;
+			futureY = y - tileHeight;
 			System.out.println(futureY);
 		} else {
 			// do not move
-			futureY = sprite.getY();
+			futureY = y;
 			System.out.println(futureY);
 		}
 
@@ -124,17 +124,17 @@ public class Player implements Renderable {
 			}
 
 			if (!collideX || !collideY) {
-				sprite.setX(futureX);
+				x = (futureX);
 				System.out.println(futureX);
-				sprite.setY(futureY);
+				y = (futureY);
 				System.out.println(futureY);
 			}
 		}
 
 		// handle the SecondFloorMap
 		else {
-			sprite.setX(sprite.getX() + (dx * 24));
-			sprite.setY(sprite.getY() + (dy * 24));
+			x = x + (dx * 24);
+			y = y + (dy * 24);
 		}
 
 	}
