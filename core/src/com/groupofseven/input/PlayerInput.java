@@ -9,6 +9,8 @@ import com.groupofseven.screen.SecondFloorScreen;
 public class PlayerInput extends InputAdapter {
 
 	private Player me;
+	
+	public static float moveSpeed;
 
 	// store a reference of Player as this class.player = p
 	public PlayerInput(Player p) {
@@ -20,18 +22,22 @@ public class PlayerInput extends InputAdapter {
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.W) {
 			this.me.move(0, 1);
+			moveSpeed = 0.25f;
 		}
 
 		if (keycode == Keys.A) {
 			this.me.move(-1, 0);
+			moveSpeed = 0.25f;
 		}
 
 		if (keycode == Keys.S) {
 			this.me.move(0, -1);
+			moveSpeed = 0.25f;
 		}
 
 		if (keycode == Keys.D) {
 			this.me.move(1, 0);
+			moveSpeed = 0.25f;
 		}
 
 		if (keycode == Keys.X) {
@@ -51,6 +57,7 @@ public class PlayerInput extends InputAdapter {
 			}
 		}
 
+		moveSpeed = 0f;
 		return false;
 	}
 

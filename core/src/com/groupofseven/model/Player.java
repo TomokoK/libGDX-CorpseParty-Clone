@@ -166,7 +166,7 @@ public class Player implements Renderable {
 
 		// Cycle through each picture on the selected sprite sheet row
 		for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
-			walkAnimation.add(new Animation<TextureRegion>(0.5f, tmp[i]));
+			walkAnimation.add(new Animation<TextureRegion>(PlayerInput.moveSpeed, tmp[i]));
 		}
 
 		// Instantiate a SpriteBatch for drawing and reset the elapsed animation
