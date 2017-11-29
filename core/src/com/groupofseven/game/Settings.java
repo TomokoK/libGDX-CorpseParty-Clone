@@ -7,8 +7,8 @@ public class Settings {
 	// define stats on the sprite sheets
 	public static final int SPRITE_ROWS = 4;
 	public static final int SPRITE_COLUMNS = 4;
-	public static final int SPRITE_PX_WIDTH = 128;
-	public static final int SPRITE_PX_HEIGHT = 192;
+	public static final int SPRITE_PX_WIDTH = 192;
+	public static final int SPRITE_PX_HEIGHT = 288;
 
 	// define stats on the rendered sprite size
 	public static final int SPRITE_HEIGHT = SPRITE_PX_HEIGHT / SPRITE_COLUMNS;

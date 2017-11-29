@@ -46,8 +46,8 @@ public class Seven extends Game implements ApplicationListener {
 		me.loadGFX();
 
 		// set sprite position to a # divisible by the tile size
-		me.x = 144;
-		me.y = 168;
+		me.x = 168;
+		me.y = 96;
 
 		// set the screen to be Class1AScreen
 		screen = new Class1AScreen(this);

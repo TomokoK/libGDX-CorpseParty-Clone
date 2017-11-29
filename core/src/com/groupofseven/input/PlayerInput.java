@@ -35,6 +35,7 @@ public class PlayerInput extends InputAdapter {
 		}
 
 		if (keycode == Keys.X) {
+			// Only used for dev purposes, this will be removed when I add door functionality.
 
 			// if the current screen is Class1ASCreen
 			if (me.getApp().getScreen().getClass() == Class1AScreen.class) {
@@ -45,8 +46,8 @@ public class PlayerInput extends InputAdapter {
 			// if the current screen is SecondFloorScreen
 			else if (me.getApp().getScreen().getClass() == SecondFloorScreen.class) {
 				me.getApp().setScreen(new Class1AScreen(me.getApp()));
-				me.x = 216;
-				me.y = 120;
+				me.x = 312;
+				me.y = 48;
 			}
 		}
 
