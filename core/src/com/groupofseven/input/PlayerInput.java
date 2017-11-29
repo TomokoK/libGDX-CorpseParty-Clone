@@ -10,7 +10,7 @@ public class PlayerInput extends InputAdapter {
 
 	private Player me;
 	
-	public static float moveSpeed;
+	public static float moveSpeed = 0f;
 
 	// store a reference of Player as this class.player = p
 	public PlayerInput(Player p) {
@@ -57,7 +57,7 @@ public class PlayerInput extends InputAdapter {
 			}
 		}
 
-		moveSpeed = 0f;
+		//moveSpeed = 0f;
 		return false;
 	}
 
