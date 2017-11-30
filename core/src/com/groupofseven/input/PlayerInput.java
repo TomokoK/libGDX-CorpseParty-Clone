@@ -1,6 +1,7 @@
 package com.groupofseven.input;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.groupofseven.model.Player;
 import com.groupofseven.screen.Class1AScreen;
@@ -16,26 +17,26 @@ public class PlayerInput extends InputAdapter {
 	public PlayerInput(Player p) {
 		this.me = p;
 	}
-
+	
 	// player input method
 	@Override
 	public boolean keyDown(int keycode) {
-		if (keycode == Keys.W) {
+		if (Gdx.input.isKeyPressed(Keys.W)) {
 			this.me.move(0, 1);
 			//moveSpeed = 0.25f;
 		}
 
-		if (keycode == Keys.A) {
+		if (Gdx.input.isKeyPressed(Keys.A)) {
 			this.me.move(-1, 0);
 			//moveSpeed = 0.25f;
 		}
 
-		if (keycode == Keys.S) {
+		if (Gdx.input.isKeyPressed(Keys.S)) {
 			this.me.move(0, -1);
 			//moveSpeed = 0.25f;
 		}
 
-		if (keycode == Keys.D) {
+		if (Gdx.input.isKeyPressed(Keys.D)) {
 			this.me.move(1, 0);
 			//moveSpeed = 0.25f;
 		}

@@ -178,8 +178,10 @@ public class Player implements Renderable {
 				walkSheet.getHeight() / Settings.SPRITE_ROWS);
 
 		// Cycle through each picture on the selected sprite sheet row
-		for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
-			walkAnimation.add(new Animation<TextureRegion>(currentSpeed, tmp[i]));
+		Animation tmpAnim; for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
+			tmpAnim = new Animation<TextureRegion>(currentSpeed, tmp[i]);
+			tmpAnim.setPlayMode(Animation.PlayMode.LOOP);
+			walkAnimation.add(tmpAnim);
 		}
 
 		// Instantiate a SpriteBatch for drawing and reset the elapsed animation
