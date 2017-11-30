@@ -16,7 +16,7 @@ public class Class1AScreen extends AbstractScreen {
 	// init objects
 	private Player me;
 
-	SpriteBatch batch = new SpriteBatch();
+	SpriteBatch batch;
 
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
@@ -32,7 +32,7 @@ public class Class1AScreen extends AbstractScreen {
 	// store a reference to Seven
 	public Class1AScreen(Seven app) {
 		super(app);
-
+		batch = app.batch;
 		me = app.me;
 	}
 
@@ -61,9 +61,6 @@ public class Class1AScreen extends AbstractScreen {
 
 	@Override
 	public void render(float delta) {
-		// Gdx.gl.glClearColor(0, 0, 0, 1);
-		// Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 		// start camera for the classroom map
 		renderer.setView(camera);
 		renderer.render();
@@ -141,8 +138,6 @@ public class Class1AScreen extends AbstractScreen {
 			Gdx.input.setInputProcessor(me.getInput());
 		}
 
-		// set our input processor (disabled due to above)
-		//// Gdx.input.setInputProcessor(me.getInput());
 	}
 
 }

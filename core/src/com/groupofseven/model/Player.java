@@ -1,8 +1,12 @@
 package com.groupofseven.model;
 
+import java.util.ArrayList;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.groupofseven.game.Settings;
@@ -14,25 +18,32 @@ import com.groupofseven.screen.Class1AScreen;
 public class Player implements Renderable {
 
 	// store references
-	private Sprite sprite;
-
 	private final Seven app; // final reference to Game object
 
 	private final PlayerInput input; // final reference to player input
 
 	private TiledMapTileLayer collisionLayer;
 
+	public float x;
+	public float y;
+
+	public float currentSpeed;
+
+	public int direction = 0;
+
+	// Objects here
+	ArrayList<Animation<TextureRegion>> walkAnimation; // declare frame type (texture region)
+	Texture walkSheet;
+	SpriteBatch spriteBatch;
+
+	// this float is used to track elapsed animation time
+	float stateTime;
+
 	// setup constructor
 	public Player(Seven app, TiledMapTileLayer collisionLayer) {
 		this.app = app;
 		input = new PlayerInput(this);
 		this.collisionLayer = collisionLayer;
-	}
-
-	public Sprite getSprite() {
-		// set properties of the sprite here
-		sprite.setSize(32, 48); // set the size of the sprite
-		return sprite;
 	}
 
 	public Seven getApp() {
@@ -49,6 +60,7 @@ public class Player implements Renderable {
 
 		float futureX; // will be calculated to simulate 1 tile in advance with
 						// respect to dx
+		currentSpeed = 0f;
 
 		// Calculate future x.
 		// cases: dx == 0 -> future x is current x (no movement)
@@ -56,16 +68,19 @@ public class Player implements Renderable {
 		// dx == -1 -> future x is trying to move left one tile
 		if (dx == 1) {
 			// case 1 ... simulation of 1 tile movement right
-			futureX = sprite.getX() + tileWidth;
-			System.out.println(futureX);
+			futureX = x + tileWidth;
+			direction = 2;
+			// debug line
+			System.out.println("Future X is: " + futureX);
 		} else if (dx == -1) {
 			// case: -1 ... simulation of 1 tile movement left
-			futureX = sprite.getX() - tileWidth;
-			System.out.println(futureX);
+			futureX = x - tileWidth;
+			direction = 1;
+			System.out.println("Future X is: " + futureX);
 		} else {
 			// case: 0 or invalid dx value -> no movement
-			futureX = sprite.getX();
-			System.out.println(futureX);
+			futureX = x;
+			System.out.println("Future X is the same: " + futureX);
 		}
 
 		float futureY; // will be calculated to simulate 1 tile in advance with
@@ -77,16 +92,18 @@ public class Player implements Renderable {
 		// dy == -1 -> future y is going to move left one tile
 		if (dy == 1) {
 			// move 1 tile up
-			futureY = sprite.getY() + tileHeight;
-			System.out.println(futureY);
+			futureY = y + tileHeight;
+			direction = 3;
+			System.out.println("Future Y is: " + futureY);
 		} else if (dy == -1) {
 			// move 1 time down
-			futureY = sprite.getY() - tileHeight;
-			System.out.println(futureY);
+			futureY = y - tileHeight;
+			direction = 0;
+			System.out.println("Future Y is: " + futureY);
 		} else {
 			// do not move
-			futureY = sprite.getY();
-			System.out.println(futureY);
+			futureY = y;
+			System.out.println("Future Y is the same: " + futureY);
 		}
 
 		Cell cell = collisionLayer.getCell((int) futureX / tileWidth, (int) futureY / tileHeight);
@@ -101,41 +118,74 @@ public class Player implements Renderable {
 			if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
 				collideX = false;
 				collideY = false;
+				// debug lines
 				System.out.println("cell is not blocked");
+				System.out.println("Walk animation size is: " + walkAnimation.size()); // this returns the size of the
+																						// ArrayList, not sprite size in
+																						// px.
 			} else {
 				collideX = true;
 				collideY = true;
+				// debug lines
 				System.out.println("cell is blocked");
+				System.out.println("Walk animation size is: " + walkAnimation.size()); // need to change
+																						// walkAnimation.size() to
+																						// something that returns sprite
+																						// size, not array list size.
 			}
 
 			if (!collideX || !collideY) {
-				sprite.setX(futureX);
-				System.out.println(futureX);
-				sprite.setY(futureY);
-				System.out.println(futureY);
+				currentSpeed = 1f;
+				x = (futureX);
+				// debug line
+				System.out.println("Current X is: " + futureX);
+				y = (futureY);
+				// debug line
+				System.out.println("Current Y is: " + futureY);
 			}
 		}
 
 		// handle the SecondFloorMap
 		else {
-			sprite.setX(sprite.getX() + (dx * 24));
-			sprite.setY(sprite.getY() + (dy * 24));
+			x = x + (dx * 24);
+			y = y + (dy * 24);
+			currentSpeed = 1f;
 		}
 
 	}
 
 	public float getX() {
-		return sprite.getX();
+		return x;
 	}
 
 	public float getY() {
-		return sprite.getY();
+		return y;
 	}
 
 	public void loadGFX() {
+		// This method is called in Seven.java
+		// This loads the sprite into the GPU.
 
-		// init sprite here
-		sprite = new Sprite(new Texture("sprites/AyumiNoAnims.png"));
+		// Load sprite sheet as a texture
+		walkSheet = new Texture("sprites/Ayumi.png");
+		walkAnimation = new ArrayList<Animation<TextureRegion>>(4);
+
+		// Use the split utility method to create a 2D array of TextureRegions
+		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / Settings.SPRITE_COLUMNS,
+				walkSheet.getHeight() / Settings.SPRITE_ROWS);
+
+		// Cycle through each picture on the selected sprite sheet row
+		Animation tmpAnim;
+		for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
+			tmpAnim = new Animation<TextureRegion>(0.1f, tmp[i]);
+			tmpAnim.setPlayMode(Animation.PlayMode.LOOP);
+			walkAnimation.add(tmpAnim);
+		}
+
+		// Instantiate a SpriteBatch for drawing and reset the elapsed animation
+		// time to 0
+		spriteBatch = new SpriteBatch();
+		stateTime = 0f;
 
 	}
 
@@ -146,11 +196,28 @@ public class Player implements Renderable {
 
 	// implementation of render
 	public void render(float delta, SpriteBatch batch) {
-		sprite.draw(batch);
+		stateTime += (Gdx.graphics.getDeltaTime() * currentSpeed); // Accumulate elapsed animation time
+
+		// Get current frame of animation for the current stateTime
+		if (currentSpeed != 0f) {
+			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(stateTime, true);
+			batch.draw(currentFrame, (x - 11), y); // Draw current frame at (X, Y)
+			// X is offset by -11 as the source sprite sheet isn't a
+			// power of two.
+			System.out.println(stateTime);
+		} else if (currentSpeed == 0f) {
+			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(2f, false);
+			batch.draw(currentFrame, (x - 11), y); // Draw current frame at (X, Y)
+			// X is offset by -11 as the source sprite sheet isn't a
+			// power of two.
+			System.out.println("No stateTime!");
+		}
+
 	}
 
 	public void dispose() {
-
+		spriteBatch.dispose();
+		walkSheet.dispose();
 	}
 
 }

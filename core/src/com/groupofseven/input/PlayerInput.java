@@ -1,6 +1,7 @@
 package com.groupofseven.input;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.groupofseven.model.Player;
 import com.groupofseven.screen.Class1AScreen;
@@ -18,7 +19,7 @@ public class PlayerInput extends InputAdapter {
 	// player input method
 	@Override
 	public boolean keyDown(int keycode) {
-		if (keycode == Keys.W) {
+		if (Gdx.input.isKeyPressed(Keys.W)) {
 			this.me.move(0, 1);
 		}
 
@@ -35,16 +36,21 @@ public class PlayerInput extends InputAdapter {
 		}
 
 		if (keycode == Keys.X) {
+			// Only used for dev purposes, this will be removed when I add door functionality.
 
 			// if the current screen is Class1ASCreen
 			if (me.getApp().getScreen().getClass() == Class1AScreen.class) {
 				me.getApp().setScreen(new SecondFloorScreen(me.getApp()));
-				me.getSprite().setPosition(192, 744);
+				me.x = 192;
+				me.y = 744;
+				me.currentSpeed = 0f;
 			}
 			// if the current screen is SecondFloorScreen
 			else if (me.getApp().getScreen().getClass() == SecondFloorScreen.class) {
 				me.getApp().setScreen(new Class1AScreen(me.getApp()));
-				me.getSprite().setPosition(216, 120);
+				me.x = 312;
+				me.y = 48;
+				me.currentSpeed = 0f;
 			}
 		}
 
