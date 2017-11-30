@@ -26,7 +26,7 @@ public class Player implements Renderable {
 
 	public float x;
 	public float y;
-	
+
 	public float moveSpeed;
 
 	public int direction = 0;
@@ -70,7 +70,7 @@ public class Player implements Renderable {
 			futureX = x + tileWidth;
 			direction = 2;
 			moveSpeed = 0.25f;
-			//debug line
+			// debug line
 			System.out.println("Future X is: " + futureX);
 		} else if (dx == -1) {
 			// case: -1 ... simulation of 1 tile movement left
@@ -121,23 +121,28 @@ public class Player implements Renderable {
 			if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
 				collideX = false;
 				collideY = false;
-				//debug lines
+				// debug lines
 				System.out.println("cell is not blocked");
-				System.out.println("Walk animation size is: " + walkAnimation.size()); //this returns the size of the ArrayList, not sprite size in px.
+				System.out.println("Walk animation size is: " + walkAnimation.size()); // this returns the size of the
+																						// ArrayList, not sprite size in
+																						// px.
 			} else {
 				collideX = true;
 				collideY = true;
-				//debug lines
+				// debug lines
 				System.out.println("cell is blocked");
-				System.out.println("Walk animation size is: " + walkAnimation.size()); //need to change walkAnimation.size() to something that returns sprite size, not array list size.
+				System.out.println("Walk animation size is: " + walkAnimation.size()); // need to change
+																						// walkAnimation.size() to
+																						// something that returns sprite
+																						// size, not array list size.
 			}
 
 			if (!collideX || !collideY) {
 				x = (futureX);
-				//debug line
+				// debug line
 				System.out.println("Current X is: " + futureX);
 				y = (futureY);
-				//debug line
+				// debug line
 				System.out.println("Current Y is: " + futureY);
 			}
 		}
@@ -167,14 +172,14 @@ public class Player implements Renderable {
 		walkSheet = new Texture("sprites/Ayumi.png");
 		walkAnimation = new ArrayList<Animation<TextureRegion>>(4);
 
-//		// Use the split utility method to create a 2D array of TextureRegions
-//		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / Settings.SPRITE_COLUMNS,
-//				walkSheet.getHeight() / Settings.SPRITE_ROWS);
-//
-//		// Cycle through each picture on the selected sprite sheet row
-//		for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
-//			walkAnimation.add(new Animation<TextureRegion>(moveSpeed, tmp[i]));
-//		}
+		// Use the split utility method to create a 2D array of TextureRegions
+		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / Settings.SPRITE_COLUMNS,
+				walkSheet.getHeight() / Settings.SPRITE_ROWS);
+
+		// Cycle through each picture on the selected sprite sheet row
+		for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
+			walkAnimation.add(new Animation<TextureRegion>(moveSpeed, tmp[i]));
+		}
 
 		// Instantiate a SpriteBatch for drawing and reset the elapsed animation
 		// time to 0
@@ -190,16 +195,6 @@ public class Player implements Renderable {
 
 	// implementation of render
 	public void render(float delta, SpriteBatch batch) {
-		// Use the split utility method to create a 2D array of TextureRegions
-		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / Settings.SPRITE_COLUMNS,
-				walkSheet.getHeight() / Settings.SPRITE_ROWS);
-
-		// Cycle through each picture on the selected sprite sheet row
-		for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
-			System.out.println(moveSpeed);
-			walkAnimation.add(new Animation<TextureRegion>(moveSpeed, tmp[i]));
-		}
-		
 		stateTime += Gdx.graphics.getDeltaTime(); // Accumulate elapsed animation time
 
 		// Get current frame of animation for the current stateTime
