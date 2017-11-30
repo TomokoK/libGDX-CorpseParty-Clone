@@ -70,14 +70,12 @@ public class Player implements Renderable {
 			// case 1 ... simulation of 1 tile movement right
 			futureX = x + tileWidth;
 			direction = 2;
-			currentSpeed = 0.25f;
 			// debug line
 			System.out.println("Future X is: " + futureX);
 		} else if (dx == -1) {
 			// case: -1 ... simulation of 1 tile movement left
 			futureX = x - tileWidth;
 			direction = 1;
-			currentSpeed = 0.25f;
 			System.out.println("Future X is: " + futureX);
 		} else {
 			// case: 0 or invalid dx value -> no movement
@@ -96,13 +94,11 @@ public class Player implements Renderable {
 			// move 1 tile up
 			futureY = y + tileHeight;
 			direction = 3;
-			currentSpeed = 0.25f;
 			System.out.println("Future Y is: " + futureY);
 		} else if (dy == -1) {
 			// move 1 time down
 			futureY = y - tileHeight;
 			direction = 0;
-			currentSpeed = 0.25f;
 			System.out.println("Future Y is: " + futureY);
 		} else {
 			// do not move
@@ -139,6 +135,7 @@ public class Player implements Renderable {
 			}
 
 			if (!collideX || !collideY) {
+				currentSpeed = 1f;
 				x = (futureX);
 				// debug line
 				System.out.println("Current X is: " + futureX);
@@ -152,7 +149,7 @@ public class Player implements Renderable {
 		else {
 			x = x + (dx * 24);
 			y = y + (dy * 24);
-			currentSpeed = 0.25f;
+			currentSpeed = 1f;
 		}
 
 	}
@@ -201,11 +198,19 @@ public class Player implements Renderable {
 		stateTime += (Gdx.graphics.getDeltaTime() * currentSpeed); // Accumulate elapsed animation time
 
 		// Get current frame of animation for the current stateTime
-		TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(stateTime, true);
-
-		batch.draw(currentFrame, (x - 11), y); // Draw current frame at (X, Y)
-												// X is offset by -11 as the source sprite sheet isn't a
-												// power of two.
+		if (currentSpeed != 0f) {
+			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(stateTime, true);
+			batch.draw(currentFrame, (x - 11), y); // Draw current frame at (X, Y)
+			// X is offset by -11 as the source sprite sheet isn't a
+			// power of two.
+			System.out.println(stateTime);
+		} else if (currentSpeed == 0f) {
+			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(2f, false);
+			batch.draw(currentFrame, (x - 11), y); // Draw current frame at (X, Y)
+			// X is offset by -11 as the source sprite sheet isn't a
+			// power of two.
+			System.out.println("No stateTime!");
+		}
 
 	}
 
