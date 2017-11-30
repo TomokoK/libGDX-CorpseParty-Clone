@@ -19,7 +19,7 @@ public class PlayerInput extends InputAdapter {
 	// player input method
 	@Override
 	public boolean keyDown(int keycode) {
-		if (Gdx.input.isKeyPressed(Keys.W)) {
+		if (keycode == Keys.W) {
 			this.me.move(0, 1);
 		}
 
