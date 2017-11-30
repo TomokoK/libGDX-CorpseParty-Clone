@@ -26,6 +26,8 @@ public class Player implements Renderable {
 
 	public float x;
 	public float y;
+	
+	public float moveSpeed;
 
 	public int direction = 0;
 
@@ -67,12 +69,14 @@ public class Player implements Renderable {
 			// case 1 ... simulation of 1 tile movement right
 			futureX = x + tileWidth;
 			direction = 2;
+			moveSpeed = 0.25f;
 			//debug line
 			System.out.println("Future X is: " + futureX);
 		} else if (dx == -1) {
 			// case: -1 ... simulation of 1 tile movement left
 			futureX = x - tileWidth;
 			direction = 1;
+			moveSpeed = 0.25f;
 			System.out.println("Future X is: " + futureX);
 		} else {
 			// case: 0 or invalid dx value -> no movement
@@ -91,11 +95,13 @@ public class Player implements Renderable {
 			// move 1 tile up
 			futureY = y + tileHeight;
 			direction = 3;
+			moveSpeed = 0.25f;
 			System.out.println("Future Y is: " + futureY);
 		} else if (dy == -1) {
 			// move 1 time down
 			futureY = y - tileHeight;
 			direction = 0;
+			moveSpeed = 0.25f;
 			System.out.println("Future Y is: " + futureY);
 		} else {
 			// do not move
@@ -140,6 +146,7 @@ public class Player implements Renderable {
 		else {
 			x = x + (dx * 24);
 			y = y + (dy * 24);
+			moveSpeed = 0.25f;
 		}
 
 	}
@@ -160,14 +167,14 @@ public class Player implements Renderable {
 		walkSheet = new Texture("sprites/Ayumi.png");
 		walkAnimation = new ArrayList<Animation<TextureRegion>>(4);
 
-		// Use the split utility method to create a 2D array of TextureRegions
-		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / Settings.SPRITE_COLUMNS,
-				walkSheet.getHeight() / Settings.SPRITE_ROWS);
-
-		// Cycle through each picture on the selected sprite sheet row
-		for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
-			walkAnimation.add(new Animation<TextureRegion>(PlayerInput.moveSpeed, tmp[i]));
-		}
+//		// Use the split utility method to create a 2D array of TextureRegions
+//		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / Settings.SPRITE_COLUMNS,
+//				walkSheet.getHeight() / Settings.SPRITE_ROWS);
+//
+//		// Cycle through each picture on the selected sprite sheet row
+//		for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
+//			walkAnimation.add(new Animation<TextureRegion>(moveSpeed, tmp[i]));
+//		}
 
 		// Instantiate a SpriteBatch for drawing and reset the elapsed animation
 		// time to 0
@@ -183,6 +190,16 @@ public class Player implements Renderable {
 
 	// implementation of render
 	public void render(float delta, SpriteBatch batch) {
+		// Use the split utility method to create a 2D array of TextureRegions
+		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / Settings.SPRITE_COLUMNS,
+				walkSheet.getHeight() / Settings.SPRITE_ROWS);
+
+		// Cycle through each picture on the selected sprite sheet row
+		for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
+			System.out.println(moveSpeed);
+			walkAnimation.add(new Animation<TextureRegion>(moveSpeed, tmp[i]));
+		}
+		
 		stateTime += Gdx.graphics.getDeltaTime(); // Accumulate elapsed animation time
 
 		// Get current frame of animation for the current stateTime
