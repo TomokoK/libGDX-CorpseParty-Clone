@@ -179,7 +179,7 @@ public class Player implements Renderable {
 
 		// Cycle through each picture on the selected sprite sheet row
 		Animation tmpAnim; for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
-			tmpAnim = new Animation<TextureRegion>(currentSpeed, tmp[i]);
+			tmpAnim = new Animation<TextureRegion>(0.1f, tmp[i]);
 			tmpAnim.setPlayMode(Animation.PlayMode.LOOP);
 			walkAnimation.add(tmpAnim);
 		}
