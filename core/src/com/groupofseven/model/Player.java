@@ -60,7 +60,6 @@ public class Player implements Renderable {
 
 		float futureX; // will be calculated to simulate 1 tile in advance with
 						// respect to dx
-		currentSpeed = 0f;
 
 		// Calculate future x.
 		// cases: dx == 0 -> future x is current x (no movement)
@@ -176,10 +175,18 @@ public class Player implements Renderable {
 
 		// Cycle through each picture on the selected sprite sheet row
 		Animation tmpAnim;
-		for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
-			tmpAnim = new Animation<TextureRegion>(0.1f, tmp[i]);
-			tmpAnim.setPlayMode(Animation.PlayMode.LOOP);
-			walkAnimation.add(tmpAnim);
+		if (currentSpeed != 0f) {
+			for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
+				tmpAnim = new Animation<TextureRegion>(0.15f, tmp[i]);
+				tmpAnim.setPlayMode(Animation.PlayMode.LOOP);
+				walkAnimation.add(tmpAnim);
+			}
+		} else if (currentSpeed == 0f) {
+			for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
+				tmpAnim = new Animation<TextureRegion>(0.15f, tmp[i]);
+				tmpAnim.setPlayMode(Animation.PlayMode.NORMAL);
+				walkAnimation.add(tmpAnim);
+			}
 		}
 
 		// Instantiate a SpriteBatch for drawing and reset the elapsed animation
@@ -204,13 +211,13 @@ public class Player implements Renderable {
 			batch.draw(currentFrame, (x - 11), y); // Draw current frame at (X, Y)
 			// X is offset by -11 as the source sprite sheet isn't a
 			// power of two.
-			System.out.println(stateTime);
+			System.out.println(stateTime); //debug line
 		} else if (currentSpeed == 0f) {
-			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(2f, false);
+			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(3f, false);
 			batch.draw(currentFrame, (x - 11), y); // Draw current frame at (X, Y)
 			// X is offset by -11 as the source sprite sheet isn't a
 			// power of two.
-			System.out.println("No stateTime!");
+			System.out.println("No stateTime!"); //debug line
 		}
 
 	}

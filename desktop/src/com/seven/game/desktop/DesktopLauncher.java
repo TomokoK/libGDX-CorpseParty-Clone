@@ -21,6 +21,7 @@
  * 	Add tile layers to each map for better collision detection (e.g. sprite behind podium)
  * 	Add voice acting
  * 	Sprite animations *PRIORITY*
+ * 		Need to convert player input from isKeyDown to continuous input
  * 	Fix TextureRender size
  * 		Either through code or resize the source PNG
  * 	Main menu
@@ -33,7 +34,7 @@
  * 		Pick up items, use them in areas
  * 	Change script from edited version -> original CP rip (?)
  * 	Fix camera to be more authentic to the original (Load up a vita save and take a look)
- * 	Tune the volume, fix the non loop in Class 1A
+ * 	Tune the volume, fix the no music loop in Class 1A
  * 
  */
 package com.seven.game.desktop;
