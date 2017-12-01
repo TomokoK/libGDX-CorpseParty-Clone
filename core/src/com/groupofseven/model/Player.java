@@ -60,6 +60,8 @@ public class Player implements Renderable {
 
 		float futureX; // will be calculated to simulate 1 tile in advance with
 						// respect to dx
+		currentSpeed = 0f; //if this does not exist, animation will not stop
+							//when it hits a wall (???)
 
 		// Calculate future x.
 		// cases: dx == 0 -> future x is current x (no movement)
@@ -175,18 +177,10 @@ public class Player implements Renderable {
 
 		// Cycle through each picture on the selected sprite sheet row
 		Animation tmpAnim;
-		if (currentSpeed != 0f) {
-			for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
-				tmpAnim = new Animation<TextureRegion>(0.15f, tmp[i]);
-				tmpAnim.setPlayMode(Animation.PlayMode.LOOP);
-				walkAnimation.add(tmpAnim);
-			}
-		} else if (currentSpeed == 0f) {
-			for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
-				tmpAnim = new Animation<TextureRegion>(0.15f, tmp[i]);
-				tmpAnim.setPlayMode(Animation.PlayMode.NORMAL);
-				walkAnimation.add(tmpAnim);
-			}
+		for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
+			tmpAnim = new Animation<TextureRegion>(0.15f, tmp[i]);
+			tmpAnim.setPlayMode(Animation.PlayMode.LOOP);
+			walkAnimation.add(tmpAnim);
 		}
 
 		// Instantiate a SpriteBatch for drawing and reset the elapsed animation
