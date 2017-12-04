@@ -19,7 +19,7 @@ public class PlayerInput extends InputAdapter {
 	// player input method
 	@Override
 	public boolean keyDown(int keycode) {
-		if (Gdx.input.isKeyPressed(Keys.W)) {
+		if (keycode == Keys.W) {
 			System.out.println("W pushed"); //debug line
 			this.me.move(0, 1);
 		}
@@ -59,6 +59,28 @@ public class PlayerInput extends InputAdapter {
 		}
 
 		return false;
+	}
+	
+	@Override
+	public boolean keyUp(int keycode) {
+		if(keycode == Keys.W) {
+			me.currentSpeed = 0f;
+		}
+		
+		if(keycode == Keys.A) {
+			me.currentSpeed = 0f;
+		}
+		
+		if(keycode == Keys.S) {
+			me.currentSpeed = 0f;
+		}
+		
+		if(keycode == Keys.D) {
+			me.currentSpeed = 0f;
+		}
+		
+		return false;
+	
 	}
 
 }
