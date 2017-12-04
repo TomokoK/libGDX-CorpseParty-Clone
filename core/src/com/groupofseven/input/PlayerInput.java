@@ -11,6 +11,11 @@ public class PlayerInput extends InputAdapter {
 
 	private Player me;
 
+	public boolean movingUp = false;
+	public boolean movingDown = false;
+	public boolean movingLeft = false;
+	public boolean movingRight = false;
+
 	// store a reference of Player as this class.player = p
 	public PlayerInput(Player p) {
 		this.me = p;
@@ -20,27 +25,36 @@ public class PlayerInput extends InputAdapter {
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.W) {
-			System.out.println("W pushed"); //debug line
-			this.me.move(0, 1);
+			System.out.println("W pushed"); // debug line
+			// this.me.move(0, 1);
+			movingUp = true;
+			movement();
 		}
 
 		if (keycode == Keys.A) {
-			System.out.println("A pushed"); //debug line
-			this.me.move(-1, 0);
+			System.out.println("A pushed"); // debug line
+			// this.me.move(-1, 0);
+			movingLeft = true;
+			movement();
 		}
 
 		if (keycode == Keys.S) {
-			System.out.println("S pushed"); //debug line
-			this.me.move(0, -1);
+			System.out.println("S pushed"); // debug line
+			// this.me.move(0, -1);
+			movingDown = true;
+			movement();
 		}
 
 		if (keycode == Keys.D) {
-			System.out.println("D pushed"); //debug line
-			this.me.move(1, 0);
+			System.out.println("D pushed"); // debug line
+			// this.me.move(1, 0);
+			movingRight = true;
+			movement();
 		}
 
 		if (keycode == Keys.X) {
-			// Only used for dev purposes, this will be removed when I add door functionality.
+			// Only used for dev purposes, this will be removed when I add door
+			// functionality.
 
 			// if the current screen is Class1ASCreen
 			if (me.getApp().getScreen().getClass() == Class1AScreen.class) {
@@ -60,27 +74,56 @@ public class PlayerInput extends InputAdapter {
 
 		return false;
 	}
-	
+
 	@Override
 	public boolean keyUp(int keycode) {
-		if(keycode == Keys.W) {
+		if (keycode == Keys.W) {
 			me.currentSpeed = 0f;
+			movingUp = false;
+			movement();
 		}
-		
-		if(keycode == Keys.A) {
+
+		if (keycode == Keys.A) {
 			me.currentSpeed = 0f;
+			movingLeft = false;
+			movement();
 		}
-		
-		if(keycode == Keys.S) {
+
+		if (keycode == Keys.S) {
 			me.currentSpeed = 0f;
+			movingDown = false;
+			movement();
 		}
-		
-		if(keycode == Keys.D) {
+
+		if (keycode == Keys.D) {
 			me.currentSpeed = 0f;
+			movingRight = false;
+			movement();
 		}
-		
+
 		return false;
-	
+
+	}
+
+	public void movement() {
+		//while (true) { //uncommenting this causes java to hang
+			if (movingUp = true) {
+				System.out.println("W pushed in movement()"); // debug line
+				this.me.move(0, 1);
+			}
+			if (movingDown = true) {
+				System.out.println("S pushed in movement()"); // debug line
+				this.me.move(0, -1);
+			}
+			if (movingLeft = true) {
+				System.out.println("A pushed in movement()"); // debug line
+				this.me.move(-1, 0);
+			}
+			if (movingRight = true) {
+				System.out.println("D pushed in movement()"); // debug line
+				this.me.move(1, 0);
+			}
+		//}
 	}
 
 }
