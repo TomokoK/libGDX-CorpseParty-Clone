@@ -22,8 +22,6 @@
  * 	Add voice acting
  * 	Sprite animations *PRIORITY*
  * 		Need to convert player input from isKeyDown to continuous input
- * 	Fix TextureRender sized
- * 		Either through code or resize the source PNG
  * 	Main menu
  * 		Save/Load
  * 		Exit
