@@ -28,28 +28,28 @@ public class PlayerInput extends InputAdapter {
 			System.out.println("W pushed"); // debug line
 			// this.me.move(0, 1);
 			movingUp = true;
-			movement();
+			movement(movingUp);
 		}
 
 		if (keycode == Keys.A) {
 			System.out.println("A pushed"); // debug line
 			// this.me.move(-1, 0);
 			movingLeft = true;
-			movement();
+			movement(movingLeft);
 		}
 
 		if (keycode == Keys.S) {
 			System.out.println("S pushed"); // debug line
 			// this.me.move(0, -1);
 			movingDown = true;
-			movement();
+			movement(movingDown);
 		}
 
 		if (keycode == Keys.D) {
 			System.out.println("D pushed"); // debug line
 			// this.me.move(1, 0);
 			movingRight = true;
-			movement();
+			movement(movingRight);
 		}
 
 		if (keycode == Keys.X) {
@@ -80,50 +80,51 @@ public class PlayerInput extends InputAdapter {
 		if (keycode == Keys.W) {
 			me.currentSpeed = 0f;
 			movingUp = false;
-			movement();
+			movement(movingUp);
 		}
 
 		if (keycode == Keys.A) {
 			me.currentSpeed = 0f;
 			movingLeft = false;
-			movement();
+			movement(movingLeft);
 		}
 
 		if (keycode == Keys.S) {
 			me.currentSpeed = 0f;
 			movingDown = false;
-			movement();
+			movement(movingDown);
 		}
 
 		if (keycode == Keys.D) {
 			me.currentSpeed = 0f;
 			movingRight = false;
-			movement();
+			movement(movingRight);
 		}
 
 		return false;
 
 	}
 
-	public void movement() {
+	public void movement(boolean dir) {
 		//while (true) { //uncommenting this causes java to hang
-			if (movingUp = true) {
+			if (dir = movingUp) {
 				System.out.println("W pushed in movement()"); // debug line
 				this.me.move(0, 1);
 			}
-			if (movingDown = true) {
+			if (dir = movingDown) {
 				System.out.println("S pushed in movement()"); // debug line
 				this.me.move(0, -1);
 			}
-			if (movingLeft = true) {
+			if (dir = movingLeft) {
 				System.out.println("A pushed in movement()"); // debug line
 				this.me.move(-1, 0);
 			}
-			if (movingRight = true) {
+			if (dir = movingRight) {
 				System.out.println("D pushed in movement()"); // debug line
 				this.me.move(1, 0);
 			}
 		//}
+			return;
 	}
 
 }
