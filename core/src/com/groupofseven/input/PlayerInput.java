@@ -80,25 +80,25 @@ public class PlayerInput extends InputAdapter {
 		if (keycode == Keys.W) {
 			me.currentSpeed = 0f;
 			movingUp = false;
-			movement(movingUp);
+			// movement(movingUp);
 		}
 
 		if (keycode == Keys.A) {
 			me.currentSpeed = 0f;
 			movingLeft = false;
-			movement(movingLeft);
+			// movement(movingLeft);
 		}
 
 		if (keycode == Keys.S) {
 			me.currentSpeed = 0f;
 			movingDown = false;
-			movement(movingDown);
+			// movement(movingDown);
 		}
 
 		if (keycode == Keys.D) {
 			me.currentSpeed = 0f;
 			movingRight = false;
-			movement(movingRight);
+			// movement(movingRight);
 		}
 
 		return false;
@@ -106,25 +106,35 @@ public class PlayerInput extends InputAdapter {
 	}
 
 	public void movement(boolean dir) {
-		//while (true) { //uncommenting this causes java to hang
-			if (dir = movingUp) {
+		// while (true) { //uncommenting this causes java to hang
+		if (dir == movingUp) {
+			//while (true) { //uncommenting causes java to hang
 				System.out.println("W pushed in movement()"); // debug line
 				this.me.move(0, 1);
-			}
-			if (dir = movingDown) {
+			//}
+		}
+		if (dir == movingDown) {
+			//while (true) { //uncommenting causes java to hang
 				System.out.println("S pushed in movement()"); // debug line
 				this.me.move(0, -1);
-			}
-			if (dir = movingLeft) {
+			//}
+		}
+		if (dir == movingLeft) {
+			//while (true) { //uncommenting causes java to hang
 				System.out.println("A pushed in movement()"); // debug line
 				this.me.move(-1, 0);
-			}
-			if (dir = movingRight) {
+			//}
+		}
+		if (dir == movingRight) {
+			//while (true) { //uncommenting causes java to hang
 				System.out.println("D pushed in movement()"); // debug line
 				this.me.move(1, 0);
-			}
-		//}
-			return;
+			//}
+		} else {
+			System.out.println("Nothing pressed"); // debug line
+		}
+		// }
+		return;
 	}
 
 }
