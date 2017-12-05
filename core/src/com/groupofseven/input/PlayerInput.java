@@ -111,24 +111,28 @@ public class PlayerInput extends InputAdapter {
 			//while (true) { //uncommenting causes java to hang
 				System.out.println("W pushed in movement()"); // debug line
 				this.me.move(0, 1);
+				//Thread.sleep(500);
 			//}
 		}
 		if (dir == movingDown) {
 			//while (true) { //uncommenting causes java to hang
 				System.out.println("S pushed in movement()"); // debug line
 				this.me.move(0, -1);
+				//Thread.sleep(500);
 			//}
 		}
 		if (dir == movingLeft) {
 			//while (true) { //uncommenting causes java to hang
 				System.out.println("A pushed in movement()"); // debug line
 				this.me.move(-1, 0);
+				//Thread.sleep(500);
 			//}
 		}
 		if (dir == movingRight) {
 			//while (true) { //uncommenting causes java to hang
 				System.out.println("D pushed in movement()"); // debug line
 				this.me.move(1, 0);
+				//Thread.sleep(500);
 			//}
 		} else {
 			System.out.println("Nothing pressed"); // debug line
