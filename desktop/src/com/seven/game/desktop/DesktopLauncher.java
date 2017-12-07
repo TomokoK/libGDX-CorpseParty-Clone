@@ -20,8 +20,8 @@
  * 	Add + improve collision detection
  * 	Add tile layers to each map for better collision detection (e.g. sprite behind podium)
  * 	Add voice acting
- * 	Sprite animations *PRIORITY*s
- * 		Need to convert player input from isKeyDown to continuous input
+ * 	Sprite animations *PRIORITY*
+ * 		Need to convert player input from KeyDown to continuous input
  * 	Main menu
  * 		Save/Load
  * 		Exit

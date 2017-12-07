@@ -121,18 +121,11 @@ public class Player implements Renderable {
 				collideY = false;
 				// debug lines
 				System.out.println("cell is not blocked");
-				System.out.println("Walk animation size is: " + walkAnimation.size()); // this returns the size of the
-																						// ArrayList, not sprite size in
-																						// px.
 			} else {
 				collideX = true;
 				collideY = true;
 				// debug lines
 				System.out.println("cell is blocked");
-				System.out.println("Walk animation size is: " + walkAnimation.size()); // need to change
-																						// walkAnimation.size() to
-																						// something that returns sprite
-																						// size, not array list size.
 			}
 
 			if (!collideX || !collideY) {
