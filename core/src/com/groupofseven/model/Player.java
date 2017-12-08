@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+
 import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
@@ -30,6 +31,8 @@ public class Player implements Renderable {
 	public float currentSpeed;
 
 	public int direction = 0;
+
+	public int tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 
 	// Objects here
 	ArrayList<Animation<TextureRegion>> walkAnimation; // declare frame type (texture region)
@@ -56,12 +59,9 @@ public class Player implements Renderable {
 
 	// method to move the sprite
 	public void move(int dx, int dy) {
-		int tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 
 		float futureX; // will be calculated to simulate 1 tile in advance with
 						// respect to dx
-		currentSpeed = 0f; //if this does not exist, animation will not stop
-							//when it hits a wall (???)
 
 		// Calculate future x.
 		// cases: dx == 0 -> future x is current x (no movement)
@@ -198,13 +198,14 @@ public class Player implements Renderable {
 			batch.draw(currentFrame, (x - 11), y); // Draw current frame at (X, Y)
 			// X is offset by -11 as the source sprite sheet isn't a
 			// power of two.
-			System.out.println(stateTime); //debug line
+			System.out.println(stateTime); // debug line
 		} else if (currentSpeed == 0f) {
-			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(3f, false);
+			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(3f, false); // Don't
+			// draw the sprite mid animation if you are against a blocked tile
 			batch.draw(currentFrame, (x - 11), y); // Draw current frame at (X, Y)
 			// X is offset by -11 as the source sprite sheet isn't a
 			// power of two.
-			System.out.println("No stateTime!"); //debug line
+			System.out.println("No stateTime!"); // debug line
 		}
 
 	}
