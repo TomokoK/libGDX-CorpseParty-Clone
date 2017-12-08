@@ -22,6 +22,7 @@
  * 	Add voice acting
  * 	Sprite animations *PRIORITY*
  * 		Need to convert player input from KeyDown to continuous input
+ * 			Only allow one key press at a time for movement
  * 	Main menu
  * 		Save/Load
  * 		Exit
