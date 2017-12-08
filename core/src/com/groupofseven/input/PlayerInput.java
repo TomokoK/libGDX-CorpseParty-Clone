@@ -111,7 +111,7 @@ public class PlayerInput extends InputAdapter {
 			//while (true) { //uncommenting causes java to hang
 				System.out.println("W pushed in movement()"); // debug line
 				this.me.move(0, 1);
-				//Thread.sleep(500);
+				//Thread.sleep(500); // this will cause the entire program to stop since it's not multi-threaded.
 			//}
 		}
 		if (dir == movingDown) {
