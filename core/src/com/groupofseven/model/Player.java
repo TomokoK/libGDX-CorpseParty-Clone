@@ -141,8 +141,8 @@ public class Player implements Renderable {
 
 		// handle the SecondFloorMap
 		else {
-			x = x + (dx * 24);
-			y = y + (dy * 24);
+			x = x + (dx * tileWidth);
+			y = y + (dy * tileHeight);
 			currentSpeed = 1f;
 		}
 
@@ -161,7 +161,7 @@ public class Player implements Renderable {
 		// This loads the sprite into the GPU.
 
 		// Load sprite sheet as a texture
-		walkSheet = new Texture("sprites/Ayumi.png");
+		walkSheet = new Texture("sprites/Seiko.png");
 		walkAnimation = new ArrayList<Animation<TextureRegion>>(4);
 
 		// Use the split utility method to create a 2D array of TextureRegions
