@@ -198,6 +198,8 @@ public class Player implements Renderable {
 	public void render(float delta, SpriteBatch batch) {
 		stateTime += (Gdx.graphics.getDeltaTime() * currentSpeed); // Accumulate elapsed animation time
 
+		movement();
+		
 		// Get current frame of animation for the current stateTime
 		if (currentSpeed != 0f) {
 			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(stateTime, true);
