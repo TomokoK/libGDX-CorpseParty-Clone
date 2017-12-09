@@ -99,40 +99,24 @@ public class PlayerInput extends InputAdapter {
 	}
 
 	public void movement() {
-		while (true) { // uncommenting this causes java to hang
-			if (none) {
-				//don't do things
-				break;
-			}
-			if (movingUp) {
-				// while (true) { //uncommenting causes java to hang
-				System.out.println("W pushed in movement()"); // debug line
-				this.me.move(0, 1);
-				// Thread.sleep(500); // this will cause the entire program to stop since it's
-				// not multi-threaded.
-				// }
-			}
-			if (movingDown) {
-				// while (true) { //uncommenting causes java to hang
-				System.out.println("S pushed in movement()"); // debug line
-				this.me.move(0, -1);
-				// Thread.sleep(500);
-				// }
-			}
-			if (movingLeft) {
-				// while (true) { //uncommenting causes java to hang
-				System.out.println("A pushed in movement()"); // debug line
-				this.me.move(-1, 0);
-				// Thread.sleep(500);
-				// }
-			}
-			if (movingLeft == true) {
-				// while (true) { //uncommenting causes java to hang
-				System.out.println("D pushed in movement()"); // debug line
-				this.me.move(1, 0);
-				// Thread.sleep(500);
-				// }
-			}
+		if (none) {
+			// don't do things
+		}
+		if (movingUp) {
+			System.out.println("W pushed in movement()"); // debug line
+			this.me.move(0, 1);
+		}
+		if (movingDown) {
+			System.out.println("S pushed in movement()"); // debug line
+			this.me.move(0, -1);
+		}
+		if (movingLeft) {
+			System.out.println("A pushed in movement()"); // debug line
+			this.me.move(-1, 0);
+		}
+		if (movingLeft == true) {
+			System.out.println("D pushed in movement()"); // debug line
+			this.me.move(1, 0);
 		}
 		return;
 	}
