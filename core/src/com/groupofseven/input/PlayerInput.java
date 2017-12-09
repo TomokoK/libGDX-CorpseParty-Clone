@@ -29,28 +29,24 @@ public class PlayerInput extends InputAdapter {
 			System.out.println("W pushed"); // debug line
 			// this.me.move(0, 1);
 			movingUp = true;
-			movement(movingUp);
 		}
 
 		if (keycode == Keys.A) {
 			System.out.println("A pushed"); // debug line
 			// this.me.move(-1, 0);
 			movingLeft = true;
-			movement(movingLeft);
 		}
 
 		if (keycode == Keys.S) {
 			System.out.println("S pushed"); // debug line
 			// this.me.move(0, -1);
 			movingDown = true;
-			movement(movingDown);
 		}
 
 		if (keycode == Keys.D) {
 			System.out.println("D pushed"); // debug line
 			// this.me.move(1, 0);
 			movingRight = true;
-			movement(movingRight);
 		}
 
 		if (keycode == Keys.X) {
@@ -81,34 +77,34 @@ public class PlayerInput extends InputAdapter {
 		if (keycode == Keys.W) {
 			me.currentSpeed = 0f;
 			movingUp = false;
-			movement(none);
 		}
 
 		if (keycode == Keys.A) {
 			me.currentSpeed = 0f;
 			movingLeft = false;
-			movement(none);
 		}
 
 		if (keycode == Keys.S) {
 			me.currentSpeed = 0f;
 			movingDown = false;
-			movement(none);
 		}
 
 		if (keycode == Keys.D) {
 			me.currentSpeed = 0f;
 			movingRight = false;
-			movement(none);
 		}
 
 		return false;
 
 	}
 
-	public void movement(boolean dir) {
+	public void movement() {
 		while (true) { // uncommenting this causes java to hang
-			if (dir == movingUp) {
+			if (none) {
+				//don't do things
+				break;
+			}
+			if (movingUp) {
 				// while (true) { //uncommenting causes java to hang
 				System.out.println("W pushed in movement()"); // debug line
 				this.me.move(0, 1);
@@ -116,29 +112,26 @@ public class PlayerInput extends InputAdapter {
 				// not multi-threaded.
 				// }
 			}
-			if (dir == movingDown) {
+			if (movingDown) {
 				// while (true) { //uncommenting causes java to hang
 				System.out.println("S pushed in movement()"); // debug line
 				this.me.move(0, -1);
 				// Thread.sleep(500);
 				// }
 			}
-			if (dir == movingLeft) {
+			if (movingLeft) {
 				// while (true) { //uncommenting causes java to hang
 				System.out.println("A pushed in movement()"); // debug line
 				this.me.move(-1, 0);
 				// Thread.sleep(500);
 				// }
 			}
-			if (dir == movingRight) {
+			if (movingLeft == true) {
 				// while (true) { //uncommenting causes java to hang
 				System.out.println("D pushed in movement()"); // debug line
 				this.me.move(1, 0);
 				// Thread.sleep(500);
 				// }
-			} else {
-				System.out.println("Nothing pressed"); // debug line
-				break;
 			}
 		}
 		return;
