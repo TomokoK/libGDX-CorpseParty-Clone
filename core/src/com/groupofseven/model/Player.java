@@ -27,6 +27,12 @@ public class Player implements Renderable {
 
 	public float x;
 	public float y;
+	
+	public boolean movingUp = false;
+	public boolean movingDown = false;
+	public boolean movingLeft = false;
+	public boolean movingRight = false;
+	public boolean none = false;
 
 	public float currentSpeed;
 
@@ -208,6 +214,29 @@ public class Player implements Renderable {
 			System.out.println("No stateTime!"); // debug line
 		}
 
+	}
+	
+	public void movement() {
+		if (none) {
+			// don't do things
+		}
+		else if (movingUp) {
+			System.out.println("W pushed in movement()"); // debug line
+			move(0, 1);
+		}
+		else if (movingDown) {
+			System.out.println("S pushed in movement()"); // debug line
+			move(0, -1);
+		}
+		else if (movingLeft) {
+			System.out.println("A pushed in movement()"); // debug line
+			move(-1, 0);
+		}
+		else if (movingRight) {
+			System.out.println("D pushed in movement()"); // debug line
+			move(1, 0);
+		}
+		return;
 	}
 
 	public void dispose() {
