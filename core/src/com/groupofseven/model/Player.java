@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-
+import com.badlogic.gdx.math.MathUtils;
 import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
@@ -136,9 +136,13 @@ public class Player implements Renderable {
 
 			if (!collideX || !collideY) {
 				currentSpeed = 1f;
+				float startTime = System.currentTimeMillis();
+				float change = (System.currentTimeMillis() - startTime) * 0.005f;
+				MathUtils.lerp(x, futureX, change);
 				x = (futureX);
 				// debug line
 				System.out.println("Current X is: " + futureX);
+				MathUtils.lerp(y, futureY, change);
 				y = (futureY);
 				// debug line
 				System.out.println("Current Y is: " + futureY);
