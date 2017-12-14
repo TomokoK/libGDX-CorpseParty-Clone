@@ -27,7 +27,7 @@ public class Player implements Renderable {
 
 	public float x;
 	public float y;
-	
+
 	public boolean movingUp = false;
 	public boolean movingDown = false;
 	public boolean movingLeft = false;
@@ -198,12 +198,32 @@ public class Player implements Renderable {
 
 	}
 
+	public void movement() {
+		if (none) {
+			// don't do things
+		} else if (movingUp && !movingDown && !movingLeft && !movingRight) {
+			System.out.println("W pushed in movement()"); // debug line
+			move(0, 1);
+		} else if (movingDown && !movingUp && !movingLeft && !movingRight) {
+			System.out.println("S pushed in movement()"); // debug line
+			move(0, -1);
+		} else if (movingLeft && !movingDown && !movingUp && !movingRight) {
+			System.out.println("A pushed in movement()"); // debug line
+			move(-1, 0);
+		} else if (movingRight && !movingUp && !movingDown && !movingLeft) {
+			System.out.println("D pushed in movement()"); // debug line
+			move(1, 0);
+		}
+		return;
+	}
+
 	// implementation of render
 	public void render(float delta, SpriteBatch batch) {
 		stateTime += (Gdx.graphics.getDeltaTime() * currentSpeed); // Accumulate elapsed animation time
 
+		//running movement at every render call (however many FPS) causes the sprite to move quickly
 		movement();
-		
+
 		// Get current frame of animation for the current stateTime
 		if (currentSpeed != 0f) {
 			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(stateTime, true);
@@ -220,29 +240,6 @@ public class Player implements Renderable {
 			System.out.println("No stateTime!"); // debug line
 		}
 
-	}
-	
-	public void movement() {
-		if (none) {
-			// don't do things
-		}
-		else if (movingUp) {
-			System.out.println("W pushed in movement()"); // debug line
-			move(0, 1);
-		}
-		else if (movingDown) {
-			System.out.println("S pushed in movement()"); // debug line
-			move(0, -1);
-		}
-		else if (movingLeft) {
-			System.out.println("A pushed in movement()"); // debug line
-			move(-1, 0);
-		}
-		else if (movingRight) {
-			System.out.println("D pushed in movement()"); // debug line
-			move(1, 0);
-		}
-		return;
 	}
 
 	public void dispose() {
