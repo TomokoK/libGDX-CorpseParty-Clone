@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
@@ -23,21 +25,30 @@ public class Player implements Renderable {
 
 	private final PlayerInput input; // final reference to player input
 
-	private TiledMapTileLayer collisionLayer;
+	private TiledMapTileLayer collisionLayer; // reference to the map layer
 
+	// x and y are used for sprite position
 	public float x;
 	public float y;
 
+	// booleans handled by the PlayerInput class, used to movement
 	public boolean movingUp = false;
 	public boolean movingDown = false;
 	public boolean movingLeft = false;
 	public boolean movingRight = false;
 	public boolean none = false;
 
+	// used to set the current speed of the sprite
 	public float currentSpeed;
 
+	// used for the delay between movement when holding down a key
+	public float timeSinceLastMove = 1f;
+	public float delay = 0.25f;
+
+	// used to set which sprite row we use while moving
 	public int direction = 0;
 
+	// set the height and width of the tiles from the settings class
 	public int tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 
 	// Objects here
@@ -199,30 +210,65 @@ public class Player implements Renderable {
 	}
 
 	public void movement() {
-		if (none) {
-			// don't do things
-		} else if (movingUp && !movingDown && !movingLeft && !movingRight) {
-			System.out.println("W pushed in movement()"); // debug line
-			move(0, 1);
-		} else if (movingDown && !movingUp && !movingLeft && !movingRight) {
-			System.out.println("S pushed in movement()"); // debug line
-			move(0, -1);
-		} else if (movingLeft && !movingDown && !movingUp && !movingRight) {
-			System.out.println("A pushed in movement()"); // debug line
-			move(-1, 0);
-		} else if (movingRight && !movingUp && !movingDown && !movingLeft) {
-			System.out.println("D pushed in movement()"); // debug line
-			move(1, 0);
+		if (timeSinceLastMove == 1f) {
+			if (none) {
+				// don't do things
+			} else if (movingUp && !movingDown && !movingLeft && !movingRight) {
+				System.out.println("W pushed in movement()"); // debug line
+				timeSinceLastMove = 0f;
+				move(0, 1);
+
+				Timer.schedule(new Task() {
+					@Override
+					public void run() {
+						timeSinceLastMove = 1f;
+					}
+				}, delay);
+			} else if (movingDown && !movingUp && !movingLeft && !movingRight) {
+				System.out.println("S pushed in movement()"); // debug line
+				timeSinceLastMove = 0f;
+				move(0, -1);
+				
+				Timer.schedule(new Task() {
+					@Override
+					public void run() {
+						timeSinceLastMove = 1f;
+					}
+				}, delay);
+			} else if (movingLeft && !movingDown && !movingUp && !movingRight) {
+				System.out.println("A pushed in movement()"); // debug line
+				timeSinceLastMove = 0f;
+				move(-1, 0);
+				
+				Timer.schedule(new Task() {
+					@Override
+					public void run() {
+						timeSinceLastMove = 1f;
+					}
+				}, delay);
+			} else if (movingRight && !movingUp && !movingDown && !movingLeft) {
+				System.out.println("D pushed in movement()"); // debug line
+				timeSinceLastMove = 0f;
+				move(1, 0);
+				
+				Timer.schedule(new Task() {
+					@Override
+					public void run() {
+						timeSinceLastMove = 1f;
+					}
+				}, delay);
+			}
+			return;
 		}
-		return;
 	}
 
 	// implementation of render
 	public void render(float delta, SpriteBatch batch) {
 		stateTime += (Gdx.graphics.getDeltaTime() * currentSpeed); // Accumulate elapsed animation time
 
-		//running movement at every render call (however many FPS) causes the sprite to move quickly
-		movement();
+		// running movement at every render call (however many FPS) causes the sprite to
+		// move quickly
+		movement(); // need to delay this somehow
 
 		// Get current frame of animation for the current stateTime
 		if (currentSpeed != 0f) {
