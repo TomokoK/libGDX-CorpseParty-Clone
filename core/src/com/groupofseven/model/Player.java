@@ -38,7 +38,7 @@ public class Player implements Renderable {
 	public boolean movingRight = false;
 	public boolean none = false;
 
-	// used to set the current speed of the sprite
+	// used to set the speed of sprite sheet cycling
 	public float currentSpeed;
 
 	// used for the delay between movement when holding down a key
@@ -147,13 +147,15 @@ public class Player implements Renderable {
 
 			if (!collideX || !collideY) {
 				currentSpeed = 1f;
+				// tweening
 				float startTime = System.currentTimeMillis();
 				float change = (System.currentTimeMillis() - startTime) * 0.005f;
 				MathUtils.lerp(x, futureX, change);
+				// end tweening
 				x = (futureX);
 				// debug line
 				System.out.println("Current X is: " + futureX);
-				MathUtils.lerp(y, futureY, change);
+				MathUtils.lerp(y, futureY, change); // tweening
 				y = (futureY);
 				// debug line
 				System.out.println("Current Y is: " + futureY);
