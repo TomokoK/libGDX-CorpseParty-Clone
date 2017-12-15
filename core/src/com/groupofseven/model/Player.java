@@ -149,13 +149,13 @@ public class Player implements Renderable {
 				currentSpeed = 1f;
 				// tweening
 				float startTime = System.currentTimeMillis();
-				float change = (System.currentTimeMillis() - startTime) * 0.005f;
-				MathUtils.lerp(x, futureX, change);
+				float changeInTime = (System.currentTimeMillis() - startTime) * 0.005f;
+				MathUtils.lerp(x, futureX, changeInTime);
 				// end tweening
 				x = (futureX);
 				// debug line
 				System.out.println("Current X is: " + futureX);
-				MathUtils.lerp(y, futureY, change); // tweening
+				MathUtils.lerp(y, futureY, changeInTime); // tweening
 				y = (futureY);
 				// debug line
 				System.out.println("Current Y is: " + futureY);
