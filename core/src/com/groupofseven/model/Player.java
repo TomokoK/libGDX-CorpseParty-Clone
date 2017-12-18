@@ -217,13 +217,13 @@ public class Player implements Renderable {
 				// don't do things
 			} else if (movingUp && !movingDown && !movingLeft && !movingRight) {
 				System.out.println("W pushed in movement()"); // debug line
-				lastMoveHappened = false;
+				lastMoveHappened = false; //testing 
 				move(0, 1);
 
 				Timer.schedule(new Task() {
 					@Override
 					public void run() {
-						lastMoveHappened = true; //consider converting to a boolean?
+						lastMoveHappened = true;
 					}
 				}, delay);
 			} else if (movingDown && !movingUp && !movingLeft && !movingRight) {
