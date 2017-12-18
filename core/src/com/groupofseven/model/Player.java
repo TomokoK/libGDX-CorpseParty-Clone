@@ -42,7 +42,7 @@ public class Player implements Renderable {
 	public float currentSpeed;
 
 	// used for the delay between movement when holding down a key
-	public float timeSinceLastMove = 1f;
+	public boolean lastMoveHappened = true;
 	public float delay = 0.25f;
 
 	// used to set which sprite row we use while moving
@@ -212,51 +212,51 @@ public class Player implements Renderable {
 	}
 
 	public void movement() {
-		if (timeSinceLastMove == 1f) {
+		if (lastMoveHappened == true) {
 			if (none) {
 				// don't do things
 			} else if (movingUp && !movingDown && !movingLeft && !movingRight) {
 				System.out.println("W pushed in movement()"); // debug line
-				timeSinceLastMove = 0f;
+				lastMoveHappened = false;
 				move(0, 1);
 
 				Timer.schedule(new Task() {
 					@Override
 					public void run() {
-						timeSinceLastMove = 1f;
+						lastMoveHappened = true; //consider converting to a boolean?
 					}
 				}, delay);
 			} else if (movingDown && !movingUp && !movingLeft && !movingRight) {
 				System.out.println("S pushed in movement()"); // debug line
-				timeSinceLastMove = 0f;
+				lastMoveHappened = false;
 				move(0, -1);
 				
 				Timer.schedule(new Task() {
 					@Override
 					public void run() {
-						timeSinceLastMove = 1f;
+						lastMoveHappened = true;
 					}
 				}, delay);
 			} else if (movingLeft && !movingDown && !movingUp && !movingRight) {
 				System.out.println("A pushed in movement()"); // debug line
-				timeSinceLastMove = 0f;
+				lastMoveHappened = false;
 				move(-1, 0);
 				
 				Timer.schedule(new Task() {
 					@Override
 					public void run() {
-						timeSinceLastMove = 1f;
+						lastMoveHappened = true;
 					}
 				}, delay);
 			} else if (movingRight && !movingUp && !movingDown && !movingLeft) {
 				System.out.println("D pushed in movement()"); // debug line
-				timeSinceLastMove = 0f;
+				lastMoveHappened = false;
 				move(1, 0);
 				
 				Timer.schedule(new Task() {
 					@Override
 					public void run() {
-						timeSinceLastMove = 1f;
+						lastMoveHappened = true;
 					}
 				}, delay);
 			}
