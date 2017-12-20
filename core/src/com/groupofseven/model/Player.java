@@ -28,22 +28,22 @@ public class Player implements Renderable {
 	private TiledMapTileLayer collisionLayer; // reference to the map layer
 
 	// x and y are used for sprite position
-	public float x;
-	public float y;
+	public float spriteX;
+	public float spriteY;
 
 	// booleans handled by the PlayerInput class, used to movement
 	public boolean movingUp = false;
 	public boolean movingDown = false;
 	public boolean movingLeft = false;
 	public boolean movingRight = false;
-	public boolean none = false;
+	public boolean movingNowhere = false;
 
 	// used to set the speed of sprite sheet cycling
 	public float currentSpeed;
 
 	// used for the delay between movement when holding down a key
 	public boolean lastMoveHappened = true;
-	public float delay = 0.025f;
+	public float spriteDelay = 0.25f; // the lower the number, the faster the move speed
 
 	// used to set which sprite row we use while moving
 	public int direction = 0;
@@ -86,18 +86,18 @@ public class Player implements Renderable {
 		// dx == -1 -> future x is trying to move left one tile
 		if (dx == 1) {
 			// case 1 ... simulation of 1 tile movement right
-			futureX = x + tileWidth;
+			futureX = spriteX + tileWidth;
 			direction = 2;
 			// debug line
 			System.out.println("Future X is: " + futureX);
 		} else if (dx == -1) {
 			// case: -1 ... simulation of 1 tile movement left
-			futureX = x - tileWidth;
+			futureX = spriteX - tileWidth;
 			direction = 1;
 			System.out.println("Future X is: " + futureX);
 		} else {
 			// case: 0 or invalid dx value -> no movement
-			futureX = x;
+			futureX = spriteX;
 			System.out.println("Future X is the same: " + futureX);
 		}
 
@@ -110,17 +110,17 @@ public class Player implements Renderable {
 		// dy == -1 -> future y is going to move left one tile
 		if (dy == 1) {
 			// move 1 tile up
-			futureY = y + tileHeight;
+			futureY = spriteY + tileHeight;
 			direction = 3;
 			System.out.println("Future Y is: " + futureY);
 		} else if (dy == -1) {
 			// move 1 time down
-			futureY = y - tileHeight;
+			futureY = spriteY - tileHeight;
 			direction = 0;
 			System.out.println("Future Y is: " + futureY);
 		} else {
 			// do not move
-			futureY = y;
+			futureY = spriteY;
 			System.out.println("Future Y is the same: " + futureY);
 		}
 
@@ -150,13 +150,13 @@ public class Player implements Renderable {
 				// tweening
 				float startTime = System.currentTimeMillis();
 				float changeInTime = (System.currentTimeMillis() - startTime) * 0.005f;
-				MathUtils.lerp(x, futureX, changeInTime);
+				MathUtils.lerp(spriteX, futureX, changeInTime);
 				// end tweening
-				x = (futureX);
+				spriteX = (futureX);
 				// debug line
 				System.out.println("Current X is: " + futureX);
-				MathUtils.lerp(y, futureY, changeInTime); // tweening
-				y = (futureY);
+				MathUtils.lerp(spriteY, futureY, changeInTime); // tweening
+				spriteY = (futureY);
 				// debug line
 				System.out.println("Current Y is: " + futureY);
 			}
@@ -164,19 +164,19 @@ public class Player implements Renderable {
 
 		// handle the SecondFloorMap
 		else {
-			x = x + (dx * tileWidth);
-			y = y + (dy * tileHeight);
+			spriteX = spriteX + (dx * tileWidth);
+			spriteY = spriteY + (dy * tileHeight);
 			currentSpeed = 1f;
 		}
 
 	}
 
 	public float getX() {
-		return x;
+		return spriteX;
 	}
 
 	public float getY() {
-		return y;
+		return spriteY;
 	}
 
 	public void loadGFX() {
@@ -213,11 +213,11 @@ public class Player implements Renderable {
 
 	public void movement() {
 		if (lastMoveHappened == true) {
-			if (none) {
+			if (movingNowhere) {
 				// don't do things
 			} else if (movingUp && !movingDown && !movingLeft && !movingRight) {
 				System.out.println("W pushed in movement()"); // debug line
-				lastMoveHappened = false; //testing 
+				lastMoveHappened = false;
 				move(0, 1);
 
 				Timer.schedule(new Task() {
@@ -225,40 +225,40 @@ public class Player implements Renderable {
 					public void run() {
 						lastMoveHappened = true;
 					}
-				}, delay);
+				}, spriteDelay);
 			} else if (movingDown && !movingUp && !movingLeft && !movingRight) {
 				System.out.println("S pushed in movement()"); // debug line
 				lastMoveHappened = false;
 				move(0, -1);
-				
+
 				Timer.schedule(new Task() {
 					@Override
 					public void run() {
 						lastMoveHappened = true;
 					}
-				}, delay);
+				}, spriteDelay);
 			} else if (movingLeft && !movingDown && !movingUp && !movingRight) {
 				System.out.println("A pushed in movement()"); // debug line
 				lastMoveHappened = false;
 				move(-1, 0);
-				
+
 				Timer.schedule(new Task() {
 					@Override
 					public void run() {
 						lastMoveHappened = true;
 					}
-				}, delay);
+				}, spriteDelay);
 			} else if (movingRight && !movingUp && !movingDown && !movingLeft) {
 				System.out.println("D pushed in movement()"); // debug line
 				lastMoveHappened = false;
 				move(1, 0);
-				
+
 				Timer.schedule(new Task() {
 					@Override
 					public void run() {
 						lastMoveHappened = true;
 					}
-				}, delay);
+				}, spriteDelay);
 			}
 			return;
 		}
@@ -268,25 +268,24 @@ public class Player implements Renderable {
 	public void render(float delta, SpriteBatch batch) {
 		stateTime += (Gdx.graphics.getDeltaTime() * currentSpeed); // Accumulate elapsed animation time
 
-		// running movement at every render call (however many FPS) causes the sprite to
-		// move quickly
-		movement(); // need to delay this somehow
-
 		// Get current frame of animation for the current stateTime
 		if (currentSpeed != 0f) {
 			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(stateTime, true);
-			batch.draw(currentFrame, (x - 11), y); // Draw current frame at (X, Y)
+			batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)
 			// X is offset by -11 as the source sprite sheet isn't a
 			// power of two.
-			System.out.println(stateTime); // debug line 
+			System.out.println(stateTime); // debug line
 		} else if (currentSpeed == 0f) {
 			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(3f, false); // Don't
 			// draw the sprite mid animation if you are against a blocked tile
-			batch.draw(currentFrame, (x - 11), y); // Draw current frame at (X, Y)
+			batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)
 			// X is offset by -11 as the source sprite sheet isn't a
 			// power of two.
 			System.out.println("No stateTime!"); // debug line
 		}
+
+		// call the movement method every frame, allowing for continuous input
+		movement();
 
 	}
 

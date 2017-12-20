@@ -45,15 +45,15 @@ public class PlayerInput extends InputAdapter {
 			// if the current screen is Class1ASCreen
 			if (me.getApp().getScreen().getClass() == Class1AScreen.class) {
 				me.getApp().setScreen(new SecondFloorScreen(me.getApp()));
-				me.x = 192;
-				me.y = 744;
+				me.spriteX = 192;
+				me.spriteY = 744;
 				me.currentSpeed = 0f;
 			}
 			// if the current screen is SecondFloorScreen
 			else if (me.getApp().getScreen().getClass() == SecondFloorScreen.class) {
 				me.getApp().setScreen(new Class1AScreen(me.getApp()));
-				me.x = 312;
-				me.y = 48;
+				me.spriteX = 312;
+				me.spriteY = 48;
 				me.currentSpeed = 0f;
 			}
 		}
