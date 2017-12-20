@@ -43,7 +43,7 @@ public class Player implements Renderable {
 
 	// used for the delay between movement when holding down a key
 	public boolean lastMoveHappened = true;
-	public float delay = 0.25f;
+	public float delay = 0.025f;
 
 	// used to set which sprite row we use while moving
 	public int direction = 0;
@@ -278,7 +278,7 @@ public class Player implements Renderable {
 			batch.draw(currentFrame, (x - 11), y); // Draw current frame at (X, Y)
 			// X is offset by -11 as the source sprite sheet isn't a
 			// power of two.
-			System.out.println(stateTime); // debug line
+			System.out.println(stateTime); // debug line 
 		} else if (currentSpeed == 0f) {
 			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(3f, false); // Don't
 			// draw the sprite mid animation if you are against a blocked tile
