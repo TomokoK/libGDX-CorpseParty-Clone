@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
@@ -149,17 +150,25 @@ public class Player implements Renderable {
 				currentSpeed = 1f;
 				float alpha = 0f;
 				float beta = 0f;
+				// TODO: tweening code is not getting values between points, instead, alpha/beta
+				// is being set to future value.
+				//
 				// tweening
+				// change in time
 				float startTime = System.currentTimeMillis();
 				float changeInTime = (System.currentTimeMillis() - startTime) * 0.005f;
+				// set alpha
 				alpha = MathUtils.lerp(spriteX, futureX, changeInTime);
-				System.out.println("X " + alpha); // debug line
-				// end tweening
-				spriteX = (futureX);
+				futureX = Interpolation.linear.apply(alpha); // apply lerp to alpha
+				System.out.println("Alpha " + alpha); // debug line
+				System.out.println("X " + futureX); // debug line
+				spriteX = (futureX); // set location to lerp'd alpha
 				System.out.println("Current X is: " + futureX); // debug line
-				beta = MathUtils.lerp(spriteY, futureY, changeInTime); // tweening
-				System.out.println("Y " + beta); // debug line
-				spriteY = (futureY);
+				beta = MathUtils.lerp(spriteY, futureY, changeInTime);
+				futureY = Interpolation.linear.apply(beta); // apply lerp to beta
+				System.out.println("Beta " + beta); // debug line
+				System.out.println("Y " + futureY); // debug line
+				spriteY = (futureY); // set location to lerp'd beta
 				System.out.println("Current Y is: " + futureY); // debug line
 			}
 		}
