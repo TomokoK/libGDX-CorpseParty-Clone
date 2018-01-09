@@ -33,6 +33,7 @@
  * 	Change script from edited version -> original CP rip (?)
  * 	Fix camera to be more authentic to the original (Load up a vita save and take a look)
  * 	Tune the volume, fix the no music loop in Class 1A
+ * 	Clean up all debug lines when they are no longer needed
  * 
  */
 package com.seven.game.desktop;

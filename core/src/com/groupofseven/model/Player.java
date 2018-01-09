@@ -151,18 +151,20 @@ public class Player implements Renderable {
 				float startTime = System.currentTimeMillis();
 				float changeInTime = (System.currentTimeMillis() - startTime) * 0.005f;
 				MathUtils.lerp(spriteX, futureX, changeInTime);
+				System.out.println("X" + MathUtils.lerp(spriteX, futureX, changeInTime)); // debug line
 				// end tweening
 				spriteX = (futureX);
-				// debug line
-				System.out.println("Current X is: " + futureX);
+				System.out.println("Current X is: " + futureX); // debug line
 				MathUtils.lerp(spriteY, futureY, changeInTime); // tweening
+				System.out.println("Y" + MathUtils.lerp(spriteY, futureY, changeInTime)); // debug line
 				spriteY = (futureY);
-				// debug line
-				System.out.println("Current Y is: " + futureY);
+				System.out.println("Current Y is: " + futureY); // debug line
 			}
 		}
 
 		// handle the SecondFloorMap
+		// TODO delete this section, do all checks in first bit above when all
+		// collision detection is added.
 		else {
 			spriteX = spriteX + (dx * tileWidth);
 			spriteY = spriteY + (dy * tileHeight);
@@ -274,14 +276,14 @@ public class Player implements Renderable {
 			batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)
 			// X is offset by -11 as the source sprite sheet isn't a
 			// power of two.
-			System.out.println(stateTime); // debug line
+			//// System.out.println(stateTime); // debug line
 		} else if (currentSpeed == 0f) {
 			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(3f, false); // Don't
 			// draw the sprite mid animation if you are against a blocked tile
 			batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)
 			// X is offset by -11 as the source sprite sheet isn't a
 			// power of two.
-			System.out.println("No stateTime!"); // debug line
+			//// System.out.println("No stateTime!"); // debug line
 		}
 
 		// call the movement method every frame, allowing for continuous input
