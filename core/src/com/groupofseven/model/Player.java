@@ -147,16 +147,18 @@ public class Player implements Renderable {
 
 			if (!collideX || !collideY) {
 				currentSpeed = 1f;
+				float alpha = 0f;
+				float beta = 0f;
 				// tweening
 				float startTime = System.currentTimeMillis();
 				float changeInTime = (System.currentTimeMillis() - startTime) * 0.005f;
-				MathUtils.lerp(spriteX, futureX, changeInTime);
-				System.out.println("X" + MathUtils.lerp(spriteX, futureX, changeInTime)); // debug line
+				alpha = MathUtils.lerp(spriteX, futureX, changeInTime);
+				System.out.println("X " + alpha); // debug line
 				// end tweening
 				spriteX = (futureX);
 				System.out.println("Current X is: " + futureX); // debug line
-				MathUtils.lerp(spriteY, futureY, changeInTime); // tweening
-				System.out.println("Y" + MathUtils.lerp(spriteY, futureY, changeInTime)); // debug line
+				beta = MathUtils.lerp(spriteY, futureY, changeInTime); // tweening
+				System.out.println("Y " + beta); // debug line
 				spriteY = (futureY);
 				System.out.println("Current Y is: " + futureY); // debug line
 			}
