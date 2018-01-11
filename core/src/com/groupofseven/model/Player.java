@@ -157,16 +157,21 @@ public class Player implements Renderable {
 				// change in time
 				float startTime = System.currentTimeMillis();
 				float changeInTime = (System.currentTimeMillis() - startTime) * 0.005f;
+				// debug lines
+				System.out.println("Pre MathUtils.lerp values: " + "spriteX = " + spriteX + " futureX = " + futureX);
 				// set alpha
-				alpha = MathUtils.lerp(spriteX, futureX, changeInTime);
+				alpha = MathUtils.lerp(spriteX, futureX, changeInTime); // *** NOT WORKING **** see console output
+				System.out.println("Pre interpolation alpha " + alpha); // debug line
 				futureX = Interpolation.linear.apply(alpha); // apply lerp to alpha
-				System.out.println("Alpha " + alpha); // debug line
+				System.out.println("Post interpolation alpha " + alpha); // debug line
 				System.out.println("X " + futureX); // debug line
 				spriteX = (futureX); // set location to lerp'd alpha
 				System.out.println("Current X is: " + futureX); // debug line
-				beta = MathUtils.lerp(spriteY, futureY, changeInTime);
+				System.out.println("Pre MathUtils.lerp values: " + "spriteY = " + spriteY + " futureY = " + futureY);
+				beta = MathUtils.lerp(spriteY, futureY, changeInTime); // *** NOT WORKING **** see console output
+				System.out.println("Pre interpolation beta " + beta); // debug line
 				futureY = Interpolation.linear.apply(beta); // apply lerp to beta
-				System.out.println("Beta " + beta); // debug line
+				System.out.println("Post interpolation beta " + beta); // debug line
 				System.out.println("Y " + futureY); // debug line
 				spriteY = (futureY); // set location to lerp'd beta
 				System.out.println("Current Y is: " + futureY); // debug line
