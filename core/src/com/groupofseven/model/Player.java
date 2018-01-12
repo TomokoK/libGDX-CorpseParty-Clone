@@ -154,13 +154,17 @@ public class Player implements Renderable {
 				// is being set to future value.
 				//
 				// tweening
-				// change in time
-				float startTime = System.currentTimeMillis();
-				float changeInTime = (System.currentTimeMillis() - startTime) * 0.005f;
+				// change in time **change in time is zero, look at the math dumbass**
+				//float startTime = System.currentTimeMillis();
+				//float changeInTime = (System.currentTimeMillis() - startTime) * 0.005f;
+				float startTime = Gdx.graphics.getDeltaTime();
+				float changeInTime = (startTime / 0.25f);
 				// debug lines
+				System.out.println("startTime = " + startTime);
+				System.out.println("changeInTime = " + changeInTime);
 				System.out.println("Pre MathUtils.lerp values: " + "spriteX = " + spriteX + " futureX = " + futureX);
 				// set alpha
-				alpha = MathUtils.lerp(spriteX, futureX, changeInTime); // *** NOT WORKING **** see console output
+				alpha = MathUtils.lerp(spriteX, futureX, changeInTime);
 				System.out.println("Pre interpolation alpha " + alpha); // debug line
 				futureX = Interpolation.linear.apply(alpha); // apply lerp to alpha
 				System.out.println("Post interpolation alpha " + alpha); // debug line
