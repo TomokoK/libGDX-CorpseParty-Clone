@@ -152,6 +152,7 @@ public class Player implements Renderable {
 				float beta = 0f;
 				float startTime = 0f;
 				// TODO: sprite{X,Y} value is being increased by 6 on each keypress instead of 24
+				// TODO: Sprite{X,Y} is increasing by 6 due to alpha and beta being 0.25. Set alpha/beta to 1 for full movement
 				// TODO: It also looks like interpolation isn't happening
 				//
 				// setup timing values
@@ -165,7 +166,7 @@ public class Player implements Renderable {
 				// set alpha
 				System.out.println("Pre MathUtils.clamp alpha = " + alpha);
 				System.out.println("Pre MathUtils.clamp startTime / changeInTime = " + (startTime/changeInTime));
-				alpha = MathUtils.clamp((startTime/changeInTime), 0f, 1f); //TODO: check first value
+				alpha = MathUtils.clamp((startTime/changeInTime), 0f, 1f); // Value is always 0.25f
 				System.out.println("Post MathUtils.clamp alpha = " + alpha);
 				System.out.println("Post MathUtils.clamp startTime / changeInTime = " + (startTime/changeInTime));
 				// interpolate X
@@ -175,7 +176,7 @@ public class Player implements Renderable {
 				// set beta
 				System.out.println("Pre MathUtils.clamp beta = " + beta);
 				System.out.println("Pre MathUtils.clamp startTime / changeInTime = " + (startTime/changeInTime));
-				beta = MathUtils.clamp((startTime/changeInTime), 0f, 1f); //TODO: check first value
+				beta = MathUtils.clamp((startTime/changeInTime), 0f, 1f); // Value is always 0.25f
 				System.out.println("Post MathUtils.clamp beta = " + beta);
 				System.out.println("Post MathUtils.clamp startTime / changeInTime = " + (startTime/changeInTime));
 				// interpolate Y
@@ -242,7 +243,7 @@ public class Player implements Renderable {
 			if (movingNowhere) {
 				// don't do things
 			} else if (movingUp && !movingDown && !movingLeft && !movingRight) {
-				System.out.println("W pushed in movement()"); // debug line
+				System.out.println("W activated in movement()"); // debug line
 				lastMoveHappened = false;
 				move(0, 1);
 
@@ -253,7 +254,7 @@ public class Player implements Renderable {
 					}
 				}, spriteDelay);
 			} else if (movingDown && !movingUp && !movingLeft && !movingRight) {
-				System.out.println("S pushed in movement()"); // debug line
+				System.out.println("S activated in movement()"); // debug line
 				lastMoveHappened = false;
 				move(0, -1);
 
@@ -264,7 +265,7 @@ public class Player implements Renderable {
 					}
 				}, spriteDelay);
 			} else if (movingLeft && !movingDown && !movingUp && !movingRight) {
-				System.out.println("A pushed in movement()"); // debug line
+				System.out.println("A activated in movement()"); // debug line
 				lastMoveHappened = false;
 				move(-1, 0);
 
@@ -275,7 +276,7 @@ public class Player implements Renderable {
 					}
 				}, spriteDelay);
 			} else if (movingRight && !movingUp && !movingDown && !movingLeft) {
-				System.out.println("D pushed in movement()"); // debug line
+				System.out.println("D activated in movement()"); // debug line
 				lastMoveHappened = false;
 				move(1, 0);
 
