@@ -150,35 +150,39 @@ public class Player implements Renderable {
 				currentSpeed = 1f;
 				float alpha = 0f;
 				float beta = 0f;
-				// TODO: tweening code is not getting values between points, instead, alpha/beta
-				// is being set to future value.
+				float startTime = 0f;
+				// TODO: sprite{X,Y} value is being increased by 6 on each keypress instead of 24
+				// TODO: It also looks like interpolation isn't happening
 				//
-				// tweening
-				// change in time **change in time is zero, look at the math dumbass**
-				//float startTime = System.currentTimeMillis();
-				//float changeInTime = (System.currentTimeMillis() - startTime) * 0.005f;
-				float startTime = Gdx.graphics.getDeltaTime();
-				float changeInTime = (startTime / 0.25f);
+				// setup timing values
+				startTime += Gdx.graphics.getDeltaTime();
+				float changeInTime = (startTime/spriteDelay);
 				// debug lines
 				System.out.println("startTime = " + startTime);
 				System.out.println("changeInTime = " + changeInTime);
-				System.out.println("Pre MathUtils.lerp values: " + "spriteX = " + spriteX + " futureX = " + futureX);
+				System.out.println("Pre MathUtils.clamp X values: " + "spriteX = " + spriteX + " futureX = " + futureX);
+				System.out.println("Pre MathUtils.clamp Y values: " + "spriteY = " + spriteY + " futureY = " + futureY);
 				// set alpha
-				alpha = MathUtils.lerp(spriteX, futureX, changeInTime);
-				System.out.println("Pre interpolation alpha " + alpha); // debug line
-				futureX = Interpolation.linear.apply(alpha); // apply lerp to alpha
-				System.out.println("Post interpolation alpha " + alpha); // debug line
-				System.out.println("X " + futureX); // debug line
-				spriteX = (futureX); // set location to lerp'd alpha
-				System.out.println("Current X is: " + futureX); // debug line
-				System.out.println("Pre MathUtils.lerp values: " + "spriteY = " + spriteY + " futureY = " + futureY);
-				beta = MathUtils.lerp(spriteY, futureY, changeInTime); // *** NOT WORKING **** see console output
-				System.out.println("Pre interpolation beta " + beta); // debug line
-				futureY = Interpolation.linear.apply(beta); // apply lerp to beta
-				System.out.println("Post interpolation beta " + beta); // debug line
-				System.out.println("Y " + futureY); // debug line
-				spriteY = (futureY); // set location to lerp'd beta
-				System.out.println("Current Y is: " + futureY); // debug line
+				System.out.println("Pre MathUtils.clamp alpha = " + alpha);
+				System.out.println("Pre MathUtils.clamp startTime / changeInTime = " + (startTime/changeInTime));
+				alpha = MathUtils.clamp((startTime/changeInTime), 0f, 1f); //TODO: check first value
+				System.out.println("Post MathUtils.clamp alpha = " + alpha);
+				System.out.println("Post MathUtils.clamp startTime / changeInTime = " + (startTime/changeInTime));
+				// interpolate X
+				System.out.println("Pre Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
+				spriteX = Interpolation.linear.apply(spriteX, futureX, alpha);
+				System.out.println("Post Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
+				// set beta
+				System.out.println("Pre MathUtils.clamp beta = " + beta);
+				System.out.println("Pre MathUtils.clamp startTime / changeInTime = " + (startTime/changeInTime));
+				beta = MathUtils.clamp((startTime/changeInTime), 0f, 1f); //TODO: check first value
+				System.out.println("Post MathUtils.clamp beta = " + beta);
+				System.out.println("Post MathUtils.clamp startTime / changeInTime = " + (startTime/changeInTime));
+				// interpolate Y
+				System.out.println("Pre Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " beta = " + beta);
+				spriteY = Interpolation.linear.apply(spriteY, futureY, beta);
+				System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " beta = " + beta);
+				System.out.println("-------------------------------------------------------------------------------------------------------------");
 			}
 		}
 
