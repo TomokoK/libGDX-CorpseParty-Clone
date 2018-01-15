@@ -153,7 +153,7 @@ public class Player implements Renderable {
 				float startTime = 0f;
 				// TODO: sprite{X,Y} value is being increased by 6 on each keypress instead of 24
 				// TODO: Sprite{X,Y} is increasing by 6 due to alpha and beta being 0.25. Set alpha/beta to 1 for full movement
-				// TODO: It also looks like interpolation isn't happening
+				// TODO: It also looks like interpolation isn't working
 				//
 				// setup timing values
 				startTime += Gdx.graphics.getDeltaTime();
