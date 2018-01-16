@@ -51,6 +51,10 @@ public class Player implements Renderable {
 
 	// set the height and width of the tiles from the settings class
 	public int tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
+	
+	//interpolation
+	float startTime = 0f;
+	float alpha = 0f;
 
 	// Objects here
 	ArrayList<Animation<TextureRegion>> walkAnimation; // declare frame type (texture region)
@@ -148,9 +152,6 @@ public class Player implements Renderable {
 
 			if (!collideX || !collideY) {
 				currentSpeed = 1f;
-				float alpha = 0f;
-				float beta = 0f;
-				float startTime = 0f;
 				// TODO: sprite{X,Y} value is being increased by 6 on each keypress instead of 24
 				// TODO: Sprite{X,Y} is increasing by 6 due to alpha and beta being 0.25. Set alpha/beta to 1 for full movement
 				// TODO: It also looks like interpolation isn't working
@@ -173,16 +174,10 @@ public class Player implements Renderable {
 				System.out.println("Pre Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
 				spriteX = Interpolation.linear.apply(spriteX, futureX, alpha);
 				System.out.println("Post Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
-				// set beta
-				System.out.println("Pre MathUtils.clamp beta = " + beta);
-				System.out.println("Pre MathUtils.clamp startTime / changeInTime = " + (startTime/changeInTime));
-				beta = MathUtils.clamp((startTime/changeInTime), 0f, 1f); // Value is always 0.25f
-				System.out.println("Post MathUtils.clamp beta = " + beta);
-				System.out.println("Post MathUtils.clamp startTime / changeInTime = " + (startTime/changeInTime));
 				// interpolate Y
-				System.out.println("Pre Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " beta = " + beta);
-				spriteY = Interpolation.linear.apply(spriteY, futureY, beta);
-				System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " beta = " + beta);
+				System.out.println("Pre Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
+				spriteY = Interpolation.linear.apply(spriteY, futureY, alpha);
+				System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
 				System.out.println("-------------------------------------------------------------------------------------------------------------");
 			}
 		}
