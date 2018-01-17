@@ -162,12 +162,15 @@ public class Player implements Renderable {
 				startX = spriteX;
 				startY = spriteY;
 				// setup timing values
-				startTime += TimeUtils.millis();
+				//startTime += TimeUtils.millis();
+				startTime = TimeUtils.millis();
 				// anything >1.0f sets alpha to 1f;
 				//float changeInTime = (TimeUtils.millis()/startTime); // this is why alpha is always 0.25f *fix me*
 				//float changeInTime = (startTime/TimeUtils.millis()); // alpha is 1 each time, but no interpolation
 				//float changeInTime = 0.005f + 0.005f; // alpha stuck at 0.1f, slow movement and bad tile math
-				float changeInTime = 0.05f + 0.05f; // alpha is at 0.1f, slow movement + bad tile math
+				//float changeInTime = 0.05f + 0.05f; // alpha is at 0.1f, slow movement + bad tile math
+				//float changeInTime = TimeUtils.timeSinceMillis((long) startTime); // alpha is always 0
+				float changeInTime = 1f;
 				// debug lines
 				System.out.println("startTime = " + startTime);
 				System.out.println("changeInTime = " + changeInTime);
