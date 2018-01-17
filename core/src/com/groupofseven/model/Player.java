@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.groupofseven.game.Settings;
@@ -156,9 +157,17 @@ public class Player implements Renderable {
 				// TODO: Sprite{X,Y} is increasing by 6 due to alpha and beta being 0.25. Set alpha/beta to 1 for full movement
 				// TODO: It also looks like interpolation isn't working
 				//
+				// setup starting{X,Y} values
+				float startX = 0, startY = 0;
+				startX = spriteX;
+				startY = spriteY;
 				// setup timing values
-				startTime += Gdx.graphics.getDeltaTime();
-				float changeInTime = (startTime/spriteDelay);
+				startTime += TimeUtils.millis();
+				// anything >1.0f sets alpha to 1f;
+				//float changeInTime = (TimeUtils.millis()/startTime); // this is why alpha is always 0.25f *fix me*
+				//float changeInTime = (startTime/TimeUtils.millis()); // alpha is 1 each time, but no interpolation
+				//float changeInTime = 0.005f + 0.005f; // alpha stuck at 0.1f, slow movement and bad tile math
+				float changeInTime = 0.05f + 0.05f; // alpha is at 0.1f, slow movement + bad tile math
 				// debug lines
 				System.out.println("startTime = " + startTime);
 				System.out.println("changeInTime = " + changeInTime);
@@ -166,17 +175,17 @@ public class Player implements Renderable {
 				System.out.println("Pre MathUtils.clamp Y values: " + "spriteY = " + spriteY + " futureY = " + futureY);
 				// set alpha
 				System.out.println("Pre MathUtils.clamp alpha = " + alpha);
-				System.out.println("Pre MathUtils.clamp startTime / changeInTime = " + (startTime/changeInTime));
-				alpha = MathUtils.clamp((startTime/changeInTime), 0f, 1f); // Value is always 0.25f
+				System.out.println("Pre MathUtils.clamp changeInTime = " + changeInTime);
+				alpha = MathUtils.clamp(changeInTime, 0f, 1f); // Value is always 0.25f
 				System.out.println("Post MathUtils.clamp alpha = " + alpha);
-				System.out.println("Post MathUtils.clamp startTime / changeInTime = " + (startTime/changeInTime));
+				System.out.println("Post MathUtils.clamp changeInTime = " + changeInTime);
 				// interpolate X
 				System.out.println("Pre Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
-				spriteX = Interpolation.linear.apply(spriteX, futureX, alpha);
+				spriteX = Interpolation.linear.apply(startX, futureX, alpha);
 				System.out.println("Post Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
 				// interpolate Y
 				System.out.println("Pre Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
-				spriteY = Interpolation.linear.apply(spriteY, futureY, alpha);
+				spriteY = Interpolation.linear.apply(startY, futureY, alpha);
 				System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
 				System.out.println("-------------------------------------------------------------------------------------------------------------");
 			}
