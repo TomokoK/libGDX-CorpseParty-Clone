@@ -53,9 +53,10 @@ public class Player implements Renderable {
 	// set the height and width of the tiles from the settings class
 	public int tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 	
-	//interpolation
-	float startTime = 0f;
-	float alpha = 0f;
+	// interpolation
+	public float startTime = 0f;
+	public float alpha = 0f;
+	public float duration = 250f;
 
 	// Objects here
 	ArrayList<Animation<TextureRegion>> walkAnimation; // declare frame type (texture region)
@@ -153,25 +154,20 @@ public class Player implements Renderable {
 
 			if (!collideX || !collideY) {
 				currentSpeed = 1f;
-				// TODO: sprite{X,Y} value is being increased by 6 on each keypress instead of 24
-				// TODO: Sprite{X,Y} is increasing by 6 due to alpha and beta being 0.25. Set alpha/beta to 1 for full movement
-				// TODO: It also looks like interpolation isn't working
-				//
+				/*
+				 * Interpolation isn't working because alpha needs to increase by a constant linear value,
+				 * which isn't happening as move() is only called on keypress meaning alpha is only calculated once.
+				 * To fix this, alpha needs to be moved into a method such as render(), or into a new method just for
+				 * interpolation.
+				 */
 				// setup starting{X,Y} values
 				float startX = 0, startY = 0;
 				startX = spriteX;
 				startY = spriteY;
 				// setup timing values
-				startTime += TimeUtils.millis();
-				//startTime = TimeUtils.millis();
+				startTime = TimeUtils.millis();
 				// anything >1.0f sets alpha to 1f;
-				//float changeInTime = (TimeUtils.millis()/startTime); // alpha is infinity -> alpha is 1
-				//float changeInTime = (startTime/TimeUtils.millis()); // alpha is 1 each time, but no interpolation
-				//float changeInTime = 0.005f + 0.005f; // alpha stuck at 0.1f, slow movement and bad tile math
-				//float changeInTime = 0.05f + 0.05f; // alpha is at 0.1f, slow movement + bad tile math
-				//float changeInTime = TimeUtils.timeSinceMillis((long) startTime); // alpha is always 0
-				//float changeInTime = (startTime/(TimeUtils.timeSinceMillis((long) startTime))); // can only move once
-				float changeInTime = ((TimeUtils.millis() - startTime) / spriteDelay); // full movement, no interpolation
+				float changeInTime = ((TimeUtils.millis() - startTime) / duration); // full movement, refer to above comment
 				// debug lines
 				System.out.println("startTime = " + startTime);
 				System.out.println("changeInTime = " + changeInTime);
