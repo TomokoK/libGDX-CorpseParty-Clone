@@ -171,7 +171,7 @@ public class Player implements Renderable {
 				//float changeInTime = 0.05f + 0.05f; // alpha is at 0.1f, slow movement + bad tile math
 				//float changeInTime = TimeUtils.timeSinceMillis((long) startTime); // alpha is always 0
 				//float changeInTime = (startTime/(TimeUtils.timeSinceMillis((long) startTime))); // can only move once
-				float changeInTime = (startTime - TimeUtils.millis()); // full movement, no interpolation
+				float changeInTime = ((TimeUtils.millis() - startTime) / spriteDelay); // full movement, no interpolation
 				// debug lines
 				System.out.println("startTime = " + startTime);
 				System.out.println("changeInTime = " + changeInTime);
