@@ -166,8 +166,7 @@ public class Player implements Renderable {
 				startY = spriteY;
 				// anything >1.0f sets alpha to 1f;
 				// ** Experimental interpolation fix cannot be tested until I know the below math is correct **
-				float changeInTime = ((TimeUtils.millis() - startTime) / duration); // full movement, refer to above comment
-				//float changeInTime = 1f;
+				float changeInTime = ((TimeUtils.millis() - startTime) / duration); // alpha = 1f, refer to above comment
 				// debug lines
 				System.out.println("startTime = " + startTime);
 				System.out.println("changeInTime = " + changeInTime);
