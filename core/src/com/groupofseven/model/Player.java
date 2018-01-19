@@ -54,9 +54,9 @@ public class Player implements Renderable {
 	public int tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 	
 	// interpolation
-	public float startTime = 0f;
+	public long startTime = TimeUtils.millis();
 	public float alpha = 0f;
-	public float duration = 250f;
+	public float duration = 250f; 
 
 	// Objects here
 	ArrayList<Animation<TextureRegion>> walkAnimation; // declare frame type (texture region)
@@ -96,16 +96,16 @@ public class Player implements Renderable {
 			futureX = spriteX + tileWidth;
 			direction = 2;
 			// debug line
-			System.out.println("Future X is: " + futureX);
+			////System.out.println("Future X is: " + futureX);
 		} else if (dx == -1) {
 			// case: -1 ... simulation of 1 tile movement left
 			futureX = spriteX - tileWidth;
 			direction = 1;
-			System.out.println("Future X is: " + futureX);
+			////System.out.println("Future X is: " + futureX);
 		} else {
 			// case: 0 or invalid dx value -> no movement
 			futureX = spriteX;
-			System.out.println("Future X is the same: " + futureX);
+			////System.out.println("Future X is the same: " + futureX);
 		}
 
 		float futureY; // will be calculated to simulate 1 tile in advance with
@@ -119,16 +119,16 @@ public class Player implements Renderable {
 			// move 1 tile up
 			futureY = spriteY + tileHeight;
 			direction = 3;
-			System.out.println("Future Y is: " + futureY);
+			////System.out.println("Future Y is: " + futureY);
 		} else if (dy == -1) {
 			// move 1 time down
 			futureY = spriteY - tileHeight;
 			direction = 0;
-			System.out.println("Future Y is: " + futureY);
+			////System.out.println("Future Y is: " + futureY);
 		} else {
 			// do not move
 			futureY = spriteY;
-			System.out.println("Future Y is the same: " + futureY);
+			////System.out.println("Future Y is the same: " + futureY);
 		}
 
 		Cell cell = collisionLayer.getCell((int) futureX / tileWidth, (int) futureY / tileHeight);
@@ -144,12 +144,12 @@ public class Player implements Renderable {
 				collideX = false;
 				collideY = false;
 				// debug lines
-				System.out.println("cell is not blocked");
+				////System.out.println("cell is not blocked");
 			} else {
 				collideX = true;
 				collideY = true;
 				// debug lines
-				System.out.println("cell is blocked");
+				////System.out.println("cell is blocked");
 			}
 
 			if ((!collideX || !collideY) && (dx == 1 || dx == -1 || dy == 1 || dy == -1)) {
@@ -164,12 +164,10 @@ public class Player implements Renderable {
 				float startX = 0, startY = 0;
 				startX = spriteX;
 				startY = spriteY;
-				// setup timing values
-				startTime = TimeUtils.millis();
 				// anything >1.0f sets alpha to 1f;
 				// ** Experimental interpolation fix cannot be tested until I know the below math is correct **
-				//float changeInTime = ((TimeUtils.millis() - startTime) / duration); // full movement, refer to above comment
-				float changeInTime = 1f;
+				float changeInTime = ((TimeUtils.millis() - startTime) / duration); // full movement, refer to above comment
+				//float changeInTime = 1f;
 				// debug lines
 				System.out.println("startTime = " + startTime);
 				System.out.println("changeInTime = " + changeInTime);
