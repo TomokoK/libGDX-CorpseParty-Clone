@@ -152,7 +152,7 @@ public class Player implements Renderable {
 				System.out.println("cell is blocked");
 			}
 
-			if (!collideX || !collideY) {
+			if ((!collideX || !collideY) && (dx == 1 || dx == -1 || dy == 1 || dy == -1)) {
 				currentSpeed = 1f;
 				/*
 				 * Interpolation isn't working because alpha needs to increase by a constant linear value,
@@ -167,7 +167,9 @@ public class Player implements Renderable {
 				// setup timing values
 				startTime = TimeUtils.millis();
 				// anything >1.0f sets alpha to 1f;
-				float changeInTime = ((TimeUtils.millis() - startTime) / duration); // full movement, refer to above comment
+				// ** Experimental interpolation fix cannot be tested until I know the below math is correct **
+				//float changeInTime = ((TimeUtils.millis() - startTime) / duration); // full movement, refer to above comment
+				float changeInTime = 1f;
 				// debug lines
 				System.out.println("startTime = " + startTime);
 				System.out.println("changeInTime = " + changeInTime);
@@ -176,7 +178,7 @@ public class Player implements Renderable {
 				// set alpha
 				System.out.println("Pre MathUtils.clamp alpha = " + alpha);
 				System.out.println("Pre MathUtils.clamp changeInTime = " + changeInTime);
-				alpha = MathUtils.clamp(changeInTime, 0f, 1f); // Value is always 0.25f
+				alpha = MathUtils.clamp(changeInTime, 0f, 1f); // Value is always first calculation (refer to comment)
 				System.out.println("Post MathUtils.clamp alpha = " + alpha);
 				System.out.println("Post MathUtils.clamp changeInTime = " + changeInTime);
 				// interpolate X
@@ -317,6 +319,9 @@ public class Player implements Renderable {
 
 		// call the movement method every frame, allowing for continuous input
 		movement();
+		
+		// call the move method every frame, allowing for interpolation
+		move(0, 0); // EXPERIMENTAL
 
 	}
 
