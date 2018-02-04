@@ -37,7 +37,7 @@ public class Player implements Renderable {
 	public boolean movingDown = false;
 	public boolean movingLeft = false;
 	public boolean movingRight = false;
-	public boolean movingNowhere = false;
+	public boolean movingNowhere = true;
 
 	// used to set the speed of sprite sheet cycling
 	public float currentSpeed;
@@ -192,8 +192,7 @@ public class Player implements Renderable {
 		}
 
 		// handle the SecondFloorMap
-		// TODO delete this section, do all checks in first bit above when all
-		// collision detection is added.
+		// TODO delete this section, do all checks in first bit above when all collision detection is added.
 		else {
 			spriteX = spriteX + (dx * tileWidth);
 			spriteY = spriteY + (dy * tileHeight);
@@ -246,6 +245,8 @@ public class Player implements Renderable {
 		if (lastMoveHappened) {
 			if (movingNowhere) {
 				// don't do things
+				move(0, 0);
+				System.out.println("movingNowhere is true");
 			} else if (movingUp && !movingDown && !movingLeft && !movingRight) {
 				System.out.println("W activated in movement()"); // debug line
 				lastMoveHappened = false;
@@ -316,7 +317,7 @@ public class Player implements Renderable {
 		movement();
 		
 		// call the move method every frame, allowing for interpolation
-		move(0, 0); // EXPERIMENTAL
+		//move(0, 0); // EXPERIMENTAL
 
 	}
 

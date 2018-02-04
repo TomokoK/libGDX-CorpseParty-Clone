@@ -20,21 +20,25 @@ public class PlayerInput extends InputAdapter {
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.W) {
 			System.out.println("W pushed"); // debug line
+			this.me.movingNowhere = false;
 			this.me.movingUp = true;
 		}
 
 		if (keycode == Keys.A) {
 			System.out.println("A pushed"); // debug line
+			this.me.movingNowhere = false;
 			this.me.movingLeft = true;
 		}
 
 		if (keycode == Keys.S) {
 			System.out.println("S pushed"); // debug line
+			this.me.movingNowhere = false;
 			this.me.movingDown = true;
 		}
 
 		if (keycode == Keys.D) {
 			System.out.println("D pushed"); // debug line
+			this.me.movingNowhere = false;
 			this.me.movingRight = true;
 		}
 
@@ -66,21 +70,25 @@ public class PlayerInput extends InputAdapter {
 		if (keycode == Keys.W) {
 			me.currentSpeed = 0f;
 			this.me.movingUp = false;
+			this.me.movingNowhere = true;
 		}
 
 		if (keycode == Keys.A) {
 			me.currentSpeed = 0f;
 			this.me.movingLeft = false;
+			this.me.movingNowhere = true;
 		}
 
 		if (keycode == Keys.S) {
 			me.currentSpeed = 0f;
 			this.me.movingDown = false;
+			this.me.movingNowhere = true;
 		}
 
 		if (keycode == Keys.D) {
 			me.currentSpeed = 0f;
 			this.me.movingRight = false;
+			this.me.movingNowhere = true;
 		}
 
 		return false;
