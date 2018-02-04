@@ -55,6 +55,7 @@ public class Player implements Renderable {
 	// interpolation
 	public long startTime;
 	private float alpha;
+	private float beta;
 	private float duration = 250f;
 
 	// Objects here
@@ -166,26 +167,24 @@ public class Player implements Renderable {
 				// anything >1.0f sets alpha to 1f;
 				// ** Experimental interpolation fix cannot be tested until the below math is correct **
 				//TODO: fix changeInTime variable
-				float changeInTime = ((TimeUtils.millis() - startTime) / spriteDelay); // alpha = 1f, refer to above comment
+				float changeInTimeX = ((((TimeUtils.millis() - startTime) / spriteDelay) * futureX) + startX); // alpha = 1f, refer to above comment
+				float changeInTimeY = ((((TimeUtils.millis() - startTime) / spriteDelay) * futureY) + startY);
 				// debug lines
 				System.out.println("startX = " + startX + " startY = " + startY);
-				System.out.println("time values: startTime = " + startTime + " current time in millis = " + TimeUtils.millis() + " changeInTime = " + changeInTime);
-				System.out.println("Pre MathUtils.clamp X values: spriteX = " + spriteX + " futureX = " + futureX);
-				System.out.println("Pre MathUtils.clamp Y values: spriteY = " + spriteY + " futureY = " + futureY);
+				System.out.println("time values: startTime = " + startTime + " current time in millis = " + TimeUtils.millis() + " changeInTimeX = " + changeInTimeX + " changeInTimeY = " + changeInTimeY);
+				System.out.println("pre MathUtils.clamp alpha and beta: alpha = " + alpha + " beta = " + beta);
 				// set alpha
-				System.out.println("Pre MathUtils.clamp alpha = " + alpha);
-				System.out.println("Pre MathUtils.clamp changeInTime = " + changeInTime);
-				alpha = MathUtils.clamp(changeInTime, 0f, 1f); // Value is always first calculation (refer to comment)
-				System.out.println("Post MathUtils.clamp alpha = " + alpha);
-				System.out.println("Post MathUtils.clamp changeInTime = " + changeInTime);
+				alpha = MathUtils.clamp(changeInTimeX, 0f, 1f); // Value is always first calculation (refer to comment)
+				// set beta
+				beta = MathUtils.clamp(changeInTimeY, 0f, 1f);
 				// interpolate X
 				System.out.println("Pre Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
 				spriteX = Interpolation.linear.apply(startX, futureX, alpha);
 				System.out.println("Post Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
 				// interpolate Y
-				System.out.println("Pre Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
-				spriteY = Interpolation.linear.apply(startY, futureY, alpha);
-				System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
+				System.out.println("Pre Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " beta = " + beta);
+				spriteY = Interpolation.linear.apply(startY, futureY, beta);
+				System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " beta = " + beta);
 				System.out.println("-------------------------------------------------------------------------------------------------------------");
 			}
 		}

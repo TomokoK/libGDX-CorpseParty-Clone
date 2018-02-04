@@ -24,6 +24,7 @@ public class PlayerInput extends InputAdapter {
 			this.me.movingNowhere = false;
 			this.me.movingUp = true;
 			this.me.startTime = TimeUtils.millis();
+			System.out.println("startTime has been set to: " + this.me.startTime);
 		}
 
 		if (keycode == Keys.A) {
@@ -31,6 +32,7 @@ public class PlayerInput extends InputAdapter {
 			this.me.movingNowhere = false;
 			this.me.movingLeft = true;
 			this.me.startTime = TimeUtils.millis();
+			System.out.println("startTime has been set to: " + this.me.startTime);
 		}
 
 		if (keycode == Keys.S) {
@@ -38,6 +40,7 @@ public class PlayerInput extends InputAdapter {
 			this.me.movingNowhere = false;
 			this.me.movingDown = true;
 			this.me.startTime = TimeUtils.millis();
+			System.out.println("startTime has been set to: " + this.me.startTime);
 		}
 
 		if (keycode == Keys.D) {
@@ -45,6 +48,7 @@ public class PlayerInput extends InputAdapter {
 			this.me.movingNowhere = false;
 			this.me.movingRight = true;
 			this.me.startTime = TimeUtils.millis();
+			System.out.println("startTime has been set to: " + this.me.startTime);
 		}
 
 		if (keycode == Keys.X) {
