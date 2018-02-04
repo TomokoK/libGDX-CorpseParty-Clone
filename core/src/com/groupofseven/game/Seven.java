@@ -5,7 +5,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -22,11 +21,9 @@ public class Seven extends Game implements ApplicationListener {
 
 	public SpriteBatch batch;
 
-	Sprite sprite;
-
 	public Player me;
 
-	int[] layers = { 0, 1 };
+	private int[] layers = { 0, 1 };
 
 	@Override
 	public void create() {

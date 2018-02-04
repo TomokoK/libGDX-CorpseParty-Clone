@@ -16,7 +16,7 @@ public class Class1AScreen extends AbstractScreen {
 	// init objects
 	private Player me;
 
-	SpriteBatch batch;
+	private SpriteBatch batch;
 
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
@@ -25,9 +25,9 @@ public class Class1AScreen extends AbstractScreen {
 	private static int firstLinePlayed = 0;
 
 	// define music for screen
-	public Music mp3MainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11 Chapter 1 Main Theme.mp3"));
+	private Music mp3MainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11 Chapter 1 Main Theme.mp3"));
 	// define intro voice line
-	public Music voice = Gdx.audio.newMusic(Gdx.files.internal("VoiceActing/f_4.mp3"));
+	private Music voice = Gdx.audio.newMusic(Gdx.files.internal("VoiceActing/f_4.mp3"));
 
 	// store a reference to Seven
 	public Class1AScreen(Seven app) {
@@ -117,9 +117,9 @@ public class Class1AScreen extends AbstractScreen {
 		 */
 		if (firstLinePlayed == 0) {
 			voice.play();
-
 			firstLinePlayed++;
 
+			//TODO: look into this "lambda" stuff the IDE is reporting
 			voice.setOnCompletionListener(new Music.OnCompletionListener() {
 
 				@Override

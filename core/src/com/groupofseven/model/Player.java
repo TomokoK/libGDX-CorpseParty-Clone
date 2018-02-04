@@ -17,7 +17,6 @@ import com.badlogic.gdx.utils.Timer.Task;
 import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
-import com.groupofseven.model.Renderable;
 import com.groupofseven.screen.Class1AScreen;
 
 public class Player implements Renderable {
@@ -44,27 +43,27 @@ public class Player implements Renderable {
 	public float currentSpeed;
 
 	// used for the delay between movement when holding down a key
-	public boolean lastMoveHappened = true;
-	public float spriteDelay = 0.25f; // the lower the number, the faster the move speed
+	private boolean lastMoveHappened = true;
+	private float spriteDelay = 0.25f; // the lower the number, the faster the move speed
 
 	// used to set which sprite row we use while moving
-	public int direction = 0;
+	private int direction = 0;
 
 	// set the height and width of the tiles from the settings class
-	public int tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
+	private int tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 	
 	// interpolation
-	public long startTime = TimeUtils.millis();
-	public float alpha = 0f;
-	public float duration = 250f; 
+	private long startTime = TimeUtils.millis();
+	private float alpha = 0f;
+	private float duration = 250f;
 
 	// Objects here
-	ArrayList<Animation<TextureRegion>> walkAnimation; // declare frame type (texture region)
-	Texture walkSheet;
-	SpriteBatch spriteBatch;
+	private ArrayList<Animation<TextureRegion>> walkAnimation; // declare frame type (texture region)
+	private Texture walkSheet;
+	private SpriteBatch spriteBatch;
 
 	// this float is used to track elapsed animation time
-	float stateTime;
+	private float stateTime;
 
 	// setup constructor
 	public Player(Seven app, TiledMapTileLayer collisionLayer) {
@@ -82,7 +81,7 @@ public class Player implements Renderable {
 	}
 
 	// method to move the sprite
-	public void move(int dx, int dy) {
+	private void move(int dx, int dy) {
 
 		float futureX; // will be calculated to simulate 1 tile in advance with
 						// respect to dx
@@ -132,7 +131,7 @@ public class Player implements Renderable {
 		}
 
 		Cell cell = collisionLayer.getCell((int) futureX / tileWidth, (int) futureY / tileHeight);
-		boolean collideX = false, collideY = false;
+		boolean collideX, collideY;
 		// begin movement stuff
 
 		if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
@@ -161,7 +160,7 @@ public class Player implements Renderable {
 				 * interpolation.
 				 */
 				// setup starting{X,Y} values
-				float startX = 0, startY = 0;
+				float startX, startY;
 				startX = spriteX;
 				startY = spriteY;
 				// anything >1.0f sets alpha to 1f;
@@ -243,8 +242,8 @@ public class Player implements Renderable {
 
 	}
 
-	public void movement() {
-		if (lastMoveHappened == true) {
+	private void movement() {
+		if (lastMoveHappened) {
 			if (movingNowhere) {
 				// don't do things
 			} else if (movingUp && !movingDown && !movingLeft && !movingRight) {
@@ -292,7 +291,6 @@ public class Player implements Renderable {
 					}
 				}, spriteDelay);
 			}
-			return;
 		}
 	}
 

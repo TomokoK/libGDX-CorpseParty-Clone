@@ -16,14 +16,14 @@ public class SecondFloorScreen extends AbstractScreen {
 	// init objects
 	private Player me;
 
-	SpriteBatch batch = new SpriteBatch();
+	private SpriteBatch batch = new SpriteBatch();
 
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
 
 	// define music for screen
-	public Music mp3music = Gdx.audio.newMusic(Gdx.files.internal("music/01 Puzzled.mp3"));
+	private Music mp3music = Gdx.audio.newMusic(Gdx.files.internal("music/01 Puzzled.mp3"));
 
 	// store a reference to seven
 	public SecondFloorScreen(Seven app) {

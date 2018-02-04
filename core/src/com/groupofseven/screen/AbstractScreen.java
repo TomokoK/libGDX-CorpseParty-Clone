@@ -8,7 +8,7 @@ public abstract class AbstractScreen implements Screen {
 	protected final Seven app;
 
 	public AbstractScreen(Seven app) {
-		/** each class stores a final reference to Game object */
+		// each class stores a final reference to Game object
 		this.app = app;
 	}
 
