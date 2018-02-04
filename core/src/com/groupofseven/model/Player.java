@@ -165,11 +165,11 @@ public class Player implements Renderable {
 				startY = spriteY;
 				// anything >1.0f sets alpha to 1f;
 				// ** Experimental interpolation fix cannot be tested until the below math is correct **
+				//TODO: fix changeInTime variable
 				float changeInTime = ((TimeUtils.millis() - startTime) / duration); // alpha = 1f, refer to above comment
 				// debug lines
 				System.out.println("startX = " + startX + " startY = " + startY);
-				System.out.println("startTime = " + startTime);
-				System.out.println("changeInTime = " + changeInTime);
+				System.out.println("time values: startTime = " + startTime + " current time in millis = " + TimeUtils.millis() + " changeInTime = " + changeInTime);
 				System.out.println("Pre MathUtils.clamp X values: spriteX = " + spriteX + " futureX = " + futureX);
 				System.out.println("Pre MathUtils.clamp Y values: spriteY = " + spriteY + " futureY = " + futureY);
 				// set alpha
@@ -186,7 +186,6 @@ public class Player implements Renderable {
 				System.out.println("Pre Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
 				spriteY = Interpolation.linear.apply(startY, futureY, alpha);
 				System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
-				System.out.println("startX = " + startX + " startY = " + startY);
 				System.out.println("-------------------------------------------------------------------------------------------------------------");
 			}
 		}
