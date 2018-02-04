@@ -10,13 +10,13 @@ buildscript {
 }
 
 allprojects {
-    apply plugin: "eclipse"
     apply plugin: "idea"
+    apply plugin: "eclipse"
 
     version = '1.0'
     ext {
         appName = "Group-of-Seven"
-        gdxVersion = '1.9.7'
+        gdxVersion = '1.9.8'
         roboVMVersion = '2.3.0'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
@@ -55,8 +55,4 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
     }
-}
-
-tasks.eclipse.doLast {
-    delete ".project"
 }

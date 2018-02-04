@@ -33,7 +33,7 @@ public class Player implements Renderable {
 	public float spriteX;
 	public float spriteY;
 
-	// booleans handled by the PlayerInput class, used to movement
+	// booleans handled by the PlayerInput class, used for movement
 	public boolean movingUp = false;
 	public boolean movingDown = false;
 	public boolean movingLeft = false;
@@ -165,13 +165,14 @@ public class Player implements Renderable {
 				startX = spriteX;
 				startY = spriteY;
 				// anything >1.0f sets alpha to 1f;
-				// ** Experimental interpolation fix cannot be tested until I know the below math is correct **
+				// ** Experimental interpolation fix cannot be tested until the below math is correct **
 				float changeInTime = ((TimeUtils.millis() - startTime) / duration); // alpha = 1f, refer to above comment
 				// debug lines
+				System.out.println("startX = " + startX + " startY = " + startY);
 				System.out.println("startTime = " + startTime);
 				System.out.println("changeInTime = " + changeInTime);
-				System.out.println("Pre MathUtils.clamp X values: " + "spriteX = " + spriteX + " futureX = " + futureX);
-				System.out.println("Pre MathUtils.clamp Y values: " + "spriteY = " + spriteY + " futureY = " + futureY);
+				System.out.println("Pre MathUtils.clamp X values: spriteX = " + spriteX + " futureX = " + futureX);
+				System.out.println("Pre MathUtils.clamp Y values: spriteY = " + spriteY + " futureY = " + futureY);
 				// set alpha
 				System.out.println("Pre MathUtils.clamp alpha = " + alpha);
 				System.out.println("Pre MathUtils.clamp changeInTime = " + changeInTime);
@@ -186,6 +187,7 @@ public class Player implements Renderable {
 				System.out.println("Pre Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
 				spriteY = Interpolation.linear.apply(startY, futureY, alpha);
 				System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
+				System.out.println("startX = " + startX + " startY = " + startY);
 				System.out.println("-------------------------------------------------------------------------------------------------------------");
 			}
 		}
@@ -304,14 +306,12 @@ public class Player implements Renderable {
 			batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)
 			// X is offset by -11 as the source sprite sheet isn't a
 			// power of two.
-			//// System.out.println(stateTime); // debug line
 		} else if (currentSpeed == 0f) {
 			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(3f, false); // Don't
 			// draw the sprite mid animation if you are against a blocked tile
 			batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)
 			// X is offset by -11 as the source sprite sheet isn't a
 			// power of two.
-			//// System.out.println("No stateTime!"); // debug line
 		}
 
 		// call the movement method every frame, allowing for continuous input
