@@ -2,10 +2,10 @@
 
 Map, sprite, and music assets are copyright Team GrisGris, 2011.
 
-All source code, voice acting, and all other files not belonging to Team GrisGris are copyrighted my myself,
+All other files (e.g. source code, voice acting, etc...) are copyrighted by the author (me).
 Please contact me regarding any issues or questions.
 
-Some assets have been ignored by git for privacy reasons.
+Some assets have been ignored by git for privacy reasons. This will cause the project to fail on run if you attempt to build it yourself.
 
 Project deadline: Late June 2018
 
