@@ -2,6 +2,7 @@ package com.groupofseven.input;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.groupofseven.model.Player;
 import com.groupofseven.screen.Class1AScreen;
 import com.groupofseven.screen.SecondFloorScreen;
@@ -22,24 +23,28 @@ public class PlayerInput extends InputAdapter {
 			System.out.println("W pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingUp = true;
+			this.me.startTime = TimeUtils.millis();
 		}
 
 		if (keycode == Keys.A) {
 			System.out.println("A pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingLeft = true;
+			this.me.startTime = TimeUtils.millis();
 		}
 
 		if (keycode == Keys.S) {
 			System.out.println("S pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingDown = true;
+			this.me.startTime = TimeUtils.millis();
 		}
 
 		if (keycode == Keys.D) {
 			System.out.println("D pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingRight = true;
+			this.me.startTime = TimeUtils.millis();
 		}
 
 		if (keycode == Keys.X) {

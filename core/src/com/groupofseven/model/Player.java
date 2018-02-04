@@ -53,8 +53,8 @@ public class Player implements Renderable {
 	private int tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 	
 	// interpolation
-	private long startTime = TimeUtils.millis();
-	private float alpha = 0f;
+	public long startTime;
+	private float alpha;
 	private float duration = 250f;
 
 	// Objects here
@@ -166,7 +166,7 @@ public class Player implements Renderable {
 				// anything >1.0f sets alpha to 1f;
 				// ** Experimental interpolation fix cannot be tested until the below math is correct **
 				//TODO: fix changeInTime variable
-				float changeInTime = ((TimeUtils.millis() - startTime) / duration); // alpha = 1f, refer to above comment
+				float changeInTime = ((TimeUtils.millis() - startTime) / spriteDelay); // alpha = 1f, refer to above comment
 				// debug lines
 				System.out.println("startX = " + startX + " startY = " + startY);
 				System.out.println("time values: startTime = " + startTime + " current time in millis = " + TimeUtils.millis() + " changeInTime = " + changeInTime);
