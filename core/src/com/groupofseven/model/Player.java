@@ -171,8 +171,8 @@ public class Player implements Renderable {
                     float changeInTime = ((((TimeUtils.millis() - startTime) / spriteDelay) * futureX) + startX); // alpha = 1f, refer to above comment
                     // debug lines
                     System.out.println("startX = " + startX + " startY = " + startY);
-                    System.out.println("time values: startTime = " + startTime + " current time in millis = " + TimeUtils.millis() + " changeInTimeX = " + changeInTime + " changeInTimeY = " + changeInTime);
-                    System.out.println("pre MathUtils.clamp alpha and beta: alpha = " + alpha + " beta = " + beta);
+                    System.out.println("time values: startTime = " + startTime + " current time in millis = " + TimeUtils.millis() + " changeInTime = " + changeInTime);
+                    System.out.println("pre MathUtils.clamp alpha and beta: alpha = " + alpha);
                     // set alpha
                     alpha = MathUtils.clamp(changeInTime, 0f, 1f); // Value is always first calculation (refer to comment)
                     // interpolate X
@@ -180,9 +180,9 @@ public class Player implements Renderable {
                     spriteX = Interpolation.linear.apply(startX, futureX, alpha);
                     System.out.println("Post Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
                     // interpolate Y
-                    System.out.println("Pre Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " beta = " + beta);
+                    System.out.println("Pre Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
                     spriteY = Interpolation.linear.apply(startY, futureY, alpha);
-                    System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " beta = " + beta);
+                    System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
                     System.out.println("-------------------------------------------------------------------------------------------------------------");
                 } while (alpha < 1f);
             }
