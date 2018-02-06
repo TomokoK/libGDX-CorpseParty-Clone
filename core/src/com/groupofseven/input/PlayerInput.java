@@ -23,32 +23,32 @@ public class PlayerInput extends InputAdapter {
 			System.out.println("W pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingUp = true;
-			this.me.startTime = TimeUtils.millis();
-			System.out.println("startTime has been set to: " + this.me.startTime);
+//			this.me.startTime = TimeUtils.millis();
+//			System.out.println("startTime has been set to: " + this.me.startTime);
 		}
 
 		if (keycode == Keys.A) {
 			System.out.println("A pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingLeft = true;
-			this.me.startTime = TimeUtils.millis();
-			System.out.println("startTime has been set to: " + this.me.startTime);
+//			this.me.startTime = TimeUtils.millis();
+//			System.out.println("startTime has been set to: " + this.me.startTime);
 		}
 
 		if (keycode == Keys.S) {
 			System.out.println("S pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingDown = true;
-			this.me.startTime = TimeUtils.millis();
-			System.out.println("startTime has been set to: " + this.me.startTime);
+//			this.me.startTime = TimeUtils.millis();
+//			System.out.println("startTime has been set to: " + this.me.startTime);
 		}
 
 		if (keycode == Keys.D) {
 			System.out.println("D pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingRight = true;
-			this.me.startTime = TimeUtils.millis();
-			System.out.println("startTime has been set to: " + this.me.startTime);
+//			this.me.startTime = TimeUtils.millis();
+//			System.out.println("startTime has been set to: " + this.me.startTime);
 		}
 
 		if (keycode == Keys.X) {

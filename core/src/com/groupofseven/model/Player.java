@@ -21,307 +21,306 @@ import com.groupofseven.screen.Class1AScreen;
 
 public class Player implements Renderable {
 
-	// store references
-	private final Seven app; // final reference to Game object
+    // store references
+    private final Seven app; // final reference to Game object
 
-	private final PlayerInput input; // final reference to player input
+    private final PlayerInput input; // final reference to player input
 
-	private TiledMapTileLayer collisionLayer; // reference to the map layer
+    private TiledMapTileLayer collisionLayer; // reference to the map layer
 
-	// x and y are used for sprite position
-	public float spriteX;
-	public float spriteY;
+    // x and y are used for sprite position
+    public float spriteX;
+    public float spriteY;
 
-	// booleans handled by the PlayerInput class, used for movement
-	public boolean movingUp = false;
-	public boolean movingDown = false;
-	public boolean movingLeft = false;
-	public boolean movingRight = false;
-	public boolean movingNowhere = true;
+    // booleans handled by the PlayerInput class, used for movement
+    public boolean movingUp = false;
+    public boolean movingDown = false;
+    public boolean movingLeft = false;
+    public boolean movingRight = false;
+    public boolean movingNowhere = true;
 
-	// used to set the speed of sprite sheet cycling
-	public float currentSpeed;
+    // used to set the speed of sprite sheet cycling
+    public float currentSpeed;
 
-	// used for the delay between movement when holding down a key
-	private boolean lastMoveHappened = true;
-	private float spriteDelay = 0.25f; // the lower the number, the faster the move speed
+    // used for the delay between movement when holding down a key
+    private boolean lastMoveHappened = true;
+    private float spriteDelay = 0.25f; // the lower the number, the faster the move speed
 
-	// used to set which sprite row we use while moving
-	private int direction = 0;
+    // used to set which sprite row we use while moving
+    private int direction = 0;
 
-	// set the height and width of the tiles from the settings class
-	private int tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
-	
-	// interpolation
-	public long startTime;
-	private float alpha;
-	private float beta;
-	private float duration = 250f;
+    // set the height and width of the tiles from the settings class
+    private int tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
 
-	// Objects here
-	private ArrayList<Animation<TextureRegion>> walkAnimation; // declare frame type (texture region)
-	private Texture walkSheet;
-	private SpriteBatch spriteBatch;
+    // interpolation
+    public long startTime;
+    private float alpha;
+    private float beta;
+    private float duration = 250f;
 
-	// this float is used to track elapsed animation time
-	private float stateTime;
+    // Objects here
+    private ArrayList<Animation<TextureRegion>> walkAnimation; // declare frame type (texture region)
+    private Texture walkSheet;
+    private SpriteBatch spriteBatch;
 
-	// setup constructor
-	public Player(Seven app, TiledMapTileLayer collisionLayer) {
-		this.app = app;
-		input = new PlayerInput(this);
-		this.collisionLayer = collisionLayer;
-	}
+    // this float is used to track elapsed animation time
+    private float stateTime;
 
-	public Seven getApp() {
-		return app;
-	}
+    // setup constructor
+    public Player(Seven app, TiledMapTileLayer collisionLayer) {
+        this.app = app;
+        input = new PlayerInput(this);
+        this.collisionLayer = collisionLayer;
+    }
 
-	public PlayerInput getInput() {
-		return input;
-	}
+    public Seven getApp() {
+        return app;
+    }
 
-	// method to move the sprite
-	private void move(int dx, int dy) {
+    public PlayerInput getInput() {
+        return input;
+    }
 
-		float futureX; // will be calculated to simulate 1 tile in advance with
-						// respect to dx
+    // method to move the sprite
+    private void move(int dx, int dy) {
 
-		// Calculate future x.
-		// cases: dx == 0 -> future x is current x (no movement)
-		// dx == 1 -> future x is trying to move right one tile
-		// dx == -1 -> future x is trying to move left one tile
-		if (dx == 1) {
-			// case 1 ... simulation of 1 tile movement right
-			futureX = spriteX + tileWidth;
-			direction = 2;
-			// debug line
-			////System.out.println("Future X is: " + futureX);
-		} else if (dx == -1) {
-			// case: -1 ... simulation of 1 tile movement left
-			futureX = spriteX - tileWidth;
-			direction = 1;
-			////System.out.println("Future X is: " + futureX);
-		} else {
-			// case: 0 or invalid dx value -> no movement
-			futureX = spriteX;
-			////System.out.println("Future X is the same: " + futureX);
-		}
+        float futureX; // will be calculated to simulate 1 tile in advance with
+        // respect to dx
 
-		float futureY; // will be calculated to simulate 1 tile in advance with
-						// respect to dx
+        // Calculate future x.
+        // cases: dx == 0 -> future x is current x (no movement)
+        // dx == 1 -> future x is trying to move right one tile
+        // dx == -1 -> future x is trying to move left one tile
+        if (dx == 1) {
+            // case 1 ... simulation of 1 tile movement right
+            futureX = spriteX + tileWidth;
+            direction = 2;
+            // debug line
+            ////System.out.println("Future X is: " + futureX);
+        } else if (dx == -1) {
+            // case: -1 ... simulation of 1 tile movement left
+            futureX = spriteX - tileWidth;
+            direction = 1;
+            ////System.out.println("Future X is: " + futureX);
+        } else {
+            // case: 0 or invalid dx value -> no movement
+            futureX = spriteX;
+            ////System.out.println("Future X is the same: " + futureX);
+        }
 
-		// Calculate future y.
-		// cases: dy == 0 -> future y is current y (no movement)
-		// dy == 1 -> future y is going to move right one tile
-		// dy == -1 -> future y is going to move left one tile
-		if (dy == 1) {
-			// move 1 tile up
-			futureY = spriteY + tileHeight;
-			direction = 3;
-			////System.out.println("Future Y is: " + futureY);
-		} else if (dy == -1) {
-			// move 1 time down
-			futureY = spriteY - tileHeight;
-			direction = 0;
-			////System.out.println("Future Y is: " + futureY);
-		} else {
-			// do not move
-			futureY = spriteY;
-			////System.out.println("Future Y is the same: " + futureY);
-		}
+        float futureY; // will be calculated to simulate 1 tile in advance with
+        // respect to dx
 
-		Cell cell = collisionLayer.getCell((int) futureX / tileWidth, (int) futureY / tileHeight);
-		boolean collideX, collideY;
-		// begin movement stuff
+        // Calculate future y.
+        // cases: dy == 0 -> future y is current y (no movement)
+        // dy == 1 -> future y is going to move right one tile
+        // dy == -1 -> future y is going to move left one tile
+        if (dy == 1) {
+            // move 1 tile up
+            futureY = spriteY + tileHeight;
+            direction = 3;
+            ////System.out.println("Future Y is: " + futureY);
+        } else if (dy == -1) {
+            // move 1 time down
+            futureY = spriteY - tileHeight;
+            direction = 0;
+            ////System.out.println("Future Y is: " + futureY);
+        } else {
+            // do not move
+            futureY = spriteY;
+            ////System.out.println("Future Y is the same: " + futureY);
+        }
 
-		if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
-			// case: cell exists and the cell is not a blocked tile
-			// post: if case is legal, future x is legal. else x is not legal
-			// handle the Class1AMap
+        Cell cell = collisionLayer.getCell((int) futureX / tileWidth, (int) futureY / tileHeight);
+        boolean collideX, collideY;
+        // begin movement stuff
 
-			if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
-				collideX = false;
-				collideY = false;
-				// debug lines
-				////System.out.println("cell is not blocked");
-			} else {
-				collideX = true;
-				collideY = true;
-				// debug lines
-				////System.out.println("cell is blocked");
-			}
+        if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
+            // case: cell exists and the cell is not a blocked tile
+            // post: if case is legal, future x is legal. else x is not legal
+            // handle the Class1AMap
 
-			if ((!collideX || !collideY) && (dx == 1 || dx == -1 || dy == 1 || dy == -1)) {
-				currentSpeed = 1f;
-				/*
-				 * Interpolation isn't working because alpha needs to increase by a constant linear value,
-				 * which isn't happening as move() is only called on keypress meaning alpha is only calculated once.
-				 * To fix this, alpha needs to be moved into a method such as render(), or into a new method just for
-				 * interpolation.
-				 */
-				// setup starting{X,Y} values
-				float startX, startY;
-				startX = spriteX;
-				startY = spriteY;
-				// anything >1.0f sets alpha to 1f;
-				// ** Experimental interpolation fix cannot be tested until the below math is correct **
-				//TODO: fix changeInTime variable
-				float changeInTimeX = ((((TimeUtils.millis() - startTime) / spriteDelay) * futureX) + startX); // alpha = 1f, refer to above comment
-				float changeInTimeY = ((((TimeUtils.millis() - startTime) / spriteDelay) * futureY) + startY);
-				// debug lines
-				System.out.println("startX = " + startX + " startY = " + startY);
-				System.out.println("time values: startTime = " + startTime + " current time in millis = " + TimeUtils.millis() + " changeInTimeX = " + changeInTimeX + " changeInTimeY = " + changeInTimeY);
-				System.out.println("pre MathUtils.clamp alpha and beta: alpha = " + alpha + " beta = " + beta);
-				// set alpha
-				alpha = MathUtils.clamp(changeInTimeX, 0f, 1f); // Value is always first calculation (refer to comment)
-				// set beta
-				beta = MathUtils.clamp(changeInTimeY, 0f, 1f);
-				// interpolate X
-				System.out.println("Pre Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
-				spriteX = Interpolation.linear.apply(startX, futureX, alpha);
-				System.out.println("Post Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
-				// interpolate Y
-				System.out.println("Pre Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " beta = " + beta);
-				spriteY = Interpolation.linear.apply(startY, futureY, beta);
-				System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " beta = " + beta);
-				System.out.println("-------------------------------------------------------------------------------------------------------------");
-			}
-		}
+            if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
+                collideX = false;
+                collideY = false;
+                // debug lines
+                ////System.out.println("cell is not blocked");
+            } else {
+                collideX = true;
+                collideY = true;
+                // debug lines
+                ////System.out.println("cell is blocked");
+            }
 
-		// handle the SecondFloorMap
-		// TODO delete this section, do all checks in first bit above when all collision detection is added.
-		else {
-			spriteX = spriteX + (dx * tileWidth);
-			spriteY = spriteY + (dy * tileHeight);
-			currentSpeed = 1f;
-		}
+            if ((!collideX || !collideY) && (dx == 1 || dx == -1 || dy == 1 || dy == -1)) {
+                currentSpeed = 1f;
+                /*
+                 * Interpolation isn't working because alpha needs to increase by a constant linear value,
+                 * which isn't happening as move() is only called on keypress meaning alpha is only calculated once.
+                 * To fix this, alpha needs to be moved into a method such as render(), or into a new method just for
+                 * interpolation.
+                 */
+                // setup starting{X,Y} values
+                float startX, startY;
+                startX = spriteX;
+                startY = spriteY;
+                // anything >1.0f sets alpha to 1f;
+                // ** Experimental interpolation fix cannot be tested until the below math is correct **
+                //TODO: fix changeInTime variable
+                do {
+                    float changeInTime = ((((TimeUtils.millis() - startTime) / spriteDelay) * futureX) + startX); // alpha = 1f, refer to above comment
+                    // debug lines
+                    System.out.println("startX = " + startX + " startY = " + startY);
+                    System.out.println("time values: startTime = " + startTime + " current time in millis = " + TimeUtils.millis() + " changeInTimeX = " + changeInTime + " changeInTimeY = " + changeInTime);
+                    System.out.println("pre MathUtils.clamp alpha and beta: alpha = " + alpha + " beta = " + beta);
+                    // set alpha
+                    alpha = MathUtils.clamp(changeInTime, 0f, 1f); // Value is always first calculation (refer to comment)
+                    // interpolate X
+                    System.out.println("Pre Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
+                    spriteX = Interpolation.linear.apply(startX, futureX, alpha);
+                    System.out.println("Post Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
+                    // interpolate Y
+                    System.out.println("Pre Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " beta = " + beta);
+                    spriteY = Interpolation.linear.apply(startY, futureY, alpha);
+                    System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " beta = " + beta);
+                    System.out.println("-------------------------------------------------------------------------------------------------------------");
+                } while (alpha < 1f);
+            }
+        }
 
-	}
+        // handle the SecondFloorMap
+        // TODO delete this section, do all checks in first bit above when all collision detection is added.
+        else {
+            spriteX = spriteX + (dx * tileWidth);
+            spriteY = spriteY + (dy * tileHeight);
+            currentSpeed = 1f;
+        }
 
-	public float getX() {
-		return spriteX;
-	}
+    }
 
-	public float getY() {
-		return spriteY;
-	}
+    public float getX() {
+        return spriteX;
+    }
 
-	public void loadGFX() {
-		// This method is called in Seven.java
-		// This loads the sprite into the GPU.
+    public float getY() {
+        return spriteY;
+    }
 
-		// Load sprite sheet as a texture
-		walkSheet = new Texture("sprites/Seiko.png");
-		walkAnimation = new ArrayList<Animation<TextureRegion>>(4);
+    public void loadGFX() {
+        // This method is called in Seven.java
+        // This loads the sprite into the GPU.
 
-		// Use the split utility method to create a 2D array of TextureRegions
-		TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / Settings.SPRITE_COLUMNS,
-				walkSheet.getHeight() / Settings.SPRITE_ROWS);
+        // Load sprite sheet as a texture
+        walkSheet = new Texture("sprites/Seiko.png");
+        walkAnimation = new ArrayList<Animation<TextureRegion>>(4);
 
-		// Cycle through each picture on the selected sprite sheet row
-		Animation tmpAnim;
-		for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
-			tmpAnim = new Animation<TextureRegion>(0.15f, tmp[i]);
-			tmpAnim.setPlayMode(Animation.PlayMode.LOOP);
-			walkAnimation.add(tmpAnim);
-		}
+        // Use the split utility method to create a 2D array of TextureRegions
+        TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / Settings.SPRITE_COLUMNS,
+                walkSheet.getHeight() / Settings.SPRITE_ROWS);
 
-		// Instantiate a SpriteBatch for drawing and reset the elapsed animation
-		// time to 0
-		spriteBatch = new SpriteBatch();
-		stateTime = 0f;
+        // Cycle through each picture on the selected sprite sheet row
+        Animation tmpAnim;
+        for (int i = 0; i < Settings.SPRITE_ROWS; i++) {
+            tmpAnim = new Animation<TextureRegion>(0.15f, tmp[i]);
+            tmpAnim.setPlayMode(Animation.PlayMode.LOOP);
+            walkAnimation.add(tmpAnim);
+        }
 
-	}
+        // Instantiate a SpriteBatch for drawing and reset the elapsed animation
+        // time to 0
+        spriteBatch = new SpriteBatch();
+        stateTime = 0f;
 
-	// implementation of update()
-	public void update(float delta) {
+    }
 
-	}
+    // implementation of update()
+    public void update(float delta) {
 
-	private void movement() {
-		if (lastMoveHappened) {
-			if (movingNowhere) {
-				// don't do things
-				move(0, 0);
-				System.out.println("movingNowhere is true");
-			} else if (movingUp && !movingDown && !movingLeft && !movingRight) {
-				System.out.println("W activated in movement()"); // debug line
-				lastMoveHappened = false;
-				move(0, 1);
+    }
 
-				Timer.schedule(new Task() {
-					@Override
-					public void run() {
-						lastMoveHappened = true;
-					}
-				}, spriteDelay);
-			} else if (movingDown && !movingUp && !movingLeft && !movingRight) {
-				System.out.println("S activated in movement()"); // debug line
-				lastMoveHappened = false;
-				move(0, -1);
+    private void movement() {
+        if (lastMoveHappened) {
+            if (movingNowhere) {
+                // don't do things
+                move(0, 0);
+                System.out.println("movingNowhere is true");
+            } else if (movingUp && !movingDown && !movingLeft && !movingRight) {
+                System.out.println("W activated in movement()"); // debug line
+                lastMoveHappened = false;
+                move(0, 1);
 
-				Timer.schedule(new Task() {
-					@Override
-					public void run() {
-						lastMoveHappened = true;
-					}
-				}, spriteDelay);
-			} else if (movingLeft && !movingDown && !movingUp && !movingRight) {
-				System.out.println("A activated in movement()"); // debug line
-				lastMoveHappened = false;
-				move(-1, 0);
+                Timer.schedule(new Task() {
+                    @Override
+                    public void run() {
+                        lastMoveHappened = true;
+                    }
+                }, spriteDelay);
+            } else if (movingDown && !movingUp && !movingLeft && !movingRight) {
+                System.out.println("S activated in movement()"); // debug line
+                lastMoveHappened = false;
+                move(0, -1);
 
-				Timer.schedule(new Task() {
-					@Override
-					public void run() {
-						lastMoveHappened = true;
-					}
-				}, spriteDelay);
-			} else if (movingRight && !movingUp && !movingDown && !movingLeft) {
-				System.out.println("D activated in movement()"); // debug line
-				lastMoveHappened = false;
-				move(1, 0);
+                Timer.schedule(new Task() {
+                    @Override
+                    public void run() {
+                        lastMoveHappened = true;
+                    }
+                }, spriteDelay);
+            } else if (movingLeft && !movingDown && !movingUp && !movingRight) {
+                System.out.println("A activated in movement()"); // debug line
+                lastMoveHappened = false;
+                move(-1, 0);
 
-				Timer.schedule(new Task() {
-					@Override
-					public void run() {
-						lastMoveHappened = true;
-					}
-				}, spriteDelay);
-			}
-		}
-	}
+                Timer.schedule(new Task() {
+                    @Override
+                    public void run() {
+                        lastMoveHappened = true;
+                    }
+                }, spriteDelay);
+            } else if (movingRight && !movingUp && !movingDown && !movingLeft) {
+                System.out.println("D activated in movement()"); // debug line
+                lastMoveHappened = false;
+                move(1, 0);
 
-	// implementation of render
-	public void render(float delta, SpriteBatch batch) {
-		stateTime += (Gdx.graphics.getDeltaTime() * currentSpeed); // Accumulate elapsed animation time
+                Timer.schedule(new Task() {
+                    @Override
+                    public void run() {
+                        lastMoveHappened = true;
+                    }
+                }, spriteDelay);
+            }
+        }
+    }
 
-		// Get current frame of animation for the current stateTime
-		if (currentSpeed != 0f) {
-			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(stateTime, true);
-			batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)
-			// X is offset by -11 as the source sprite sheet isn't a
-			// power of two.
-		} else if (currentSpeed == 0f) {
-			TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(3f, false); // Don't
-			// draw the sprite mid animation if you are against a blocked tile
-			batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)
-			// X is offset by -11 as the source sprite sheet isn't a
-			// power of two.
-		}
+    // implementation of render
+    public void render(float delta, SpriteBatch batch) {
+        stateTime += (Gdx.graphics.getDeltaTime() * currentSpeed); // Accumulate elapsed animation time
 
-		// call the movement method every frame, allowing for continuous input
-		movement();
-		
-		// call the move method every frame, allowing for interpolation
-		//move(0, 0); // EXPERIMENTAL
+        // Get current frame of animation for the current stateTime
+        if (currentSpeed != 0f) {
+            TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(stateTime, true);
+            batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)
+            // X is offset by -11 as the source sprite sheet isn't a
+            // power of two.
+        } else if (currentSpeed == 0f) {
+            TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(3f, false); // Don't
+            // draw the sprite mid animation if you are against a blocked tile
+            batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)
+            // X is offset by -11 as the source sprite sheet isn't a
+            // power of two.
+        }
 
-	}
+        // call the movement method every frame, allowing for continuous input
+        movement();
 
-	public void dispose() {
-		spriteBatch.dispose();
-		walkSheet.dispose();
-	}
+        // call the move method every frame, allowing for interpolation
+        //move(0, 0); // EXPERIMENTAL
+
+    }
+
+    public void dispose() {
+        spriteBatch.dispose();
+        walkSheet.dispose();
+    }
 
 }
