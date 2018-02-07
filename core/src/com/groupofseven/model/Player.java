@@ -155,10 +155,9 @@ public class Player implements Renderable {
             if ((!collideX || !collideY) && (dx == 1 || dx == -1 || dy == 1 || dy == -1)) {
                 currentSpeed = 1f;
                 /*
-                 * Interpolation isn't working because alpha needs to increase by a constant linear value,
-                 * which isn't happening as move() is only called on keypress meaning alpha is only calculated once.
-                 * To fix this, alpha needs to be moved into a method such as render(), or into a new method just for
-                 * interpolation.
+                 * Debug logs indicate that interpolation is taking place, however, the sprite doesn't look to be
+                 * interpolating.
+                 * TODO: Investigate debug logs vs. actual outcome
                  */
                 // setup starting{X,Y} values
                 float startX, startY;
@@ -168,13 +167,14 @@ public class Player implements Renderable {
                 // ** Experimental interpolation fix cannot be tested until the below math is correct **
                 //TODO: fix changeInTime variable
                 do {
-                    float changeInTime = ((TimeUtils.millis() - startTime) / duration); // alpha = 1f, refer to above comment
+                    // calculate the change in time between the start time and the end time of the animation
+                    float changeInTime = ((TimeUtils.millis() - startTime) / duration); // 0f =< changeInTime =< 1f
                     // debug lines
                     System.out.println("startX = " + startX + " startY = " + startY);
                     System.out.println("time values: startTime = " + startTime + " current time in millis = " + TimeUtils.millis() + " changeInTime = " + changeInTime);
                     System.out.println("pre MathUtils.clamp alpha: " + alpha);
                     // set alpha
-                    alpha = MathUtils.clamp(changeInTime, 0f, 1f); // Value is always first calculation (refer to comment)
+                    alpha = MathUtils.clamp(changeInTime, 0f, 1f); // 0f =< alpha =< 1f
                     // interpolate X
                     System.out.println("Pre Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
                     spriteX = Interpolation.linear.apply(startX, futureX, alpha);
@@ -184,7 +184,7 @@ public class Player implements Renderable {
                     spriteY = Interpolation.linear.apply(startY, futureY, alpha);
                     System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
                     System.out.println("-------------------------------------------------------------------------------------------------------------");
-                } while (alpha < 1f && alpha >= 0f);
+                } while (alpha < 1f && alpha >= 0f); // alpha <= 1f will induce an infinite loop, as alpha =/= >1f.
             }
         }
 
