@@ -56,7 +56,7 @@ public class Player implements Renderable {
     public long startTime;
     private float alpha;
     private float beta;
-    private float duration = 250f;
+    private float duration = 75f;
 
     // Objects here
     private ArrayList<Animation<TextureRegion>> walkAnimation; // declare frame type (texture region)
@@ -168,11 +168,11 @@ public class Player implements Renderable {
                 // ** Experimental interpolation fix cannot be tested until the below math is correct **
                 //TODO: fix changeInTime variable
                 do {
-                    float changeInTime = ((((TimeUtils.millis() - startTime) / spriteDelay) * futureX) + startX); // alpha = 1f, refer to above comment
+                    float changeInTime = ((TimeUtils.millis() - startTime) / duration); // alpha = 1f, refer to above comment
                     // debug lines
                     System.out.println("startX = " + startX + " startY = " + startY);
                     System.out.println("time values: startTime = " + startTime + " current time in millis = " + TimeUtils.millis() + " changeInTime = " + changeInTime);
-                    System.out.println("pre MathUtils.clamp alpha and beta: alpha = " + alpha);
+                    System.out.println("pre MathUtils.clamp alpha: " + alpha);
                     // set alpha
                     alpha = MathUtils.clamp(changeInTime, 0f, 1f); // Value is always first calculation (refer to comment)
                     // interpolate X
@@ -184,7 +184,7 @@ public class Player implements Renderable {
                     spriteY = Interpolation.linear.apply(startY, futureY, alpha);
                     System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
                     System.out.println("-------------------------------------------------------------------------------------------------------------");
-                } while (alpha < 1f);
+                } while (alpha < 1f && alpha >= 0f);
             }
         }
 
@@ -243,10 +243,11 @@ public class Player implements Renderable {
             if (movingNowhere) {
                 // don't do things
                 move(0, 0);
-                System.out.println("movingNowhere is true");
+                //System.out.println("movingNowhere is true");
             } else if (movingUp && !movingDown && !movingLeft && !movingRight) {
                 System.out.println("W activated in movement()"); // debug line
                 lastMoveHappened = false;
+                startTime = TimeUtils.millis();
                 move(0, 1);
 
                 Timer.schedule(new Task() {
@@ -258,6 +259,7 @@ public class Player implements Renderable {
             } else if (movingDown && !movingUp && !movingLeft && !movingRight) {
                 System.out.println("S activated in movement()"); // debug line
                 lastMoveHappened = false;
+                startTime = TimeUtils.millis();
                 move(0, -1);
 
                 Timer.schedule(new Task() {
@@ -269,6 +271,7 @@ public class Player implements Renderable {
             } else if (movingLeft && !movingDown && !movingUp && !movingRight) {
                 System.out.println("A activated in movement()"); // debug line
                 lastMoveHappened = false;
+                startTime = TimeUtils.millis();
                 move(-1, 0);
 
                 Timer.schedule(new Task() {
@@ -280,6 +283,7 @@ public class Player implements Renderable {
             } else if (movingRight && !movingUp && !movingDown && !movingLeft) {
                 System.out.println("D activated in movement()"); // debug line
                 lastMoveHappened = false;
+                startTime = TimeUtils.millis();
                 move(1, 0);
 
                 Timer.schedule(new Task() {
