@@ -20,8 +20,7 @@
  * 	Add + improve collision detection
  * 	Add tile layers to each map for better collision detection (e.g. sprite behind podium)
  * 	Add more voice acting lines
- * 	Sprite animations *PRIORITY*
- * 		Tweening
+ * 	Investigate why interpolation isn't working *PRIORITY*
  * 	Main menu
  * 		Save/Load
  * 		Exit
@@ -35,7 +34,6 @@
  * 	Tune the volume, fix the no music loop in Class 1A
  * 	Clean up all debug lines when they are no longer needed
  * 	Add file I/O through save states
- * 	Look into a license 
  * 
  */
 package com.seven.game.desktop;

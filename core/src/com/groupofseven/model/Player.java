@@ -55,7 +55,6 @@ public class Player implements Renderable {
     // interpolation
     public long startTime;
     private float alpha;
-    private float beta;
     private float duration = 75f;
 
     // Objects here
@@ -143,20 +142,18 @@ public class Player implements Renderable {
             if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
                 collideX = false;
                 collideY = false;
-                // debug lines
-                ////System.out.println("cell is not blocked");
             } else {
                 collideX = true;
                 collideY = true;
-                // debug lines
-                ////System.out.println("cell is blocked");
             }
 
             if ((!collideX || !collideY) && (dx == 1 || dx == -1 || dy == 1 || dy == -1)) {
                 currentSpeed = 1f;
                 /*
                  * Debug logs indicate that interpolation is taking place, however, the sprite doesn't look to be
-                 * interpolating.
+                 * interpolating. If you change duration to a large value (I used 10000f), you can see that it is
+                 * calculating and changing the position of the sprite, but not actually moving the sprite until
+                 * changeInTime/alpha reaches 1f.
                  * TODO: Investigate debug logs vs. actual outcome
                  */
                 // setup starting{X,Y} values
@@ -164,8 +161,6 @@ public class Player implements Renderable {
                 startX = spriteX;
                 startY = spriteY;
                 // anything >1.0f sets alpha to 1f;
-                // ** Experimental interpolation fix cannot be tested until the below math is correct **
-                //TODO: fix changeInTime variable
                 do {
                     // calculate the change in time between the start time and the end time of the animation
                     float changeInTime = ((TimeUtils.millis() - startTime) / duration); // 0f =< changeInTime =< 1f
@@ -226,8 +221,7 @@ public class Player implements Renderable {
             walkAnimation.add(tmpAnim);
         }
 
-        // Instantiate a SpriteBatch for drawing and reset the elapsed animation
-        // time to 0
+        // Instantiate a SpriteBatch for drawing and reset the elapsed animation time to 0
         spriteBatch = new SpriteBatch();
         stateTime = 0f;
 
@@ -241,7 +235,7 @@ public class Player implements Renderable {
     private void movement() {
         if (lastMoveHappened) {
             if (movingNowhere) {
-                // don't do things
+                // don't move
                 move(0, 0);
                 //System.out.println("movingNowhere is true");
             } else if (movingUp && !movingDown && !movingLeft && !movingRight) {
@@ -314,11 +308,8 @@ public class Player implements Renderable {
             // power of two.
         }
 
-        // call the movement method every frame, allowing for continuous input
+        // call the movement method every frame, allowing for continuous input and interpolation (maybe)
         movement();
-
-        // call the move method every frame, allowing for interpolation
-        //move(0, 0); // EXPERIMENTAL
 
     }
 
