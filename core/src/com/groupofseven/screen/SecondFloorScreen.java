@@ -28,7 +28,6 @@ public class SecondFloorScreen extends AbstractScreen {
 	// store a reference to seven
 	public SecondFloorScreen(Seven app) {
 		super(app);
-
 		me = app.me;
 	}
 
@@ -59,23 +58,17 @@ public class SecondFloorScreen extends AbstractScreen {
 		// start camera for the second floor map
 		renderer.setView(camera);
 		renderer.render();
-
 		// set camera position to follow player coords
 		camera.position.x = me.getX();
 		camera.position.y = me.getY();
-
 		// update the camera each render loop
 		camera.update();
-
 		// render sprite
 		batch.begin();
-
 		// allow the camera matrix to sync with the sprite matrix
 		batch.setProjectionMatrix(camera.combined);
-
 		// render the batch with delta time
 		me.render(delta, batch);
-
 		// end batch
 		batch.end();
 	}
@@ -85,7 +78,6 @@ public class SecondFloorScreen extends AbstractScreen {
 		// set camera options here
 		camera.viewportWidth = width;
 		camera.viewportHeight = height;
-
 		camera.update();
 	}
 
@@ -98,15 +90,11 @@ public class SecondFloorScreen extends AbstractScreen {
 	public void show() {
 		// set our map
 		map = new TmxMapLoader().load("maps/Second floor.tmx");
-
 		// render the map
 		renderer = new OrthogonalTiledMapRenderer(map);
-
 		camera = new OrthographicCamera();
-
 		// play music
 		mp3music.play();
-
 		// set input processor
 		Gdx.input.setInputProcessor(me.getInput());
 	}

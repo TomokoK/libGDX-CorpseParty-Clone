@@ -4,23 +4,32 @@
  * 
  * TODO:
  * 	Add all maps
- * 		***NEW ADD MAP PROCESS***
- * 		***ALL EXISTING MAPS EXCEPT FOR CLASS 1A MUST BE CONVERTED***
+ * 		***map creation process has changed because nodejs is a piece of shit***
+ * 		***Use this new and much longer method to create maps***
  * 				1. Create a production environment for new map
  * 				2. Calculate blackspace adjustments and # of tiles
- * 				   with source map PNG
- * 				3. Adjust source PNG, save to production environment
+ * 				   with source map PNG. Do this by getting total px length and width,
+ * 				   then dividing those numbers by two. Keep shaving down each px amount
+ * 			   	   via cropping until both sides px count can be divided by 24 into a whole number.
+ * 				3. Save source PNG to the production environment
  * 				4. cd into production environment
- * 				5. Run 'node ~/.bin/Image2Map.js 24 24 [name_of_map].png'
- * 				6. Edit resulting TMX file in tiled for collision detection,
- * 				   objects, etc...
- * 				7. Remove original tileset and tmx file from project assets,
- * 				   replace with the new tileset and tmx file
+ * 				5. Open this link: http://jsfiddle.net/phyreman/GJ6Qr/
+ * 				6. Import the new map file, set width/height to 24px
+ * 				7. Save the resulting tileset as <Map>-tileset.png
+ * 				8. Copy Img2Tmx_v3.jar from ~/.bin to the production environment
+ * 				9. Run `java -jar Img2Tmx_v3.jar 24 24 genNewSet <map>.png
+ * 				10. Open generated .tmx file in tiled, generate new tsx file from <map>-tileset.png
+ * 				11. Import .tsx file as the missing untitled.tsx file
+ * 				12. Embed .tsx file in the map, change map properties from XML to base64
+ * 				13. Edit resulting TMX file in tiled for collision detection,
+ * 				    objects, etc...
+ * 				14. Remove original tileset and tmx file from project assets,
+ * 				    replace with the new tileset and tmx file
  * 		***END NEW PROCESS***
  * 	Add + improve collision detection
  * 	Add tile layers to each map for better collision detection (e.g. sprite behind podium)
  * 	Add more voice acting lines
- * 	Investigate why interpolation isn't working *PRIORITY*
+ * 	Investigate why interpolation isn't working -> Taking way too long, skip for now
  * 	Main menu
  * 		Save/Load
  * 		Exit

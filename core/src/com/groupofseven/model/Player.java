@@ -186,9 +186,10 @@ public class Player implements Renderable {
         // handle the SecondFloorMap
         // TODO delete this section, do all checks in first bit above when all collision detection is added.
         else {
+            currentSpeed = 1f;
             spriteX = spriteX + (dx * tileWidth);
             spriteY = spriteY + (dy * tileHeight);
-            currentSpeed = 1f;
+            //currentSpeed = 0f;
         }
 
     }
@@ -295,12 +296,12 @@ public class Player implements Renderable {
         stateTime += (Gdx.graphics.getDeltaTime() * currentSpeed); // Accumulate elapsed animation time
 
         // Get current frame of animation for the current stateTime
-        if (currentSpeed != 0f) {
+        if (currentSpeed > 0.0001f) {
             TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(stateTime, true);
             batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)
             // X is offset by -11 as the source sprite sheet isn't a
             // power of two.
-        } else if (currentSpeed == 0f) {
+        } else {
             TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(3f, false); // Don't
             // draw the sprite mid animation if you are against a blocked tile
             batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)

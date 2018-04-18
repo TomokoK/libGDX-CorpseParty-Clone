@@ -2,9 +2,12 @@ package com.groupofseven.input;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.groupofseven.model.Player;
 import com.groupofseven.screen.Class1AScreen;
+import com.groupofseven.screen.MenuScreen;
 import com.groupofseven.screen.SecondFloorScreen;
 
 public class PlayerInput extends InputAdapter {
@@ -23,39 +26,31 @@ public class PlayerInput extends InputAdapter {
 			System.out.println("W pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingUp = true;
-//			this.me.startTime = TimeUtils.millis();
-//			System.out.println("startTime has been set to: " + this.me.startTime);
 		}
 
 		if (keycode == Keys.A) {
 			System.out.println("A pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingLeft = true;
-//			this.me.startTime = TimeUtils.millis();
-//			System.out.println("startTime has been set to: " + this.me.startTime);
 		}
 
 		if (keycode == Keys.S) {
 			System.out.println("S pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingDown = true;
-//			this.me.startTime = TimeUtils.millis();
-//			System.out.println("startTime has been set to: " + this.me.startTime);
 		}
 
 		if (keycode == Keys.D) {
 			System.out.println("D pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingRight = true;
-//			this.me.startTime = TimeUtils.millis();
-//			System.out.println("startTime has been set to: " + this.me.startTime);
 		}
 
 		if (keycode == Keys.X) {
 			// Only used for dev purposes, this will be removed when I add door
 			// functionality.
 
-			// if the current screen is Class1ASCreen
+			// if the current screen is Class1AScreen
 			if (me.getApp().getScreen().getClass() == Class1AScreen.class) {
 				me.getApp().setScreen(new SecondFloorScreen(me.getApp()));
 				me.spriteX = 192;
