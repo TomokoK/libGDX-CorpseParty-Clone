@@ -43,7 +43,6 @@ public class Player implements Renderable {
     // used for the delay between movement when holding down a key
     private boolean lastMoveHappened = true;
     private float spriteDelay = 0.25f; // the lower the number, the faster the move speed
-    private long startTime; // handles the delay between movement when holding down a key
 
     // used to set which sprite row we use while moving
     private int direction = 0;
@@ -195,7 +194,6 @@ public class Player implements Renderable {
         if (lastMoveHappened) {
             if (movingUp && !movingDown && !movingLeft && !movingRight) {
                 lastMoveHappened = false;
-                startTime = TimeUtils.millis();
                 move(0, 1);
 
                 Timer.schedule(new Task() {
@@ -206,7 +204,6 @@ public class Player implements Renderable {
                 }, spriteDelay);
             } else if (movingDown && !movingUp && !movingLeft && !movingRight) {
                 lastMoveHappened = false;
-                startTime = TimeUtils.millis();
                 move(0, -1);
 
                 Timer.schedule(new Task() {
@@ -217,7 +214,6 @@ public class Player implements Renderable {
                 }, spriteDelay);
             } else if (movingLeft && !movingDown && !movingUp && !movingRight) {
                 lastMoveHappened = false;
-                startTime = TimeUtils.millis();
                 move(-1, 0);
 
                 Timer.schedule(new Task() {
@@ -228,7 +224,6 @@ public class Player implements Renderable {
                 }, spriteDelay);
             } else if (movingRight && !movingUp && !movingDown && !movingLeft) {
                 lastMoveHappened = false;
-                startTime = TimeUtils.millis();
                 move(1, 0);
 
                 Timer.schedule(new Task() {
