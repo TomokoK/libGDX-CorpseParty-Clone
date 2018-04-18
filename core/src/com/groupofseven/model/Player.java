@@ -9,8 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
@@ -45,17 +43,13 @@ public class Player implements Renderable {
     // used for the delay between movement when holding down a key
     private boolean lastMoveHappened = true;
     private float spriteDelay = 0.25f; // the lower the number, the faster the move speed
+    private long startTime; // handles the delay between movement when holding down a key
 
     // used to set which sprite row we use while moving
     private int direction = 0;
 
     // set the height and width of the tiles from the settings class
     private int tileWidth = Settings.TILE_SIZE, tileHeight = Settings.TILE_SIZE;
-
-    // interpolation
-    public long startTime;
-    private float alpha;
-    private float duration = 75f;
 
     // Objects here
     private ArrayList<Animation<TextureRegion>> walkAnimation; // declare frame type (texture region)
@@ -95,16 +89,13 @@ public class Player implements Renderable {
             futureX = spriteX + tileWidth;
             direction = 2;
             // debug line
-            ////System.out.println("Future X is: " + futureX);
         } else if (dx == -1) {
             // case: -1 ... simulation of 1 tile movement left
             futureX = spriteX - tileWidth;
             direction = 1;
-            ////System.out.println("Future X is: " + futureX);
         } else {
             // case: 0 or invalid dx value -> no movement
             futureX = spriteX;
-            ////System.out.println("Future X is the same: " + futureX);
         }
 
         float futureY; // will be calculated to simulate 1 tile in advance with
@@ -118,16 +109,13 @@ public class Player implements Renderable {
             // move 1 tile up
             futureY = spriteY + tileHeight;
             direction = 3;
-            ////System.out.println("Future Y is: " + futureY);
         } else if (dy == -1) {
             // move 1 time down
             futureY = spriteY - tileHeight;
             direction = 0;
-            ////System.out.println("Future Y is: " + futureY);
         } else {
             // do not move
             futureY = spriteY;
-            ////System.out.println("Future Y is the same: " + futureY);
         }
 
         Cell cell = collisionLayer.getCell((int) futureX / tileWidth, (int) futureY / tileHeight);
@@ -147,49 +135,19 @@ public class Player implements Renderable {
                 collideY = true;
             }
 
-            if ((!collideX || !collideY) && (dx == 1 || dx == -1 || dy == 1 || dy == -1)) {
+            if (!collideX || !collideY) {
                 currentSpeed = 1f;
-                /*
-                 * Debug logs indicate that interpolation is taking place, however, the sprite doesn't look to be
-                 * interpolating. If you change duration to a large value (I used 10000f), you can see that it is
-                 * calculating and changing the position of the sprite, but not actually moving the sprite until
-                 * changeInTime/alpha reaches 1f.
-                 * TODO: Investigate debug logs vs. actual outcome
-                 */
-                // setup starting{X,Y} values
-                float startX, startY;
-                startX = spriteX;
-                startY = spriteY;
-                // anything >1.0f sets alpha to 1f;
-                do {
-                    // calculate the change in time between the start time and the end time of the animation
-                    float changeInTime = ((TimeUtils.millis() - startTime) / duration); // 0f =< changeInTime =< 1f
-                    // debug lines
-                    System.out.println("startX = " + startX + " startY = " + startY);
-                    System.out.println("time values: startTime = " + startTime + " current time in millis = " + TimeUtils.millis() + " changeInTime = " + changeInTime);
-                    System.out.println("pre MathUtils.clamp alpha: " + alpha);
-                    // set alpha
-                    alpha = MathUtils.clamp(changeInTime, 0f, 1f); // 0f =< alpha =< 1f
-                    // interpolate X
-                    System.out.println("Pre Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
-                    spriteX = Interpolation.linear.apply(startX, futureX, alpha);
-                    System.out.println("Post Interpolation.linear.apply X values: spriteX = " + spriteX + " futureX = " + futureX + " alpha = " + alpha);
-                    // interpolate Y
-                    System.out.println("Pre Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
-                    spriteY = Interpolation.linear.apply(startY, futureY, alpha);
-                    System.out.println("Post Interpolation.linear.apply Y values: spriteY = " + spriteY + " futureY = " + futureY + " alpha = " + alpha);
-                    System.out.println("-------------------------------------------------------------------------------------------------------------");
-                } while (alpha < 1f && alpha >= 0f); // alpha <= 1f will induce an infinite loop, as alpha =/= >1f.
+                spriteX = (futureX);
+                spriteY = (futureY);
             }
         }
 
         // handle the SecondFloorMap
-        // TODO delete this section, do all checks in first bit above when all collision detection is added.
+        // TODO delete this section and do all checks above when all collision detection is added.
         else {
             currentSpeed = 1f;
             spriteX = spriteX + (dx * tileWidth);
             spriteY = spriteY + (dy * tileHeight);
-            //currentSpeed = 0f;
         }
 
     }
@@ -235,12 +193,7 @@ public class Player implements Renderable {
 
     private void movement() {
         if (lastMoveHappened) {
-            if (movingNowhere) {
-                // don't move
-                move(0, 0);
-                //System.out.println("movingNowhere is true");
-            } else if (movingUp && !movingDown && !movingLeft && !movingRight) {
-                System.out.println("W activated in movement()"); // debug line
+            if (movingUp && !movingDown && !movingLeft && !movingRight) {
                 lastMoveHappened = false;
                 startTime = TimeUtils.millis();
                 move(0, 1);
@@ -252,7 +205,6 @@ public class Player implements Renderable {
                     }
                 }, spriteDelay);
             } else if (movingDown && !movingUp && !movingLeft && !movingRight) {
-                System.out.println("S activated in movement()"); // debug line
                 lastMoveHappened = false;
                 startTime = TimeUtils.millis();
                 move(0, -1);
@@ -264,7 +216,6 @@ public class Player implements Renderable {
                     }
                 }, spriteDelay);
             } else if (movingLeft && !movingDown && !movingUp && !movingRight) {
-                System.out.println("A activated in movement()"); // debug line
                 lastMoveHappened = false;
                 startTime = TimeUtils.millis();
                 move(-1, 0);
@@ -276,7 +227,6 @@ public class Player implements Renderable {
                     }
                 }, spriteDelay);
             } else if (movingRight && !movingUp && !movingDown && !movingLeft) {
-                System.out.println("D activated in movement()"); // debug line
                 lastMoveHappened = false;
                 startTime = TimeUtils.millis();
                 move(1, 0);

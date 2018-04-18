@@ -2,12 +2,8 @@ package com.groupofseven.input;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.groupofseven.model.Player;
 import com.groupofseven.screen.Class1AScreen;
-import com.groupofseven.screen.MenuScreen;
 import com.groupofseven.screen.SecondFloorScreen;
 
 public class PlayerInput extends InputAdapter {
@@ -23,25 +19,21 @@ public class PlayerInput extends InputAdapter {
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.W) {
-			System.out.println("W pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingUp = true;
 		}
 
 		if (keycode == Keys.A) {
-			System.out.println("A pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingLeft = true;
 		}
 
 		if (keycode == Keys.S) {
-			System.out.println("S pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingDown = true;
 		}
 
 		if (keycode == Keys.D) {
-			System.out.println("D pushed"); // debug line
 			this.me.movingNowhere = false;
 			this.me.movingRight = true;
 		}
