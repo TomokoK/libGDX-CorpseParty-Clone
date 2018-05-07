@@ -94,6 +94,8 @@ public class SecondFloorScreen extends AbstractScreen {
 		renderer = new OrthogonalTiledMapRenderer(map);
 		camera = new OrthographicCamera();
 		// play music
+		mp3music.setLooping(true);
+		mp3music.setVolume(0.5f);
 		mp3music.play();
 		// set input processor
 		Gdx.input.setInputProcessor(me.getInput());

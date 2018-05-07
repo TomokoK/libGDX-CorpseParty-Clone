@@ -99,6 +99,10 @@ public class Class1AScreen extends AbstractScreen {
         // render map
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
+        // sound options
+        mp3MainTheme.setLooping(true);
+        mp3MainTheme.setVolume(0.5f);
+        voice.setVolume(0.5f);
         /*
          * First, we play the voice clip. Then, we check to see when the voice clip has
          * finished playing. Once the voice clip is playing, play the background music.
@@ -108,7 +112,6 @@ public class Class1AScreen extends AbstractScreen {
         if (firstLinePlayed == 0) {
             voice.play();
             firstLinePlayed++;
-            //TODO: look into this "lambda" stuff the IDE is reporting
             voice.setOnCompletionListener(new Music.OnCompletionListener() {
                 @Override
                 public void onCompletion(Music music) {

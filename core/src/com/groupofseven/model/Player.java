@@ -16,6 +16,7 @@ import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
 import com.groupofseven.screen.Class1AScreen;
+import com.groupofseven.screen.SecondFloorScreen;
 
 public class Player implements Renderable {
 
@@ -86,15 +87,18 @@ public class Player implements Renderable {
         if (dx == 1) {
             // case 1 ... simulation of 1 tile movement right
             futureX = spriteX + tileWidth;
+            System.out.println("dx = 1");
             direction = 2;
             // debug line
         } else if (dx == -1) {
             // case: -1 ... simulation of 1 tile movement left
             futureX = spriteX - tileWidth;
+            System.out.println("dx = -1");
             direction = 1;
         } else {
             // case: 0 or invalid dx value -> no movement
             futureX = spriteX;
+            System.out.println("dx = 0");
         }
 
         float futureY; // will be calculated to simulate 1 tile in advance with
@@ -107,46 +111,58 @@ public class Player implements Renderable {
         if (dy == 1) {
             // move 1 tile up
             futureY = spriteY + tileHeight;
+            System.out.println("dy = 1");
             direction = 3;
         } else if (dy == -1) {
             // move 1 time down
             futureY = spriteY - tileHeight;
+            System.out.println("dy = -1");
             direction = 0;
         } else {
             // do not move
+            System.out.println("dy = 0");
             futureY = spriteY;
         }
 
         Cell cell = collisionLayer.getCell((int) futureX / tileWidth, (int) futureY / tileHeight);
-        boolean collideX, collideY;
+        boolean collide;
         // begin movement stuff
+        // case: cell exists and the cell is not a blocked tile
+        // post: if case is legal, future x is legal. else x is not legal
+        // handle the Class1AMap
 
-        if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
-            // case: cell exists and the cell is not a blocked tile
-            // post: if case is legal, future x is legal. else x is not legal
-            // handle the Class1AMap
-
-            if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
-                collideX = false;
-                collideY = false;
-            } else {
-                collideX = true;
-                collideY = true;
-            }
-
-            if (!collideX || !collideY) {
-                currentSpeed = 1f;
-                spriteX = (futureX);
-                spriteY = (futureY);
-            }
+        if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
+            collide = false;
+            System.out.println("no collision");
+        } else {
+            collide = true;
+            System.out.println("collision");
         }
 
-        // handle the SecondFloorMap
-        // TODO delete this section and do all checks above when all collision detection is added.
-        else {
+        if (!collide) {
             currentSpeed = 1f;
-            spriteX = spriteX + (dx * tileWidth);
-            spriteY = spriteY + (dy * tileHeight);
+            spriteX = futureX;
+            System.out.println("X: " + spriteX);
+            spriteY = futureY;
+            System.out.println("Y: " + spriteY);
+        }
+
+        // Check if on a door, if so, teleport to respective room
+        if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
+            // Will need to be tweaked when I fix the second floor map
+            if (spriteX == 360 && spriteY == 48) {
+                this.getApp().setScreen(new SecondFloorScreen(this.getApp()));
+                spriteX = 144;
+                spriteY = 744;
+                currentSpeed = 0f;
+            }
+        } else if (this.getApp().getScreen().getClass() == SecondFloorScreen.class) {
+            if (spriteX == 1000 && spriteY == 1000) {
+                this.getApp().setScreen(new Class1AScreen(this.getApp()));
+                spriteX = 312;
+                spriteY = 48;
+                currentSpeed = 0f;
+            }
         }
 
     }

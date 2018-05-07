@@ -4,8 +4,7 @@
  * 
  * TODO:
  * 	Add all maps
- * 		***map creation process has changed because nodejs is a piece of shit***
- * 		***Use this new and much longer method to create maps***
+ * 		***Method***
  * 				1. Create a production environment for new map
  * 				2. Calculate blackspace adjustments and # of tiles
  * 				   with source map PNG. Do this by getting total px length and width,
@@ -13,14 +12,11 @@
  * 			   	   via cropping until both sides px count can be divided by 24 into a whole number.
  * 				3. Save source PNG to the production environment
  * 				4. cd into production environment
- * 				5. Open this link: http://jsfiddle.net/phyreman/GJ6Qr/
- * 				6. Import the new map file, set width/height to 24px
- * 				7. Save the resulting tileset as <Map>-tileset.png
  * 				8. Copy Img2Tmx_v3.jar from ~/.bin to the production environment
  * 				9. Run `java -jar Img2Tmx_v3.jar 24 24 genNewSet <map>.png
- * 				10. Open generated .tmx file in tiled, generate new tsx file from <map>-tileset.png
+ * 				10. Open generated .tmx file in tiled, generate new tsx file from newTileSet.png
  * 				11. Import .tsx file as the missing untitled.tsx file
- * 				12. Embed .tsx file in the map, change map properties from XML to base64
+ * 				12. change map properties from XML to base64
  * 				13. Edit resulting TMX file in tiled for collision detection,
  * 				    objects, etc...
  * 				14. Remove original tileset and tmx file from project assets,
@@ -40,7 +36,7 @@
  * 		Pick up items, use them in areas
  * 	Change script from edited version -> original CP rip (?)
  * 	Fix camera to be more authentic to the original (Load up a vita save and take a look)
- * 	Tune the volume, fix the no music loop in Class 1A
+ * 	Tune the volume via menu screen
  * 	Clean up all debug lines when they are no longer needed
  * 	Add file I/O through save states
  * 

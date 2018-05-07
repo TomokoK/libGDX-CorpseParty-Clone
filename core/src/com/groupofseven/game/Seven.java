@@ -1,6 +1,9 @@
 package com.groupofseven.game;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,8 +29,7 @@ public class Seven extends Game implements ApplicationListener {
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("FoxScriptNormal.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 14;
-        BitmapFont mainMenuFont = generator.generateFont(parameter); // font size 12 pixels
-        menuFont = mainMenuFont;
+        menuFont = generator.generateFont(parameter);
         generator.dispose();
         // set map for our player
         map = new TmxMapLoader().load("maps/Class 1A.tmx");
