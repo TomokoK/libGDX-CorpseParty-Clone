@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.groupofseven.game.Settings;
@@ -125,17 +125,23 @@ public class Player implements Renderable {
         }
 
         Cell cell = collisionLayer.getCell((int) futureX / tileWidth, (int) futureY / tileHeight);
+
         boolean collide;
         // begin movement stuff
         // case: cell exists and the cell is not a blocked tile
         // post: if case is legal, future x is legal. else x is not legal
-        // handle the Class1AMap
 
         if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
             collide = false;
             System.out.println("no collision");
         } else {
             collide = true;
+            if (cell == null) {
+                System.out.println("null cell");
+                System.out.println();
+            }
+//            System.out.println(cell.getTile().getId());
+//            System.out.println(cell.getTile().getProperties().getKeys());
             System.out.println("collision");
         }
 
@@ -152,6 +158,7 @@ public class Player implements Renderable {
             // Will need to be tweaked when I fix the second floor map
             if (spriteX == 360 && spriteY == 48) {
                 this.getApp().setScreen(new SecondFloorScreen(this.getApp()));
+                collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Second floor.tmx")).getLayers().get(0);
                 spriteX = 144;
                 spriteY = 744;
                 currentSpeed = 0f;
@@ -159,6 +166,7 @@ public class Player implements Renderable {
         } else if (this.getApp().getScreen().getClass() == SecondFloorScreen.class) {
             if (spriteX == 1000 && spriteY == 1000) {
                 this.getApp().setScreen(new Class1AScreen(this.getApp()));
+                collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Class 1A.tmx")).getLayers().get(0);
                 spriteX = 312;
                 spriteY = 48;
                 currentSpeed = 0f;
