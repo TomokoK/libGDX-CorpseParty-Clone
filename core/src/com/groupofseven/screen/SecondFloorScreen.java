@@ -18,6 +18,10 @@ public class SecondFloorScreen extends AbstractScreen {
 
 	private SpriteBatch batch = new SpriteBatch();
 
+	// update the array with layer numbers when adding more layers
+	private int[] FGLayer = {1};
+	private int[] BGLayer = {0};
+
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
@@ -57,12 +61,7 @@ public class SecondFloorScreen extends AbstractScreen {
 	public void render(float delta) {
 		// start camera for the second floor map
 		renderer.setView(camera);
-		renderer.render();
-		// set camera position to follow player coords
-		camera.position.x = me.getX();
-		camera.position.y = me.getY();
-		// update the camera each render loop
-		camera.update();
+		renderer.render(BGLayer);
 		// render sprite
 		batch.begin();
 		// allow the camera matrix to sync with the sprite matrix
@@ -71,6 +70,13 @@ public class SecondFloorScreen extends AbstractScreen {
 		me.render(delta, batch);
 		// end batch
 		batch.end();
+        // render foreground
+        renderer.render(FGLayer);
+        // set camera position to follow player coords
+        camera.position.x = me.getX();
+        camera.position.y = me.getY();
+        // update the camera each render loop
+        camera.update();
 	}
 
 	@Override

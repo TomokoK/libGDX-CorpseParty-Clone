@@ -87,18 +87,15 @@ public class Player implements Renderable {
         if (dx == 1) {
             // case 1 ... simulation of 1 tile movement right
             futureX = spriteX + tileWidth;
-            System.out.println("dx = 1");
             direction = 2;
             // debug line
         } else if (dx == -1) {
             // case: -1 ... simulation of 1 tile movement left
             futureX = spriteX - tileWidth;
-            System.out.println("dx = -1");
             direction = 1;
         } else {
             // case: 0 or invalid dx value -> no movement
             futureX = spriteX;
-            System.out.println("dx = 0");
         }
 
         float futureY; // will be calculated to simulate 1 tile in advance with
@@ -111,16 +108,13 @@ public class Player implements Renderable {
         if (dy == 1) {
             // move 1 tile up
             futureY = spriteY + tileHeight;
-            System.out.println("dy = 1");
             direction = 3;
         } else if (dy == -1) {
             // move 1 time down
             futureY = spriteY - tileHeight;
-            System.out.println("dy = -1");
             direction = 0;
         } else {
             // do not move
-            System.out.println("dy = 0");
             futureY = spriteY;
         }
 
@@ -133,16 +127,8 @@ public class Player implements Renderable {
 
         if (cell != null && !cell.getTile().getProperties().containsKey("blocked")) {
             collide = false;
-            System.out.println("no collision");
         } else {
             collide = true;
-            if (cell == null) {
-                System.out.println("null cell");
-                System.out.println();
-            }
-//            System.out.println(cell.getTile().getId());
-//            System.out.println(cell.getTile().getProperties().getKeys());
-            System.out.println("collision");
         }
 
         if (!collide) {
@@ -155,7 +141,6 @@ public class Player implements Renderable {
 
         // Check if on a door, if so, teleport to respective room
         if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
-            // Will need to be tweaked when I fix the second floor map
             if (spriteX == 360 && spriteY == 48) {
                 this.getApp().setScreen(new SecondFloorScreen(this.getApp()));
                 collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Second floor.tmx")).getLayers().get(0);
@@ -164,10 +149,10 @@ public class Player implements Renderable {
                 currentSpeed = 0f;
             }
         } else if (this.getApp().getScreen().getClass() == SecondFloorScreen.class) {
-            if (spriteX == 1000 && spriteY == 1000) {
+            if (spriteX == 120 && spriteY == 744) {
                 this.getApp().setScreen(new Class1AScreen(this.getApp()));
                 collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Class 1A.tmx")).getLayers().get(0);
-                spriteX = 312;
+                spriteX = 336;
                 spriteY = 48;
                 currentSpeed = 0f;
             }
@@ -278,7 +263,7 @@ public class Player implements Renderable {
             // power of two.
         }
 
-        // call the movement method every frame, allowing for continuous input and interpolation (maybe)
+        // call the movement method every frame, allowing for continuous input
         movement();
 
     }

@@ -24,6 +24,10 @@ public class Class1AScreen extends AbstractScreen {
 
     private static int firstLinePlayed = 0;
 
+    // update the array with layer numbers when adding more layers
+    private int[] FGLayer = {1};
+    private int[] BGLayer = {0};
+
     // define music for screen
     private Music mp3MainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11 Chapter 1 Main Theme.mp3"));
     // define intro voice line
@@ -42,8 +46,7 @@ public class Class1AScreen extends AbstractScreen {
         map.dispose();
         // dispose of the renderer (the OrthogonalTiledMapRenderer)
         renderer.dispose();
-        // if you don't dispose the music, it will never stop.
-        // this fixes the multiple music bug I was struggling with.
+        // dispose of the sound
         mp3MainTheme.dispose();
         voice.dispose();
     }
@@ -61,14 +64,9 @@ public class Class1AScreen extends AbstractScreen {
 
     @Override
     public void render(float delta) {
-        // start camera for the classroom map
+        // start camera for the second floor map
         renderer.setView(camera);
-        renderer.render();
-        // set camera position to follow player coords
-        camera.position.x = me.getX();
-        camera.position.y = me.getY();
-        // update the camera each render loop
-        camera.update();
+        renderer.render(BGLayer);
         // render sprite
         batch.begin();
         // allow the camera matrix to sync with the sprite matrix
@@ -77,6 +75,13 @@ public class Class1AScreen extends AbstractScreen {
         me.render(delta, batch);
         // end batch
         batch.end();
+        // render foreground
+        renderer.render(FGLayer);
+        // set camera position to follow player coords
+        camera.position.x = me.getX();
+        camera.position.y = me.getY();
+        // update the camera each render loop
+        camera.update();
     }
 
     @Override
