@@ -147,6 +147,14 @@ public class Player implements Renderable {
                 spriteX = 144;
                 spriteY = 744;
                 currentSpeed = 0f;
+//                changeSpriteLocation("Second floor", 114, 744);
+            } else if (spriteX == 360 && spriteY == 360) {
+                this.getApp().setScreen(new SecondFloorScreen(this.getApp()));
+                collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Second floor.tmx")).getLayers().get(0);
+                spriteX = 144;
+                spriteY = 1176;
+                currentSpeed = 0f;
+//                changeSpriteLocation("Second floor", 114, 1176);
             }
         } else if (this.getApp().getScreen().getClass() == SecondFloorScreen.class) {
             if (spriteX == 120 && spriteY == 744) {
@@ -155,9 +163,30 @@ public class Player implements Renderable {
                 spriteX = 336;
                 spriteY = 48;
                 currentSpeed = 0f;
+//                changeSpriteLocation("Class 1A", 336, 48);
+            } else if (spriteX == 120 && spriteY == 1176) {
+                this.getApp().setScreen(new Class1AScreen(this.getApp()));
+                collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Class 1A.tmx")).getLayers().get(0);
+                spriteX = 336;
+                spriteY = 360;
+                currentSpeed = 0f;
+//                changeSpriteLocation("Class 1A", 336, 360);
             }
         }
 
+    }
+
+    private void changeSpriteLocation(String Map, int Xcoord, int Ycoord) {
+        if (Map.equalsIgnoreCase("Class 1A")) {
+            this.getApp().setScreen(new Class1AScreen(this.getApp()));
+            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Class 1A.tmx")).getLayers().get(0);
+        } else if (Map.equalsIgnoreCase("Second floor")) {
+            this.getApp().setScreen(new SecondFloorScreen(this.getApp()));
+            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Second floor.tmx")).getLayers().get(0);
+        }
+        spriteX = Xcoord;
+        spriteY = Ycoord;
+        currentSpeed = 0f;
     }
 
     public float getX() {
