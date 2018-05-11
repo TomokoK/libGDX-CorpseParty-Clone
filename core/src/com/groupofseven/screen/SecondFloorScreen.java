@@ -16,7 +16,7 @@ public class SecondFloorScreen extends AbstractScreen {
 	// init objects
 	private Player me;
 
-	private SpriteBatch batch = new SpriteBatch();
+	private SpriteBatch batch;
 
 	// update the array with layer numbers when adding more layers
 	private int[] FGLayer = {1};
@@ -30,9 +30,10 @@ public class SecondFloorScreen extends AbstractScreen {
 	private Music mp3music = Gdx.audio.newMusic(Gdx.files.internal("music/01 Puzzled.mp3"));
 
 	// store a reference to seven
-	public SecondFloorScreen(Seven app) {
-		super(app);
-		me = app.me;
+	public SecondFloorScreen(Seven startClass) {
+        super(startClass);
+        batch = startClass.batch;
+        me = startClass.me;
 	}
 
 	@Override

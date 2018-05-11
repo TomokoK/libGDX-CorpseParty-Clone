@@ -16,7 +16,7 @@
  * 				9. Run `java -jar Img2Tmx_v3.jar 24 24 genNewSet <map>.png
  * 				10. Open generated .tmx file in tiled, generate new tsx file from newTileSet.png
  * 				11. Import .tsx file as the missing untitled.tsx file
- * 				12. change map properties from XML to base64
+ * 				12. change map properties from XML to base64, embed tileset into map
  * 				13. Edit resulting TMX file in tiled for collision detection,
  * 				    objects, etc...
  * 				14. Remove original tileset and tmx file from project assets,
