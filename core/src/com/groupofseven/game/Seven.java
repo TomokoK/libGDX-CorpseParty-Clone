@@ -26,13 +26,13 @@ public class Seven extends Game implements ApplicationListener {
     @Override
     public void create() {
         // font creation
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("FoxScriptNormal.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/FoxScriptNormal.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 14;
         menuFont = generator.generateFont(parameter);
         generator.dispose();
         // set map for our player
-        map = new TmxMapLoader().load("maps/Class 1A.tmx");
+        map = new TmxMapLoader().load("maps/Class1A.tmx");
         // debug line
         System.out.println(map.getLayers().get(layers[0]));
         System.out.println(map.getLayers().get(layers[1])); // "foreground" layer rendered above sprite

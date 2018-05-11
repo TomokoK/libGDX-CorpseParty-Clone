@@ -95,7 +95,7 @@ public class SecondFloorScreen extends AbstractScreen {
 	@Override
 	public void show() {
 		// set our map
-		map = new TmxMapLoader().load("maps/Second floor.tmx");
+		map = new TmxMapLoader().load("maps/SecondFloor.tmx");
 		// render the map
 		renderer = new OrthogonalTiledMapRenderer(map);
 		camera = new OrthographicCamera();

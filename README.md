@@ -1,11 +1,13 @@
 # libGDX-CorpseParty-Clone
 
-Map, sprite, and music assets are copyright Team GrisGris, 2011.
+Assets are copyrighted by their respective owners
 
-All other files (e.g. source code, voice acting, etc...) are copyrighted by the author (me).
+Source code is owned by me
+
 Please contact me regarding any issues or questions.
 
-Some assets have been ignored by git for privacy reasons. This will cause the project to fail on run if you attempt to build it yourself.
+Voice acting audio has been ignored by git for privacy reasons. This will cause the project to fail on run if you attempt to build it yourself.
+Remove the voice acting lines from Class1AScreen.java before building if you wish to run yourself.
 
 Project deadline: Late June 2018
 

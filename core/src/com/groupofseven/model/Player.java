@@ -142,47 +142,29 @@ public class Player implements Renderable {
         // Check if on a door, if so, teleport to respective room
         if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
             if (spriteX == 360 && spriteY == 48) {
-                this.getApp().setScreen(new SecondFloorScreen(this.getApp()));
-                collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Second floor.tmx")).getLayers().get(0);
-                spriteX = 144;
-                spriteY = 744;
-                currentSpeed = 0f;
-//                changeSpriteLocation("Second floor", 114, 744);
+                changeSpriteLocation("Second floor", 144, 744);
             } else if (spriteX == 360 && spriteY == 360) {
-                this.getApp().setScreen(new SecondFloorScreen(this.getApp()));
-                collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Second floor.tmx")).getLayers().get(0);
-                spriteX = 144;
-                spriteY = 1176;
-                currentSpeed = 0f;
-//                changeSpriteLocation("Second floor", 114, 1176);
+                changeSpriteLocation("Second floor", 144, 1176);
             }
         } else if (this.getApp().getScreen().getClass() == SecondFloorScreen.class) {
             if (spriteX == 120 && spriteY == 744) {
-                this.getApp().setScreen(new Class1AScreen(this.getApp()));
-                collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Class 1A.tmx")).getLayers().get(0);
-                spriteX = 336;
-                spriteY = 48;
-                currentSpeed = 0f;
-//                changeSpriteLocation("Class 1A", 336, 48);
+                changeSpriteLocation("Class 1A", 336, 48);
             } else if (spriteX == 120 && spriteY == 1176) {
-                this.getApp().setScreen(new Class1AScreen(this.getApp()));
-                collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Class 1A.tmx")).getLayers().get(0);
-                spriteX = 336;
-                spriteY = 360;
-                currentSpeed = 0f;
-//                changeSpriteLocation("Class 1A", 336, 360);
+                changeSpriteLocation("Class 1A", 336, 360);
             }
         }
 
     }
 
-    private void changeSpriteLocation(String Map, int Xcoord, int Ycoord) {
-        if (Map.equalsIgnoreCase("Class 1A")) {
+    private void changeSpriteLocation(String futureMap, int Xcoord, int Ycoord) {
+        if (futureMap.equalsIgnoreCase("Class 1A")) {
             this.getApp().setScreen(new Class1AScreen(this.getApp()));
-            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Class 1A.tmx")).getLayers().get(0);
-        } else if (Map.equalsIgnoreCase("Second floor")) {
+            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Class1A.tmx")).getLayers().get(0);
+        } else if (futureMap.equalsIgnoreCase("Second floor")) {
             this.getApp().setScreen(new SecondFloorScreen(this.getApp()));
-            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Second floor.tmx")).getLayers().get(0);
+            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/SecondFloor.tmx")).getLayers().get(0);
+        } else {
+            System.out.println("not a map");
         }
         spriteX = Xcoord;
         spriteY = Ycoord;

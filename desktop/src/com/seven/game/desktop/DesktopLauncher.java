@@ -22,6 +22,8 @@
  * 				14. Remove original tileset and tmx file from project assets,
  * 				    replace with the new tileset and tmx file
  * 		***END NEW PROCESS***
+ * 	Remove objects (e.g. desks, buckets) from main map and add them as an object layer
+ * 	Clean up the assets folder/subfolders
  * 	Add + improve collision detection
  * 	Add tile layers to each map for better collision detection (e.g. sprite behind podium)
  * 	Add more voice acting lines

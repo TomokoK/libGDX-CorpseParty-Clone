@@ -100,7 +100,7 @@ public class Class1AScreen extends AbstractScreen {
     @Override
     public void show() {
         // set our map
-        map = new TmxMapLoader().load("maps/Class 1A.tmx");
+        map = new TmxMapLoader().load("maps/Class1A.tmx");
         // render map
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
