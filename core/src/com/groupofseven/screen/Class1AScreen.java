@@ -31,7 +31,7 @@ public class Class1AScreen extends AbstractScreen {
     // define music for screen
     private Music mp3MainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11 Chapter 1 Main Theme.mp3"));
     // define intro voice line
-    private Music voice = Gdx.audio.newMusic(Gdx.files.internal("VoiceActing/f_4.mp3"));
+    private Music voice = Gdx.audio.newMusic(Gdx.files.internal("voiceActing/f_4.mp3"));
 
     // store a reference to Seven
     public Class1AScreen(Seven startClass) {
