@@ -78,8 +78,10 @@ public class Class1AScreen extends AbstractScreen {
         // render foreground
         renderer.render(FGLayer);
         // set camera position to follow player coords
-        camera.position.x = me.getX();
-        camera.position.y = me.getY();
+//        camera.position.x = me.getX();
+//        camera.position.y = me.getY();
+        camera.position.x = camera.position.x + (me.getX() - camera.position.x) * .1f;
+        camera.position.y = camera.position.y + (me.getY() - camera.position.y) * .1f;
         // update the camera each render loop
         camera.update();
     }
@@ -87,9 +89,11 @@ public class Class1AScreen extends AbstractScreen {
     @Override
     public void resize(int width, int height) {
         // set camera options here
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
-        camera.update();
+//        camera.viewportWidth = width;
+//        camera.viewportHeight = height;
+//        camera.viewportWidth = 640;
+//        camera.viewportHeight = 480;
+//        camera.update();
     }
 
     @Override
@@ -104,6 +108,11 @@ public class Class1AScreen extends AbstractScreen {
         // render map
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
+        camera.viewportWidth = 640;
+        camera.viewportHeight = 480;
+        camera.position.x = me.getX();
+        camera.position.y = me.getY();
+        camera.zoom = 0.75f;
         // sound options
         mp3MainTheme.setLooping(true);
         mp3MainTheme.setVolume(0.5f);

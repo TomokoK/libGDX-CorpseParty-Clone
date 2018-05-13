@@ -83,9 +83,9 @@ public class SecondFloorScreen extends AbstractScreen {
 	@Override
 	public void resize(int width, int height) {
 		// set camera options here
-		camera.viewportWidth = width;
-		camera.viewportHeight = height;
-		camera.update();
+//		camera.viewportWidth = width;
+//		camera.viewportHeight = height;
+//		camera.update();
 	}
 
 	@Override
@@ -100,6 +100,9 @@ public class SecondFloorScreen extends AbstractScreen {
 		// render the map
 		renderer = new OrthogonalTiledMapRenderer(map);
 		camera = new OrthographicCamera();
+        camera.viewportWidth = 640;
+        camera.viewportHeight = 480;
+		camera.zoom = 0.75f;
 		// play music
 		mp3music.setLooping(true);
 		mp3music.setVolume(0.5f);

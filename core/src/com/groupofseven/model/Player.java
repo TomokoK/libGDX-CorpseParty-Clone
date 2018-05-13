@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.groupofseven.game.Settings;
@@ -43,7 +44,7 @@ public class Player implements Renderable {
 
     // used for the delay between movement when holding down a key
     private boolean lastMoveHappened = true;
-    private float spriteDelay = 0.25f; // the lower the number, the faster the move speed
+    private float spriteDelay = 0.20f; // the lower the number, the faster the move speed
 
     // used to set which sprite row we use while moving
     private int direction = 0;
@@ -132,10 +133,14 @@ public class Player implements Renderable {
         }
 
         if (!collide) {
+            float alpha = MathUtils.clamp((Gdx.graphics.getDeltaTime() / spriteDelay), 0f, 1f);
             currentSpeed = 1f;
-            spriteX = futureX;
+//            spriteX = futureX;
+            spriteX = MathUtils.lerp(spriteX, futureX, alpha);
             System.out.println("X: " + spriteX);
-            spriteY = futureY;
+//            spriteY = futureY;
+            spriteY = MathUtils.lerp(spriteY, futureY, alpha);
+            System.out.println(alpha);
             System.out.println("Y: " + spriteY);
         }
 
