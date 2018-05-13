@@ -10,9 +10,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.Timer.Task;
 import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
@@ -31,6 +30,9 @@ public class Player implements Renderable {
     // x and y are used for sprite position
     public float spriteX;
     public float spriteY;
+    public float futureX;
+    public float futureY;
+    public boolean yAxisMovement, xAxisMovement;
 
     // booleans handled by the PlayerInput class, used for movement
     public boolean movingUp = false;
@@ -45,6 +47,7 @@ public class Player implements Renderable {
     // used for the delay between movement when holding down a key
     private boolean lastMoveHappened = true;
     private float spriteDelay = 0.20f; // the lower the number, the faster the move speed
+    private float elapsedTime = 0f;
 
     // used to set which sprite row we use while moving
     private int direction = 0;
@@ -78,7 +81,7 @@ public class Player implements Renderable {
     // method to move the sprite
     private void move(int dx, int dy) {
 
-        float futureX; // will be calculated to simulate 1 tile in advance with
+//        float futureX; // will be calculated to simulate 1 tile in advance with
         // respect to dx
 
         // Calculate future x.
@@ -88,18 +91,21 @@ public class Player implements Renderable {
         if (dx == 1) {
             // case 1 ... simulation of 1 tile movement right
             futureX = spriteX + tileWidth;
+            yAxisMovement = true;
             direction = 2;
             // debug line
         } else if (dx == -1) {
             // case: -1 ... simulation of 1 tile movement left
             futureX = spriteX - tileWidth;
+            yAxisMovement = true;
             direction = 1;
         } else {
             // case: 0 or invalid dx value -> no movement
             futureX = spriteX;
+            yAxisMovement = false;
         }
 
-        float futureY; // will be calculated to simulate 1 tile in advance with
+//        float futureY; // will be calculated to simulate 1 tile in advance with
         // respect to dx
 
         // Calculate future y.
@@ -109,14 +115,17 @@ public class Player implements Renderable {
         if (dy == 1) {
             // move 1 tile up
             futureY = spriteY + tileHeight;
+            xAxisMovement = true;
             direction = 3;
         } else if (dy == -1) {
             // move 1 time down
             futureY = spriteY - tileHeight;
+            xAxisMovement = true;
             direction = 0;
         } else {
             // do not move
             futureY = spriteY;
+            xAxisMovement = false;
         }
 
         Cell cell = collisionLayer.getCell((int) futureX / tileWidth, (int) futureY / tileHeight);
@@ -133,15 +142,10 @@ public class Player implements Renderable {
         }
 
         if (!collide) {
-            float alpha = MathUtils.clamp((Gdx.graphics.getDeltaTime() / spriteDelay), 0f, 1f);
             currentSpeed = 1f;
-//            spriteX = futureX;
-            spriteX = MathUtils.lerp(spriteX, futureX, alpha);
-            System.out.println("X: " + spriteX);
-//            spriteY = futureY;
-            spriteY = MathUtils.lerp(spriteY, futureY, alpha);
-            System.out.println(alpha);
-            System.out.println("Y: " + spriteY);
+            if (futureX != 0f || futureY != 0f) {
+                interpolateSprite();
+            }
         }
 
         // Check if on a door, if so, teleport to respective room
@@ -159,6 +163,30 @@ public class Player implements Renderable {
             }
         }
 
+    }
+
+    private void interpolateSprite() {
+        elapsedTime += Gdx.graphics.getDeltaTime();
+//        float alpha = Math.min(1, elapsedTime / spriteDelay);
+        float alpha = MathUtils.clamp((elapsedTime / spriteDelay), 0f, 1f);
+        System.out.println(alpha);
+        spriteX = Interpolation.linear.apply(spriteX, futureX, alpha);
+        System.out.println("X: " + spriteX);
+        System.out.println("futureX: " + futureX);
+        spriteY = Interpolation.linear.apply(spriteY, futureY, alpha);
+        System.out.println("Y: " + spriteY);
+        System.out.println("futureY: " + futureY);
+        if (xAxisMovement) {
+            if (spriteY == futureY) {
+                lastMoveHappened = true;
+                System.out.println("lastMoveHappened set to true in interpolateSprite()");
+            }
+        } else if (yAxisMovement) {
+            if (spriteX == futureX) {
+                lastMoveHappened = true;
+                System.out.println("lastMoveHappened set to true in interpolateSprite()");
+            }
+        }
     }
 
     private void changeSpriteLocation(String futureMap, int Xcoord, int Ycoord) {
@@ -220,43 +248,19 @@ public class Player implements Renderable {
             if (movingUp && !movingDown && !movingLeft && !movingRight) {
                 lastMoveHappened = false;
                 move(0, 1);
-
-                Timer.schedule(new Task() {
-                    @Override
-                    public void run() {
-                        lastMoveHappened = true;
-                    }
-                }, spriteDelay);
+                System.out.println("move() called");
             } else if (movingDown && !movingUp && !movingLeft && !movingRight) {
                 lastMoveHappened = false;
                 move(0, -1);
-
-                Timer.schedule(new Task() {
-                    @Override
-                    public void run() {
-                        lastMoveHappened = true;
-                    }
-                }, spriteDelay);
+                System.out.println("move() called");
             } else if (movingLeft && !movingDown && !movingUp && !movingRight) {
                 lastMoveHappened = false;
                 move(-1, 0);
-
-                Timer.schedule(new Task() {
-                    @Override
-                    public void run() {
-                        lastMoveHappened = true;
-                    }
-                }, spriteDelay);
+                System.out.println("move() called");
             } else if (movingRight && !movingUp && !movingDown && !movingLeft) {
                 lastMoveHappened = false;
                 move(1, 0);
-
-                Timer.schedule(new Task() {
-                    @Override
-                    public void run() {
-                        lastMoveHappened = true;
-                    }
-                }, spriteDelay);
+                System.out.println("move() called");
             }
         }
     }
@@ -281,6 +285,10 @@ public class Player implements Renderable {
 
         // call the movement method every frame, allowing for continuous input
         movement();
+        // experimental
+        if ((futureX != 0f || futureY != 0f)) {
+            interpolateSprite();
+        }
 
     }
 
