@@ -79,11 +79,7 @@ public class Player implements Renderable {
         return input;
     }
 
-    // method to move the sprite
     private void move(int dx, int dy) {
-
-        System.out.println("starting move()");
-
         // will be calculated to simulate 1 tile in advance with
         // respect to dx
 
@@ -96,19 +92,15 @@ public class Player implements Renderable {
             futureX = spriteX + tileWidth;
             xAxisMovement = true;
             direction = 2;
-            System.out.println("dx = 1");
-            // debug line
         } else if (dx == -1) {
             // case: -1 ... simulation of 1 tile movement left
             futureX = spriteX - tileWidth;
             xAxisMovement = true;
             direction = 1;
-            System.out.println("dx = -1");
         } else {
             // case: 0 or invalid dx value -> no movement
             futureX = spriteX;
             xAxisMovement = false;
-            System.out.println("dx = 0");
         }
 
         // will be calculated to simulate 1 tile in advance with
@@ -123,18 +115,15 @@ public class Player implements Renderable {
             futureY = spriteY + tileHeight;
             yAxisMovement = true;
             direction = 3;
-            System.out.println("dy = 1");
         } else if (dy == -1) {
             // move 1 time down
             futureY = spriteY - tileHeight;
             yAxisMovement = true;
             direction = 0;
-            System.out.println("dy = -1");
         } else {
             // do not move
             futureY = spriteY;
             yAxisMovement = false;
-            System.out.println("dy = 0");
         }
 
         Cell cell = collisionLayer.getCell((int) futureX / tileWidth, (int) futureY / tileHeight);
@@ -152,7 +141,6 @@ public class Player implements Renderable {
         if (!collide) {
             currentSpeed = 1f;
             if (futureX != 0f || futureY != 0f) {
-                System.out.println("calling interpolateSprite() through move()");
                 interpolateSprite();
             }
         } else {
@@ -179,25 +167,17 @@ public class Player implements Renderable {
     private void interpolateSprite() {
         elapsedTime += Gdx.graphics.getDeltaTime();
         float alpha = MathUtils.clamp((elapsedTime / spriteDelay), 0f, 1f);
-        System.out.println(alpha);
         spriteX = Interpolation.linear.apply(spriteX, futureX, alpha);
-        System.out.println("X: " + spriteX);
-        System.out.println("futureX: " + futureX);
         spriteY = Interpolation.linear.apply(spriteY, futureY, alpha);
-        System.out.println("Y: " + spriteY);
-        System.out.println("futureY: " + futureY);
         if (xAxisMovement) {
             if (spriteX == futureX && futureX != 0) {
                 lastMoveHappened = true;
                 elapsedTime = 0f;
-                System.out.println("lastMoveHappened set to true in interpolateSprite()");
             }
         } else if (yAxisMovement) {
             if (spriteY == futureY && futureY != 0) {
                 lastMoveHappened = true;
                 elapsedTime = 0f;
-                System.out.println("lastMoveHappened set to true in interpolateSprite()");
-
             }
         }
     }
@@ -261,19 +241,15 @@ public class Player implements Renderable {
             if (movingUp && !movingDown && !movingLeft && !movingRight) {
                 lastMoveHappened = false;
                 move(0, 1);
-                System.out.println("move() called");
             } else if (movingDown && !movingUp && !movingLeft && !movingRight) {
                 lastMoveHappened = false;
                 move(0, -1);
-                System.out.println("move() called");
             } else if (movingLeft && !movingDown && !movingUp && !movingRight) {
                 lastMoveHappened = false;
                 move(-1, 0);
-                System.out.println("move() called");
             } else if (movingRight && !movingUp && !movingDown && !movingLeft) {
                 lastMoveHappened = false;
                 move(1, 0);
-                System.out.println("move() called");
             }
         }
     }
@@ -301,7 +277,6 @@ public class Player implements Renderable {
         // experimental
         if (!lastMoveHappened && !collide) {
             interpolateSprite();
-            System.out.println("calling interpolateSprite() through render()");
         }
 
     }
