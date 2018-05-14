@@ -78,10 +78,10 @@ public class Class1AScreen extends AbstractScreen {
         // render foreground
         renderer.render(FGLayer);
         // set camera position to follow player coords
-//        camera.position.x = me.getX();
-//        camera.position.y = me.getY();
-        camera.position.x = camera.position.x + (me.getX() - camera.position.x) * .1f;
-        camera.position.y = camera.position.y + (me.getY() - camera.position.y) * .1f;
+        camera.position.x = me.getX();
+        camera.position.y = me.getY();
+//        camera.position.x = camera.position.x + (me.getX() - camera.position.x) * .1f;
+//        camera.position.y = camera.position.y + (me.getY() - camera.position.y) * .1f;
         // update the camera each render loop
         camera.update();
     }

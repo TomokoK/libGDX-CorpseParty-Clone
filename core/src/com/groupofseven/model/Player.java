@@ -33,6 +33,7 @@ public class Player implements Renderable {
     public float futureX;
     public float futureY;
     public boolean yAxisMovement, xAxisMovement;
+    public boolean collide;
 
     // booleans handled by the PlayerInput class, used for movement
     public boolean movingUp = false;
@@ -46,7 +47,7 @@ public class Player implements Renderable {
 
     // used for the delay between movement when holding down a key
     private boolean lastMoveHappened = true;
-    private float spriteDelay = 0.20f; // the lower the number, the faster the move speed
+    private float spriteDelay = 0.25f; // the lower the number, the faster the move speed
     private float elapsedTime = 0f;
 
     // used to set which sprite row we use while moving
@@ -81,7 +82,9 @@ public class Player implements Renderable {
     // method to move the sprite
     private void move(int dx, int dy) {
 
-//        float futureX; // will be calculated to simulate 1 tile in advance with
+        System.out.println("starting move()");
+
+        // will be calculated to simulate 1 tile in advance with
         // respect to dx
 
         // Calculate future x.
@@ -91,46 +94,51 @@ public class Player implements Renderable {
         if (dx == 1) {
             // case 1 ... simulation of 1 tile movement right
             futureX = spriteX + tileWidth;
-            yAxisMovement = true;
+            xAxisMovement = true;
             direction = 2;
+            System.out.println("dx = 1");
             // debug line
         } else if (dx == -1) {
             // case: -1 ... simulation of 1 tile movement left
             futureX = spriteX - tileWidth;
-            yAxisMovement = true;
+            xAxisMovement = true;
             direction = 1;
+            System.out.println("dx = -1");
         } else {
             // case: 0 or invalid dx value -> no movement
             futureX = spriteX;
-            yAxisMovement = false;
+            xAxisMovement = false;
+            System.out.println("dx = 0");
         }
 
-//        float futureY; // will be calculated to simulate 1 tile in advance with
+        // will be calculated to simulate 1 tile in advance with
         // respect to dx
 
         // Calculate future y.
         // cases: dy == 0 -> future y is current y (no movement)
-        // dy == 1 -> future y is going to move right one tile
-        // dy == -1 -> future y is going to move left one tile
+        // dy == 1 -> future y is going to move up one tile
+        // dy == -1 -> future y is going to move down one tile
         if (dy == 1) {
             // move 1 tile up
             futureY = spriteY + tileHeight;
-            xAxisMovement = true;
+            yAxisMovement = true;
             direction = 3;
+            System.out.println("dy = 1");
         } else if (dy == -1) {
             // move 1 time down
             futureY = spriteY - tileHeight;
-            xAxisMovement = true;
+            yAxisMovement = true;
             direction = 0;
+            System.out.println("dy = -1");
         } else {
             // do not move
             futureY = spriteY;
-            xAxisMovement = false;
+            yAxisMovement = false;
+            System.out.println("dy = 0");
         }
 
         Cell cell = collisionLayer.getCell((int) futureX / tileWidth, (int) futureY / tileHeight);
 
-        boolean collide;
         // begin movement stuff
         // case: cell exists and the cell is not a blocked tile
         // post: if case is legal, future x is legal. else x is not legal
@@ -144,8 +152,11 @@ public class Player implements Renderable {
         if (!collide) {
             currentSpeed = 1f;
             if (futureX != 0f || futureY != 0f) {
+                System.out.println("calling interpolateSprite() through move()");
                 interpolateSprite();
             }
+        } else {
+            lastMoveHappened = true;
         }
 
         // Check if on a door, if so, teleport to respective room
@@ -167,7 +178,6 @@ public class Player implements Renderable {
 
     private void interpolateSprite() {
         elapsedTime += Gdx.graphics.getDeltaTime();
-//        float alpha = Math.min(1, elapsedTime / spriteDelay);
         float alpha = MathUtils.clamp((elapsedTime / spriteDelay), 0f, 1f);
         System.out.println(alpha);
         spriteX = Interpolation.linear.apply(spriteX, futureX, alpha);
@@ -177,14 +187,17 @@ public class Player implements Renderable {
         System.out.println("Y: " + spriteY);
         System.out.println("futureY: " + futureY);
         if (xAxisMovement) {
-            if (spriteY == futureY) {
+            if (spriteX == futureX && futureX != 0) {
                 lastMoveHappened = true;
+                elapsedTime = 0f;
                 System.out.println("lastMoveHappened set to true in interpolateSprite()");
             }
         } else if (yAxisMovement) {
-            if (spriteX == futureX) {
+            if (spriteY == futureY && futureY != 0) {
                 lastMoveHappened = true;
+                elapsedTime = 0f;
                 System.out.println("lastMoveHappened set to true in interpolateSprite()");
+
             }
         }
     }
@@ -286,8 +299,9 @@ public class Player implements Renderable {
         // call the movement method every frame, allowing for continuous input
         movement();
         // experimental
-        if ((futureX != 0f || futureY != 0f)) {
+        if (!lastMoveHappened && !collide) {
             interpolateSprite();
+            System.out.println("calling interpolateSprite() through render()");
         }
 
     }
