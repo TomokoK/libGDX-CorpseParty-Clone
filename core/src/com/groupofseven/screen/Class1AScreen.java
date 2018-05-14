@@ -29,7 +29,7 @@ public class Class1AScreen extends AbstractScreen {
     private int[] BGLayer = {0};
 
     // define music for screen
-    private Music mp3MainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11 Chapter 1 Main Theme.mp3"));
+    private Music mp3MainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11Chapter1MainTheme.mp3"));
     // define intro voice line
     private Music voice = Gdx.audio.newMusic(Gdx.files.internal("voiceActing/f_4.mp3"));
 
@@ -110,8 +110,6 @@ public class Class1AScreen extends AbstractScreen {
         camera = new OrthographicCamera();
         camera.viewportWidth = 640;
         camera.viewportHeight = 480;
-        camera.position.x = me.getX();
-        camera.position.y = me.getY();
         camera.zoom = 0.75f;
         // sound options
         mp3MainTheme.setLooping(true);
@@ -130,8 +128,7 @@ public class Class1AScreen extends AbstractScreen {
                 @Override
                 public void onCompletion(Music music) {
                     mp3MainTheme.play();
-                    // experimental wait for voice line
-                    // Set our input processor
+                    // Set our input processor after playing voice
                     Gdx.input.setInputProcessor(me.getInput());
                 }
             });

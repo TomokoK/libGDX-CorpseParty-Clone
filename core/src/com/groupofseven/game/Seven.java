@@ -21,7 +21,6 @@ public class Seven extends Game implements ApplicationListener {
     public SpriteBatch batch;
     public Player me;
     public BitmapFont menuFont;
-    private int[] layers = {0, 1};
 
     @Override
     public void create() {
@@ -33,11 +32,8 @@ public class Seven extends Game implements ApplicationListener {
         generator.dispose();
         // set map for our player
         map = new TmxMapLoader().load("maps/Class1A.tmx");
-        // debug line
-        System.out.println(map.getLayers().get(layers[0]));
-        System.out.println(map.getLayers().get(layers[1])); // "foreground" layer rendered above sprite
         // set the player parameters
-        me = new Player(this, (TiledMapTileLayer) map.getLayers().get(layers[0]));
+        me = new Player(this, (TiledMapTileLayer) map.getLayers().get(0));
         // create a new spritebatch for the sprite
         batch = new SpriteBatch();
         // run the loadGFX method in Player class, which loads the sprite into the GPU

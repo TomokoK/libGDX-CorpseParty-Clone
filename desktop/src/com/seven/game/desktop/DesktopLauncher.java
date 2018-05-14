@@ -4,6 +4,16 @@
  * 
  * TODO:
  * 	Add all maps
+ * 	    TODO:
+ * 	        Boys bathroom
+ * 	        Class 2A
+ * 	        Class 3A
+ * 	        Class 5A
+ * 	        First floor
+ * 	        Girls bathroom
+ * 	        Infirmary
+ * 	        Stair case 2-3
+ * 	        Stair case 2-3 bathrooms
  * 		***Method***
  * 				1. Create a production environment for new map
  * 				2. Calculate blackspace adjustments and # of tiles
@@ -22,26 +32,23 @@
  * 				14. Remove original tileset and tmx file from project assets,
  * 				    replace with the new tileset and tmx file
  * 		***END NEW PROCESS***
- * 	Remove objects (e.g. desks, buckets) from main map and add them as an object layer
- * 	Clean up the assets folder/subfolders
- * 	Add + improve collision detection
+ * 	Remove objects (e.g. desks, buckets) from main map and add them as an object layer (look into this)
+ * 	Add/improve collision properties to tiled maps
  * 	Add tile layers to each map for better collision detection (e.g. sprite behind podium)
  * 	Add more voice acting lines
- * 	Investigate why interpolation isn't working -> Taking way too long, skip for now
  * 	Main menu
+ * 	    Fullscreen/Screen Resolution
  * 		Save/Load
  * 		Exit
  * 		Credits
  * 	Dialog boxes
- * 	Make use of the objects layer
- * 		Door collision detection -> change map
+ * 	Make use of the objects layer (look into this)
  * 		Pick up items, use them in areas
  * 	Change script from edited version -> original CP rip (?)
- * 	Fix camera to be more authentic to the original (Load up a vita save and take a look)
+ * 	Add vignette effect shaders as a scene2d overlay
  * 	Tune the volume via menu screen
  * 	Clean up all debug lines when they are no longer needed
- * 	Add file I/O through save states
- * 
+ *
  */
 package com.seven.game.desktop;
 

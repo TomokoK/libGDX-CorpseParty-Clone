@@ -317,6 +317,16 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="63">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="64">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
   <tile id="65">
    <properties>
     <property name="blocked" value=""/>
@@ -343,6 +353,11 @@
    </properties>
   </tile>
   <tile id="71">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="72">
    <properties>
     <property name="blocked" value=""/>
    </properties>
@@ -538,16 +553,6 @@
    </properties>
   </tile>
   <tile id="138">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="139">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
-  <tile id="140">
    <properties>
     <property name="blocked" value=""/>
    </properties>

@@ -30,10 +30,10 @@ public class Player implements Renderable {
     // x and y are used for sprite position
     public float spriteX;
     public float spriteY;
-    public float futureX;
-    public float futureY;
-    public boolean yAxisMovement, xAxisMovement;
-    public boolean collide;
+    private float futureX;
+    private float futureY;
+    private boolean yAxisMovement, xAxisMovement;
+    private boolean collide;
 
     // booleans handled by the PlayerInput class, used for movement
     public boolean movingUp = false;
@@ -146,7 +146,9 @@ public class Player implements Renderable {
         } else {
             lastMoveHappened = true;
         }
+    }
 
+    private void checkForDoor() {
         // Check if on a door, if so, teleport to respective room
         if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
             if (spriteX == 360 && spriteY == 48) {
@@ -161,7 +163,6 @@ public class Player implements Renderable {
                 changeSpriteLocation("Class 1A", 336, 360);
             }
         }
-
     }
 
     private void interpolateSprite() {
@@ -169,15 +170,19 @@ public class Player implements Renderable {
         float alpha = MathUtils.clamp((elapsedTime / spriteDelay), 0f, 1f);
         spriteX = Interpolation.linear.apply(spriteX, futureX, alpha);
         spriteY = Interpolation.linear.apply(spriteY, futureY, alpha);
+        System.out.println("X:" + spriteX);
+        System.out.println("Y:" + spriteY);
         if (xAxisMovement) {
             if (spriteX == futureX && futureX != 0) {
                 lastMoveHappened = true;
                 elapsedTime = 0f;
+                checkForDoor();
             }
         } else if (yAxisMovement) {
             if (spriteY == futureY && futureY != 0) {
                 lastMoveHappened = true;
                 elapsedTime = 0f;
+                checkForDoor();
             }
         }
     }
@@ -262,19 +267,17 @@ public class Player implements Renderable {
         if (currentSpeed > 0.0001f) {
             TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(stateTime, true);
             batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)
-            // X is offset by -11 as the source sprite sheet isn't a
-            // power of two.
+            // X is offset by -11 as the source sprite sheet isn't a power of two.
         } else {
             TextureRegion currentFrame = walkAnimation.get(direction).getKeyFrame(3f, false); // Don't
             // draw the sprite mid animation if you are against a blocked tile
             batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)
-            // X is offset by -11 as the source sprite sheet isn't a
-            // power of two.
+            // X is offset by -11 as the source sprite sheet isn't a power of two.
         }
 
         // call the movement method every frame, allowing for continuous input
         movement();
-        // experimental
+        // interpolate sprite if it's moving
         if (!lastMoveHappened && !collide) {
             interpolateSprite();
         }

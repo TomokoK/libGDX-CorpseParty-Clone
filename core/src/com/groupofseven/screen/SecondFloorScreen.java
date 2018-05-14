@@ -27,7 +27,7 @@ public class SecondFloorScreen extends AbstractScreen {
 	private OrthographicCamera camera;
 
 	// define music for screen
-	private Music mp3music = Gdx.audio.newMusic(Gdx.files.internal("music/01 Puzzled.mp3"));
+	private Music mp3music = Gdx.audio.newMusic(Gdx.files.internal("music/01Puzzled.mp3"));
 
 	// store a reference to seven
 	public SecondFloorScreen(Seven startClass) {
@@ -43,7 +43,6 @@ public class SecondFloorScreen extends AbstractScreen {
 		// dispose of the renderer
 		renderer.dispose();
 		// if you don't dispose the music, it will never stop.
-		// this fixes the multiple music bug I was struggling with.
 		mp3music.dispose();
 	}
 
@@ -85,6 +84,8 @@ public class SecondFloorScreen extends AbstractScreen {
 		// set camera options here
 //		camera.viewportWidth = width;
 //		camera.viewportHeight = height;
+//      camera.viewportWidth = 640;
+//      camera.viewportHeight = 480;
 //		camera.update();
 	}
 
