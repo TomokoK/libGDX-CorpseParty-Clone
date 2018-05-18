@@ -56,25 +56,25 @@ public class PlayerInput extends InputAdapter {
 	@Override
 	public boolean keyUp(int keycode) {
 		if (keycode == Keys.W) {
-			me.currentSpeed = 0f;
+//			me.currentSpeed = 0f;
 			this.me.movingUp = false;
 			this.me.movingNowhere = true;
 		}
 
 		if (keycode == Keys.A) {
-			me.currentSpeed = 0f;
+//			me.currentSpeed = 0f;
 			this.me.movingLeft = false;
 			this.me.movingNowhere = true;
 		}
 
 		if (keycode == Keys.S) {
-			me.currentSpeed = 0f;
+//			me.currentSpeed = 0f;
 			this.me.movingDown = false;
 			this.me.movingNowhere = true;
 		}
 
 		if (keycode == Keys.D) {
-			me.currentSpeed = 0f;
+//			me.currentSpeed = 0f;
 			this.me.movingRight = false;
 			this.me.movingNowhere = true;
 		}
