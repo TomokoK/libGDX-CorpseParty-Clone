@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.utils.Timer;
 import com.groupofseven.game.Seven;
 import com.groupofseven.model.Player;
 
@@ -42,8 +43,8 @@ public class Class3AScreen extends AbstractScreen {
         map.dispose();
         // dispose of the renderer (the OrthogonalTiledMapRenderer)
         renderer.dispose();
-        // dispose of the sound
-        mp3MainTheme.dispose();
+        // dispose the sprite
+        batch.dispose();
     }
 
     @Override
@@ -59,6 +60,8 @@ public class Class3AScreen extends AbstractScreen {
 
     @Override
     public void render(float delta) {
+        // create a new spritebatch for the sprite
+        batch = new SpriteBatch();
         // start camera for the second floor map
         renderer.setView(camera);
         renderer.render(BGLayer);
@@ -106,11 +109,8 @@ public class Class3AScreen extends AbstractScreen {
         camera.viewportWidth = 640;
         camera.viewportHeight = 480;
         camera.zoom = 0.75f;
-        // sound options
-        mp3MainTheme.setLooping(true);
-        mp3MainTheme.setVolume(0.5f);
-        mp3MainTheme.play();
         // Set our input processor
         Gdx.input.setInputProcessor(me.getInput());
     }
+
 }

@@ -3,6 +3,7 @@
  * @AUTHOR
  * 
  * TODO:
+ *  Add doors to the correct area
  * 	Remove objects (e.g. desks, buckets) from main map and add them as an object layer (look into this)
  * 	Add/improve collision properties to tiled maps
  * 	Add tile layers to each map for better collision detection (e.g. sprite behind podium)
@@ -19,6 +20,7 @@
  * 	Add vignette effect shaders as a scene2d overlay
  * 	Tune the volume via menu screen
  * 	Clean up all debug lines when they are no longer needed
+ * 	Fix/Implement cross screen music
  *
  */
 package com.seven.game.desktop;

@@ -34,8 +34,6 @@ public class Seven extends Game implements ApplicationListener {
         map = new TmxMapLoader().load("maps/Class1A.tmx");
         // set the player parameters
         me = new Player(this, (TiledMapTileLayer) map.getLayers().get(0));
-        // create a new spritebatch for the sprite
-        batch = new SpriteBatch();
         // run the loadGFX method in Player class, which loads the sprite into the GPU
         me.loadGFX();
         // set sprite position to a # divisible by the tile size

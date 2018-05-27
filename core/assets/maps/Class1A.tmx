@@ -737,6 +737,11 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="189">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
   <tile id="190">
    <properties>
     <property name="blocked" value=""/>

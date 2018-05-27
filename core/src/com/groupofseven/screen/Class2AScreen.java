@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.groupofseven.game.Seven;
 import com.groupofseven.model.Player;
+import com.groupofseven.model.SoundActions;
 
 // extend the AbstractScreen which has a reference of the Seven.java, aka our "Game Class"
 public class Class2AScreen extends AbstractScreen {
@@ -18,6 +19,8 @@ public class Class2AScreen extends AbstractScreen {
 
     private SpriteBatch batch;
 
+    private SoundActions soundAction = new SoundActions();
+
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
@@ -25,9 +28,6 @@ public class Class2AScreen extends AbstractScreen {
     // update the array with layer numbers when adding more layers
     private int[] FGLayer = {1};
     private int[] BGLayer = {0};
-
-    // define music for screen
-    private Music mp3MainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11Chapter1MainTheme.mp3"));
 
     // store a reference to Seven
     public Class2AScreen(Seven startClass) {
@@ -43,7 +43,9 @@ public class Class2AScreen extends AbstractScreen {
         // dispose of the renderer (the OrthogonalTiledMapRenderer)
         renderer.dispose();
         // dispose of the sound
-        mp3MainTheme.dispose();
+        soundAction.disposeAudio("Class2A Theme");
+        // dispose the sprite
+        batch.dispose();
     }
 
     @Override
@@ -98,6 +100,8 @@ public class Class2AScreen extends AbstractScreen {
 
     @Override
     public void show() {
+        // create a new spritebatch for the sprite
+        batch = new SpriteBatch();
         // set our map
         map = new TmxMapLoader().load("maps/Class2A.tmx");
         // render map
@@ -107,9 +111,9 @@ public class Class2AScreen extends AbstractScreen {
         camera.viewportHeight = 480;
         camera.zoom = 0.75f;
         // sound options
-        mp3MainTheme.setLooping(true);
-        mp3MainTheme.setVolume(0.5f);
-        mp3MainTheme.play();
+        soundAction.setAudioLooping("Class2A Theme", true);
+        soundAction.setAudioVolume("Class2A Theme", 0.5f);
+        soundAction.setAudioPlaying("Class2A Theme");
         // Set our input processor
         Gdx.input.setInputProcessor(me.getInput());
     }

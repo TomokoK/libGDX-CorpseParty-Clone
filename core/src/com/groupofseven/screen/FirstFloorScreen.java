@@ -42,8 +42,8 @@ public class FirstFloorScreen extends AbstractScreen {
         map.dispose();
         // dispose of the renderer (the OrthogonalTiledMapRenderer)
         renderer.dispose();
-        // dispose of the sound
-        mp3MainTheme.dispose();
+        // dispose the sprite
+        batch.dispose();
     }
 
     @Override
@@ -98,6 +98,8 @@ public class FirstFloorScreen extends AbstractScreen {
 
     @Override
     public void show() {
+        // create a new spritebatch for the sprite
+        batch = new SpriteBatch();
         // set our map
         map = new TmxMapLoader().load("maps/FirstFloor.tmx");
         // render map
@@ -106,10 +108,6 @@ public class FirstFloorScreen extends AbstractScreen {
         camera.viewportWidth = 640;
         camera.viewportHeight = 480;
         camera.zoom = 0.75f;
-        // sound options
-        mp3MainTheme.setLooping(true);
-        mp3MainTheme.setVolume(0.5f);
-        mp3MainTheme.play();
         // Set our input processor
         Gdx.input.setInputProcessor(me.getInput());
     }

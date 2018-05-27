@@ -1,7 +1,6 @@
 package com.groupofseven.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -26,9 +25,6 @@ public class InfirmaryScreen extends AbstractScreen {
     private int[] FGLayer = {1};
     private int[] BGLayer = {0};
 
-    // define music for screen
-    private Music mp3MainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11Chapter1MainTheme.mp3"));
-
     // store a reference to Seven
     public InfirmaryScreen(Seven startClass) {
         super(startClass);
@@ -42,8 +38,8 @@ public class InfirmaryScreen extends AbstractScreen {
         map.dispose();
         // dispose of the renderer (the OrthogonalTiledMapRenderer)
         renderer.dispose();
-        // dispose of the sound
-        mp3MainTheme.dispose();
+        // dispose the sprite
+        batch.dispose();
     }
 
     @Override
@@ -98,6 +94,8 @@ public class InfirmaryScreen extends AbstractScreen {
 
     @Override
     public void show() {
+        // create a new spritebatch for the sprite
+        batch = new SpriteBatch();
         // set our map
         map = new TmxMapLoader().load("maps/Infirmary.tmx");
         // render map
@@ -106,10 +104,6 @@ public class InfirmaryScreen extends AbstractScreen {
         camera.viewportWidth = 640;
         camera.viewportHeight = 480;
         camera.zoom = 0.75f;
-        // sound options
-        mp3MainTheme.setLooping(true);
-        mp3MainTheme.setVolume(0.5f);
-        mp3MainTheme.play();
         // Set our input processor
         Gdx.input.setInputProcessor(me.getInput());
     }

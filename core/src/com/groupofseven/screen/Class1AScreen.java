@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.groupofseven.game.Seven;
 import com.groupofseven.model.Player;
+import com.groupofseven.model.SoundActions;
 
 // extend the AbstractScreen which has a reference of the Seven.java, aka our "Game Class"
 public class Class1AScreen extends AbstractScreen {
@@ -22,14 +23,14 @@ public class Class1AScreen extends AbstractScreen {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
 
+    private SoundActions soundAction = new SoundActions();
+
     private static int firstLinePlayed = 0;
 
     // update the array with layer numbers when adding more layers
     private int[] FGLayer = {1};
     private int[] BGLayer = {0};
 
-    // define music for screen
-    private Music mp3MainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11Chapter1MainTheme.mp3"));
     // define intro voice line
     private Music voice = Gdx.audio.newMusic(Gdx.files.internal("voiceActing/f_4.mp3"));
 
@@ -47,8 +48,9 @@ public class Class1AScreen extends AbstractScreen {
         // dispose of the renderer (the OrthogonalTiledMapRenderer)
         renderer.dispose();
         // dispose of the sound
-        mp3MainTheme.dispose();
         voice.dispose();
+        // dispose the sprite
+        batch.dispose();
     }
 
     @Override
@@ -80,8 +82,6 @@ public class Class1AScreen extends AbstractScreen {
         // set camera position to follow player coords
         camera.position.x = me.getX();
         camera.position.y = me.getY();
-//        camera.position.x = camera.position.x + (me.getX() - camera.position.x) * .1f;
-//        camera.position.y = camera.position.y + (me.getY() - camera.position.y) * .1f;
         // update the camera each render loop
         camera.update();
     }
@@ -103,6 +103,8 @@ public class Class1AScreen extends AbstractScreen {
 
     @Override
     public void show() {
+        // create a new spritebatch for the sprite
+        batch = new SpriteBatch();
         // set our map
         map = new TmxMapLoader().load("maps/Class1A.tmx");
         // render map
@@ -112,8 +114,7 @@ public class Class1AScreen extends AbstractScreen {
         camera.viewportHeight = 480;
         camera.zoom = 0.75f;
         // sound options
-        mp3MainTheme.setLooping(true);
-        mp3MainTheme.setVolume(0.5f);
+        soundAction.setAudioLooping("main theme", true);
         voice.setVolume(0.5f);
         /*
          * First, we play the voice clip. Then, we check to see when the voice clip has
@@ -127,14 +128,12 @@ public class Class1AScreen extends AbstractScreen {
             voice.setOnCompletionListener(new Music.OnCompletionListener() {
                 @Override
                 public void onCompletion(Music music) {
-                    mp3MainTheme.play();
+                    soundAction.setAudioPlaying("main theme");
                     // Set our input processor after playing voice
                     Gdx.input.setInputProcessor(me.getInput());
                 }
             });
         } else {
-            mp3MainTheme.play();
-            // experimental wait for voice line
             // Set our input processor
             Gdx.input.setInputProcessor(me.getInput());
         }

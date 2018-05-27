@@ -26,9 +26,6 @@ public class StairCase2_3BathroomsScreen extends AbstractScreen {
     private int[] FGLayer = {1};
     private int[] BGLayer = {0};
 
-    // define music for screen
-    private Music mp3MainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11Chapter1MainTheme.mp3"));
-
     // store a reference to Seven
     public StairCase2_3BathroomsScreen(Seven startClass) {
         super(startClass);
@@ -42,8 +39,8 @@ public class StairCase2_3BathroomsScreen extends AbstractScreen {
         map.dispose();
         // dispose of the renderer (the OrthogonalTiledMapRenderer)
         renderer.dispose();
-        // dispose of the sound
-        mp3MainTheme.dispose();
+        // dispose the sprite
+        batch.dispose();
     }
 
     @Override
@@ -98,6 +95,8 @@ public class StairCase2_3BathroomsScreen extends AbstractScreen {
 
     @Override
     public void show() {
+        // create a new spritebatch for the sprite
+        batch = new SpriteBatch();
         // set our map
         map = new TmxMapLoader().load("maps/StairCase2-3Bathrooms.tmx");
         // render map
@@ -106,10 +105,6 @@ public class StairCase2_3BathroomsScreen extends AbstractScreen {
         camera.viewportWidth = 640;
         camera.viewportHeight = 480;
         camera.zoom = 0.75f;
-        // sound options
-        mp3MainTheme.setLooping(true);
-        mp3MainTheme.setVolume(0.5f);
-        mp3MainTheme.play();
         // Set our input processor
         Gdx.input.setInputProcessor(me.getInput());
     }
