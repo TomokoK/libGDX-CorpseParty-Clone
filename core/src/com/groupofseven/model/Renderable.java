@@ -3,11 +3,11 @@ package com.groupofseven.model;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public interface Renderable {
-	public void loadGFX(); // requires graphics context
+	void loadGFX(); // requires graphics context
 
-	public void update(float delta);
+	void update(float delta);
 
-	public void render(float delta, SpriteBatch batch);
+	void render(float delta, SpriteBatch batch);
 
-	public void dispose();
+	void dispose();
 }

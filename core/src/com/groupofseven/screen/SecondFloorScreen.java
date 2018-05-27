@@ -18,7 +18,7 @@ public class SecondFloorScreen extends AbstractScreen {
 
     private SpriteBatch batch;
 
-    private SoundActions soundAction = new SoundActions();
+    private SoundActions soundAction;
 
     // update the array with layer numbers when adding more layers
     private int[] FGLayer = {1};
@@ -33,6 +33,7 @@ public class SecondFloorScreen extends AbstractScreen {
         super(startClass);
         batch = startClass.batch;
         me = startClass.me;
+        soundAction = startClass.soundAction;
     }
 
     @Override
@@ -43,10 +44,8 @@ public class SecondFloorScreen extends AbstractScreen {
         renderer.dispose();
         // if you don't dispose the music, it will never stop.
         if (me.publicFutureMap.equalsIgnoreCase("Class 3A")) {
-            System.out.println("disposing main theme");
             soundAction.disposeAudio("main theme");
         } else if (me.publicFutureMap.equalsIgnoreCase("Class 5A")) {
-            System.out.println("disposing main theme");
             soundAction.disposeAudio("main theme");
         }
         // dispose the sprite

@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Timer;
 import com.groupofseven.game.Seven;
 import com.groupofseven.model.Player;
+import com.groupofseven.model.SoundActions;
 
 // extend the AbstractScreen which has a reference of the Seven.java, aka our "Game Class"
 public class Class3AScreen extends AbstractScreen {
@@ -23,18 +24,18 @@ public class Class3AScreen extends AbstractScreen {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
 
+    private SoundActions soundAction;
+
     // update the array with layer numbers when adding more layers
     private int[] FGLayer = {1};
     private int[] BGLayer = {0};
-
-    // define music for screen
-    private Music mp3MainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11Chapter1MainTheme.mp3"));
 
     // store a reference to Seven
     public Class3AScreen(Seven startClass) {
         super(startClass);
         batch = startClass.batch;
         me = startClass.me;
+        soundAction = startClass.soundAction;
     }
 
     @Override
@@ -78,8 +79,6 @@ public class Class3AScreen extends AbstractScreen {
         // set camera position to follow player coords
         camera.position.x = me.getX();
         camera.position.y = me.getY();
-//        camera.position.x = camera.position.x + (me.getX() - camera.position.x) * .1f;
-//        camera.position.y = camera.position.y + (me.getY() - camera.position.y) * .1f;
         // update the camera each render loop
         camera.update();
     }

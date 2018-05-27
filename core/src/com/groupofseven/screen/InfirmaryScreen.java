@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.groupofseven.game.Seven;
 import com.groupofseven.model.Player;
+import com.groupofseven.model.SoundActions;
 
 // extend the AbstractScreen which has a reference of the Seven.java, aka our "Game Class"
 public class InfirmaryScreen extends AbstractScreen {
@@ -16,6 +17,8 @@ public class InfirmaryScreen extends AbstractScreen {
     private Player me;
 
     private SpriteBatch batch;
+
+    private SoundActions soundAction;
 
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
@@ -30,6 +33,7 @@ public class InfirmaryScreen extends AbstractScreen {
         super(startClass);
         batch = startClass.batch;
         me = startClass.me;
+        soundAction = startClass.soundAction;
     }
 
     @Override
@@ -71,8 +75,6 @@ public class InfirmaryScreen extends AbstractScreen {
         // set camera position to follow player coords
         camera.position.x = me.getX();
         camera.position.y = me.getY();
-//        camera.position.x = camera.position.x + (me.getX() - camera.position.x) * .1f;
-//        camera.position.y = camera.position.y + (me.getY() - camera.position.y) * .1f;
         // update the camera each render loop
         camera.update();
     }

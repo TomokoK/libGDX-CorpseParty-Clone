@@ -7,26 +7,16 @@ import com.badlogic.gdx.utils.Timer;
 public class SoundActions {
 
     private Music mainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11Chapter1MainTheme.mp3"));
-
     private Music Class5ATheme = Gdx.audio.newMusic(Gdx.files.internal("music/07HauntedRoom.mp3"));
-
     private Music Class2ATheme = Gdx.audio.newMusic(Gdx.files.internal("music/09Fear.mp3"));
 
     public void disposeAudio(String passedAudio) {
         if (passedAudio.equalsIgnoreCase("Main theme")) {
-            System.out.println("disposeAudio() called with Main theme");
-//            fadeOutMusic(mainTheme);
-//            System.out.println("fadeOutMusic(mainTheme) called");
-            mainTheme.stop();
-            mainTheme.dispose();
+            fadeOutMusic(mainTheme);
         } else if (passedAudio.equalsIgnoreCase("Class5A Theme")) {
             fadeOutMusic(Class5ATheme);
-            Class5ATheme.stop();
-            Class5ATheme.dispose();
         } else if (passedAudio.equalsIgnoreCase("Class2A Theme")); {
             fadeOutMusic(Class2ATheme);
-            Class2ATheme.stop();
-            Class2ATheme.dispose();
         }
     }
 
@@ -76,7 +66,7 @@ public class SoundActions {
         }
     }
 
-    public void fadeInMusic(Music passedAudio) {
+    private void fadeInMusic(Music passedAudio) {
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
@@ -89,7 +79,7 @@ public class SoundActions {
         }, 0f, 0.01f);
     }
 
-    public void fadeOutMusic(Music passedAudio) {
+    private void fadeOutMusic(Music passedAudio) {
         System.out.println("fadeOutMusic started");
         Timer.schedule(new Timer.Task() {
             @Override
@@ -97,14 +87,11 @@ public class SoundActions {
                 if (passedAudio.getVolume() >= 0.001f)
                     passedAudio.setVolume(passedAudio.getVolume() - 0.001f);
                 else {
-                    System.out.println("volume should be 0");
                     passedAudio.stop();
-                    System.out.println("disposing passedAudio");
                     passedAudio.dispose();
                     this.cancel();
                 }
             }
-        }, 0f, 0.01f);
-        System.out.println("fadeOutMusic completed");
+        }, 0f, 0.005f);
     }
 }

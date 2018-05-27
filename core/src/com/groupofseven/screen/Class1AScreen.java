@@ -23,7 +23,7 @@ public class Class1AScreen extends AbstractScreen {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
 
-    private SoundActions soundAction = new SoundActions();
+    private SoundActions soundAction;
 
     private static int firstLinePlayed = 0;
 
@@ -39,6 +39,7 @@ public class Class1AScreen extends AbstractScreen {
         super(startClass);
         batch = startClass.batch;
         me = startClass.me;
+        soundAction = startClass.soundAction;
     }
 
     @Override
@@ -138,4 +139,5 @@ public class Class1AScreen extends AbstractScreen {
             Gdx.input.setInputProcessor(me.getInput());
         }
     }
+
 }

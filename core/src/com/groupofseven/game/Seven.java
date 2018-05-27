@@ -5,13 +5,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.groupofseven.model.Player;
+import com.groupofseven.model.SoundActions;
 import com.groupofseven.screen.Class1AScreen;
 
 public class Seven extends Game implements ApplicationListener {
@@ -20,18 +19,14 @@ public class Seven extends Game implements ApplicationListener {
     private TiledMap map;
     public SpriteBatch batch;
     public Player me;
-    public BitmapFont menuFont;
+    public SoundActions soundAction;
 
     @Override
     public void create() {
-        // font creation
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/FoxScriptNormal.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 14;
-        menuFont = generator.generateFont(parameter);
-        generator.dispose();
         // set map for our player
         map = new TmxMapLoader().load("maps/Class1A.tmx");
+        // start the sound controller object
+        soundAction = new SoundActions();
         // set the player parameters
         me = new Player(this, (TiledMapTileLayer) map.getLayers().get(0));
         // run the loadGFX method in Player class, which loads the sprite into the GPU
@@ -52,5 +47,4 @@ public class Seven extends Game implements ApplicationListener {
         // call the currently active screen to render
         super.render();
     }
-
 }

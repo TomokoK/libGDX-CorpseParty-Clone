@@ -19,7 +19,7 @@ public class Class2AScreen extends AbstractScreen {
 
     private SpriteBatch batch;
 
-    private SoundActions soundAction = new SoundActions();
+    private SoundActions soundAction;
 
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
@@ -34,6 +34,7 @@ public class Class2AScreen extends AbstractScreen {
         super(startClass);
         batch = startClass.batch;
         me = startClass.me;
+        soundAction = startClass.soundAction;
     }
 
     @Override
@@ -77,8 +78,6 @@ public class Class2AScreen extends AbstractScreen {
         // set camera position to follow player coords
         camera.position.x = me.getX();
         camera.position.y = me.getY();
-//        camera.position.x = camera.position.x + (me.getX() - camera.position.x) * .1f;
-//        camera.position.y = camera.position.y + (me.getY() - camera.position.y) * .1f;
         // update the camera each render loop
         camera.update();
     }

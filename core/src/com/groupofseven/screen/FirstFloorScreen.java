@@ -1,7 +1,6 @@
 package com.groupofseven.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -9,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.groupofseven.game.Seven;
 import com.groupofseven.model.Player;
+import com.groupofseven.model.SoundActions;
 
 // extend the AbstractScreen which has a reference of the Seven.java, aka our "Game Class"
 public class FirstFloorScreen extends AbstractScreen {
@@ -18,6 +18,8 @@ public class FirstFloorScreen extends AbstractScreen {
 
     private SpriteBatch batch;
 
+    private SoundActions soundAction;
+
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
@@ -26,14 +28,12 @@ public class FirstFloorScreen extends AbstractScreen {
     private int[] FGLayer = {1};
     private int[] BGLayer = {0};
 
-    // define music for screen
-    private Music mp3MainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11Chapter1MainTheme.mp3"));
-
     // store a reference to Seven
     public FirstFloorScreen(Seven startClass) {
         super(startClass);
         batch = startClass.batch;
         me = startClass.me;
+        soundAction = startClass.soundAction;
     }
 
     @Override
@@ -75,8 +75,6 @@ public class FirstFloorScreen extends AbstractScreen {
         // set camera position to follow player coords
         camera.position.x = me.getX();
         camera.position.y = me.getY();
-//        camera.position.x = camera.position.x + (me.getX() - camera.position.x) * .1f;
-//        camera.position.y = camera.position.y + (me.getY() - camera.position.y) * .1f;
         // update the camera each render loop
         camera.update();
     }

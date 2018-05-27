@@ -63,9 +63,6 @@ public class Player implements Renderable {
     // this float is used to track elapsed animation time
     private float stateTime;
 
-    // Create soundActions object
-    private SoundActions soundAction;
-
     // get future map
     public String publicFutureMap;
 
@@ -357,7 +354,6 @@ public class Player implements Renderable {
             batch.draw(currentFrame, (spriteX - 11), spriteY); // Draw current frame at (X, Y)
             // X is offset by -11 as the source sprite sheet isn't a power of two.
         }
-
         // call the movement method every frame, allowing for continuous input
         movement();
         // interpolate sprite if it's moving
