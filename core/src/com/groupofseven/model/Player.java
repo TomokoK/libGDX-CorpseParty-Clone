@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -65,12 +66,14 @@ public class Player implements Renderable {
 
     // get future map
     public String publicFutureMap;
+    private TiledMap tempMap;
 
     // setup constructor
     public Player(Seven app, TiledMapTileLayer collisionLayer) {
         this.app = app;
         input = new PlayerInput(this);
         this.collisionLayer = collisionLayer;
+        tempMap = app.map;
     }
 
     public Seven getApp() {
@@ -150,6 +153,36 @@ public class Player implements Renderable {
         }
     }
 
+    public void checkForAction() {
+        //check if the tile you are facing is an action tile
+        int facingTileY = 0, facingTileX = 0;
+        if (direction == 0) {
+            facingTileY = (((int) spriteY - 24) / tileHeight);
+            facingTileX = ((int) spriteX / tileWidth);
+        } else if (direction == 1) {
+            facingTileY = ((int) spriteY / tileHeight);
+            facingTileX = (((int) spriteX - 24) / tileHeight);
+        } else if (direction == 2) {
+            facingTileY = ((int) spriteY / tileHeight);
+            facingTileX = (((int) spriteX + 24) / tileWidth);
+        } else if (direction == 3) {
+            facingTileY = (((int) spriteY + 24) / tileHeight);
+            facingTileX = ((int) spriteX / tileWidth);
+        }
+
+        Cell facingCell = collisionLayer.getCell(facingTileX, facingTileY);
+
+        if (facingCell.getTile().getProperties().containsKey("infirmaryDoor")) {
+            changeSpriteLocation("Infirmary", 96, 144);
+        } else if (facingCell.getTile().getProperties().containsKey("scienceLabDoor")) {
+            System.out.println("Science Lab Door (locked)");
+        } else if (facingCell.getTile().getProperties().containsKey("class1ABoard")) {
+            //remove board tile from map, add board to inventory
+        } else {
+            System.out.println("null");
+        }
+    }
+
     private void checkForDoor() {
         // Check if on a door, if so, teleport to respective room
         if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
@@ -173,8 +206,6 @@ public class Player implements Renderable {
                 changeSpriteLocation("Class 3A", 384, 384);
             } else if (spriteX == 312 && spriteY == 600) {
                 changeSpriteLocation("Class 5A", 48, 48);
-            } else if (spriteX == 288 && spriteY == 672) {
-                changeSpriteLocation("Infirmary", 48, 48);
             } else if (spriteX == 336 && spriteY == 480) {
                 changeSpriteLocation("StairCase2-3", 288, 240);
             } else if (spriteX == 168 && spriteY == 480) {
@@ -223,56 +254,82 @@ public class Player implements Renderable {
     }
 
     private void changeSpriteLocation(String futureMap, int Xcoord, int Ycoord) {
+        //this method is causing the jvm/i965_dri/libc crash!!!
+        //maps are not being disposed and are leaking
+        //seems to be occurring on the collisionLayer = (Tiled...) ... line
         if (futureMap.equalsIgnoreCase("Class 1A")) {
             publicFutureMap = "Class 1A";
+            tempMap.dispose();
             this.getApp().setScreen(new Class1AScreen(this.getApp()));
-            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Class1A.tmx")).getLayers().get(0);
+            tempMap = new TmxMapLoader().load("maps/Class1A.tmx");
+            collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
         } else if (futureMap.equalsIgnoreCase("Second floor")) {
             publicFutureMap = "Second floor";
+            tempMap.dispose();
             this.getApp().setScreen(new SecondFloorScreen(this.getApp()));
-            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/SecondFloor.tmx")).getLayers().get(0);
+            tempMap = new TmxMapLoader().load("maps/SecondFloor.tmx");
+            collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
         } else if (futureMap.equalsIgnoreCase("Boys Bathroom")) {
             publicFutureMap = "Boys Bathroom";
+            tempMap.dispose();
             this.getApp().setScreen(new BoysBathroomScreen(this.getApp()));
-            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/BoysBathroom.tmx")).getLayers().get(0);
+            tempMap = new TmxMapLoader().load("maps/BoysBathroom.tmx");
+            collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
         } else if (futureMap.equalsIgnoreCase("Bathroom hallway")) {
             publicFutureMap = "Bathroom hallway";
+            tempMap.dispose();
             this.getApp().setScreen(new BathroomHallwayScreen(this.getApp()));
-            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/BathroomHallway.tmx")).getLayers().get(0);
+            tempMap = new TmxMapLoader().load("maps/BathroomHallway.tmx");
+            collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
         } else if (futureMap.equalsIgnoreCase("Class 2A")) {
             publicFutureMap = "Class 2A";
             this.getApp().setScreen(new Class2AScreen(this.getApp()));
-            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Class2A.tmx")).getLayers().get(0);
+            tempMap = new TmxMapLoader().load("maps/Class2A.tmx");
+            collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
             direction = 1;
         } else if (futureMap.equalsIgnoreCase("Class 3A")) {
             publicFutureMap = "Class 3A";
+            tempMap.dispose();
             this.getApp().setScreen(new Class3AScreen(this.getApp()));
-            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Class3A.tmx")).getLayers().get(0);
+            tempMap = new TmxMapLoader().load("maps/Class3A.tmx");
+            collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
             direction = 1;
         } else if (futureMap.equalsIgnoreCase("Class 5A")) {
             publicFutureMap = "Class 5A";
+            tempMap.dispose();
             this.getApp().setScreen(new Class5AScreen(this.getApp()));
-            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Class5A.tmx")).getLayers().get(0);
+            tempMap = new TmxMapLoader().load("maps/Class5A.tmx");
+            collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
         } else if (futureMap.equalsIgnoreCase("Infirmary")) {
             publicFutureMap = "Infirmary";
+            tempMap.dispose();
             this.getApp().setScreen(new InfirmaryScreen(this.getApp()));
-            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/Infirmary.tmx")).getLayers().get(0);
+            tempMap = new TmxMapLoader().load("maps/Infirmary.tmx");
+            collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
         } else if (futureMap.equalsIgnoreCase("StairCase2-3")) {
             publicFutureMap = "StairCase2-3";
+            tempMap.dispose();
             this.getApp().setScreen(new StairCase2_3Screen(this.getApp()));
-            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/StairCase2-3.tmx")).getLayers().get(0);
+            tempMap = new TmxMapLoader().load("maps/StairCase2-3.tmx");
+            collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
         } else if (futureMap.equalsIgnoreCase("StairCase2-3Bathrooms")) {
             publicFutureMap = "StairCase2-3Bathrooms";
+            tempMap.dispose();
             this.getApp().setScreen(new StairCase2_3BathroomsScreen(this.getApp()));
-            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/StairCase2-3Bathrooms.tmx")).getLayers().get(0);
+            tempMap = new TmxMapLoader().load("maps/StairCase2-3Bathrooms.tmx");
+            collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
         } else if (futureMap.equalsIgnoreCase("First Floor")) {
             publicFutureMap = "First Floor";
+            tempMap.dispose();
             this.getApp().setScreen(new FirstFloorScreen(this.getApp()));
-            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/FirstFloor.tmx")).getLayers().get(0);
+            tempMap = new TmxMapLoader().load("maps/FirstFloor.tmx");
+            collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
         } else if (futureMap.equalsIgnoreCase("Girls Bathroom")) {
             publicFutureMap = "Girls Bathroom";
+            tempMap.dispose();
             this.getApp().setScreen(new GirlsBathroomScreen(this.getApp()));
-            collisionLayer = (TiledMapTileLayer) (new TmxMapLoader().load("maps/GirlsBathroom.tmx")).getLayers().get(0);
+            tempMap = new TmxMapLoader().load("maps/GirlsBathroom.tmx");
+            collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
         } else {
             publicFutureMap = null;
             System.out.println("not a map");

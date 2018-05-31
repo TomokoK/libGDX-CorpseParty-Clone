@@ -1262,6 +1262,12 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="510">
+   <properties>
+    <property name="blocked" value=""/>
+    <property name="infirmaryDoor" value=""/>
+   </properties>
+  </tile>
   <tile id="523">
    <properties>
     <property name="blocked" value=""/>

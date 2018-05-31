@@ -65,6 +65,10 @@ public class PlayerInput extends InputAdapter {
             this.me.movingNowhere = true;
         }
 
+        if (keycode == Keys.F) {
+            this.me.checkForAction();
+        }
+
         return false;
     }
 }

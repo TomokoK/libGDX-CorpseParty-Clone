@@ -16,7 +16,7 @@ import com.groupofseven.screen.Class1AScreen;
 public class Seven extends Game implements ApplicationListener {
     // init objects
     private Screen screen;
-    private TiledMap map;
+    public TiledMap map;
     public SpriteBatch batch;
     public Player me;
     public SoundActions soundAction;
