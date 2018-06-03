@@ -33,9 +33,20 @@ public class DesktopLauncher {
 	public static void main(String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
+		int displayWidth = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
+		int displayHeight = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
+
 		config.title = "Corpse Party";
-		config.width = 640;
-		config.height = 480;
+		if (displayWidth <= 1366 && displayHeight <= 768) {
+			config.width = 640;
+			config.height = 480;
+		} else if (displayWidth <= 1920 && displayHeight <= 1080) {
+			config.width = 1024;
+			config.height = 768;
+		} else if (displayWidth > 1920 && displayHeight > 1080) {
+			config.width = 1280;
+			config.height = 960;
+		}
 		config.vSyncEnabled = true;
 		config.resizable = false;
 

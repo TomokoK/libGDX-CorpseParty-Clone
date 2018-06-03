@@ -84,8 +84,6 @@ public class BathroomHallwayScreen extends AbstractScreen {
         // set camera options here
 //        camera.viewportWidth = width;
 //        camera.viewportHeight = height;
-//        camera.viewportWidth = 640;
-//        camera.viewportHeight = 480;
 //        camera.update();
     }
 
