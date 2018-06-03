@@ -172,14 +172,25 @@ public class Player implements Renderable {
 
         Cell facingCell = collisionLayer.getCell(facingTileX, facingTileY);
 
-        if (facingCell.getTile().getProperties().containsKey("infirmaryDoor")) {
-            changeSpriteLocation("Infirmary", 96, 144);
-        } else if (facingCell.getTile().getProperties().containsKey("scienceLabDoor")) {
-            System.out.println("Science Lab Door (locked)");
-        } else if (facingCell.getTile().getProperties().containsKey("class1ABoard")) {
-            //remove board tile from map, add board to inventory
-        } else {
-            System.out.println("null");
+        if (this.getApp().getScreen().getClass() == Class1AScreen.class) {
+            if (facingCell.getTile().getProperties().containsKey("looseBoard")) {
+                //remove board tile from map, add board to inventory
+                System.out.println("loose board");
+            } else if (facingCell.getTile().getProperties().containsKey("poster")) {
+                System.out.println("poster");
+            } else if (facingCell.getTile().getProperties().containsKey("cabinet")) {
+                System.out.println("cabinet");
+            } else {
+                System.out.println("null");
+            }
+        } else if (this.getApp().getScreen().getClass() == SecondFloorScreen.class) {
+            if (facingCell.getTile().getProperties().containsKey("infirmaryDoor")) {
+                changeSpriteLocation("Infirmary", 96, 144);
+            } else if (facingCell.getTile().getProperties().containsKey("scienceLabDoor")) {
+                System.out.println("Science Lab Door (locked)");
+            } else {
+                System.out.println("null");
+            }
         }
     }
 
@@ -210,14 +221,16 @@ public class Player implements Renderable {
                 changeSpriteLocation("StairCase2-3", 288, 240);
             } else if (spriteX == 168 && spriteY == 480) {
                 changeSpriteLocation("StairCase2-3Bathrooms", 168, 216);
-            } else if (spriteX == 336 && spriteY == 288) {
-                changeSpriteLocation("First Floor", 192, 240);
-            } else if (spriteX == 360 && spriteY == 288) {
-                changeSpriteLocation("First Floor", 216, 240);
-            } else if (spriteX == 1000 && spriteY == 1000) {
-                // fill in
+            } else if (spriteX == 264 && spriteY == 432) {
+                changeSpriteLocation("SecondFloorStairCase", 72, 264);
+            } else if (spriteX == 240 && spriteY == 432) {
+                changeSpriteLocation("SecondFloorStairCase", 72, 264);
             } else if (spriteX == 168 && spriteY == 720) {
                 changeSpriteLocation("Girls Bathroom", 48, 48);
+            }
+        } else if (this.getApp().getScreen().getClass() == SecondFloorStairCaseScreen.class) {
+            if (spriteX == 1000 && spriteY == 1000) {
+                changeSpriteLocation("first floor", 168, 168);
             }
         } else if (this.getApp().getScreen().getClass() == Class3AScreen.class) {
             if (spriteX == 408 && spriteY == 384) {
@@ -329,6 +342,12 @@ public class Player implements Renderable {
             tempMap.dispose();
             this.getApp().setScreen(new GirlsBathroomScreen(this.getApp()));
             tempMap = new TmxMapLoader().load("maps/GirlsBathroom.tmx");
+            collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
+        } else if (futureMap.equalsIgnoreCase("SecondFloorStairCase")) {
+            publicFutureMap = "SecondFloorStairCase";
+            tempMap.dispose();
+            this.getApp().setScreen(new SecondFloorStairCaseScreen(this.getApp()));
+            tempMap = new TmxMapLoader().load("maps/SecondFloorStairCase.tmx");
             collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
         } else {
             publicFutureMap = null;

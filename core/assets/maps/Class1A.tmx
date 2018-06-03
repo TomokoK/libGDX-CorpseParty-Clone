@@ -330,7 +330,7 @@
   <tile id="65">
    <properties>
     <property name="blocked" value=""/>
-    <property name="poster_A" value=""/>
+    <property name="poster" value=""/>
    </properties>
   </tile>
   <tile id="66">
@@ -361,6 +361,7 @@
   <tile id="72">
    <properties>
     <property name="blocked" value=""/>
+    <property name="cabinet" value=""/>
    </properties>
   </tile>
   <tile id="83">
@@ -1196,7 +1197,7 @@
   <tile id="291">
    <properties>
     <property name="blocked" value=""/>
-    <property name="class1ABoard" value=""/>
+    <property name="looseBoard" value=""/>
    </properties>
   </tile>
   <tile id="292">
