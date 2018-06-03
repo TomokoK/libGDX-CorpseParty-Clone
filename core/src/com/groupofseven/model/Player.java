@@ -217,7 +217,7 @@ public class Player implements Renderable {
                 changeSpriteLocation("Class 3A", 384, 384);
             } else if (spriteX == 312 && spriteY == 600) {
                 changeSpriteLocation("Class 5A", 48, 48);
-            } else if (spriteX == 336 && spriteY == 480) {
+            } else if (spriteX == 240 && spriteY == 1560) {
                 changeSpriteLocation("StairCase2-3", 288, 240);
             } else if (spriteX == 168 && spriteY == 480) {
                 changeSpriteLocation("StairCase2-3Bathrooms", 168, 216);
@@ -325,6 +325,7 @@ public class Player implements Renderable {
             this.getApp().setScreen(new StairCase2_3Screen(this.getApp()));
             tempMap = new TmxMapLoader().load("maps/StairCase2-3.tmx");
             collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
+            direction = 1;
         } else if (futureMap.equalsIgnoreCase("StairCase2-3Bathrooms")) {
             publicFutureMap = "StairCase2-3Bathrooms";
             tempMap.dispose();

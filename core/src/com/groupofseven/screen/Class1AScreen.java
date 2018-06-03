@@ -56,8 +56,7 @@ public class Class1AScreen extends AbstractScreen {
 
     @Override
     public void hide() {
-        // call the disposal method
-        dispose();
+
     }
 
     @Override
@@ -90,11 +89,6 @@ public class Class1AScreen extends AbstractScreen {
     @Override
     public void resize(int width, int height) {
         // set camera options here
-//        camera.viewportWidth = width;
-//        camera.viewportHeight = height;
-//        camera.viewportWidth = 640;
-//        camera.viewportHeight = 480;
-//        camera.update();
     }
 
     @Override
