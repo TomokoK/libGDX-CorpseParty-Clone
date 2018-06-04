@@ -51,6 +51,7 @@ public class Class2AScreen extends AbstractScreen {
     public void hide() {
         // dispose of the sound
         soundAction.disposeAudio("Class2A Theme");
+        soundAction.setAudioPlaying("main theme");
     }
 
     @Override

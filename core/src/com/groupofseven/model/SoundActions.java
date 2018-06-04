@@ -17,7 +17,7 @@ public class SoundActions {
             fadeOutMusic(mainTheme);
         } else if (passedAudio.equalsIgnoreCase("Class5A Theme")) {
             fadeOutMusic(Class5ATheme);
-        } else if (passedAudio.equalsIgnoreCase("Class2A Theme")); {
+        } else if (passedAudio.equalsIgnoreCase("Class2A Theme")) {
             fadeOutMusic(Class2ATheme);
         }
     }
