@@ -68,7 +68,7 @@ public class SoundActions {
         }
     }
 
-    private static void fadeInMusic(Music passedAudio) {
+    private void fadeInMusic(Music passedAudio) {
         System.out.println("fadeInMusic started with: " + passedAudio);
         Timer.schedule(new Timer.Task() {
             @Override
@@ -82,7 +82,7 @@ public class SoundActions {
         }, 0f, 0.01f);
     }
 
-    private static void fadeOutMusic(Music passedAudio) {
+    private void fadeOutMusic(Music passedAudio) {
         System.out.println("fadeOutMusic started with: " + passedAudio);
         Timer.schedule(new Timer.Task() {
             @Override
