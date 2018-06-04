@@ -42,15 +42,14 @@ public class Class5AScreen extends AbstractScreen {
         map.dispose();
         // dispose of the renderer (the OrthogonalTiledMapRenderer)
         renderer.dispose();
-        // dispose of the sound
-        soundAction.disposeAudio("Class5A Theme");
         // dispose the sprite
         batch.dispose();
     }
 
     @Override
     public void hide() {
-
+        // dispose of the sound
+        soundAction.disposeAudio("Class5A Theme");
     }
 
     @Override

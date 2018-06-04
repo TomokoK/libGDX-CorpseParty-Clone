@@ -48,15 +48,14 @@ public class Class1AScreen extends AbstractScreen {
         map.dispose();
         // dispose of the renderer (the OrthogonalTiledMapRenderer)
         renderer.dispose();
-        // dispose of the sound
-        voice.dispose();
         // dispose the sprite
         batch.dispose();
     }
 
     @Override
     public void hide() {
-
+        // dispose of the voice acting
+        voice.dispose();
     }
 
     @Override
@@ -109,7 +108,6 @@ public class Class1AScreen extends AbstractScreen {
         camera.viewportHeight = 480;
         camera.zoom = 0.75f;
         // sound options
-        soundAction.setAudioLooping("main theme", true);
         voice.setVolume(0.5f);
         /*
          * First, we play the voice clip. Then, we check to see when the voice clip has
@@ -123,6 +121,7 @@ public class Class1AScreen extends AbstractScreen {
             voice.setOnCompletionListener(new Music.OnCompletionListener() {
                 @Override
                 public void onCompletion(Music music) {
+                    soundAction.setAudioLooping("main theme", true);
                     soundAction.setAudioPlaying("main theme");
                     // Set our input processor after playing voice
                     Gdx.input.setInputProcessor(me.getInput());

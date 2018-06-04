@@ -43,15 +43,14 @@ public class Class2AScreen extends AbstractScreen {
         map.dispose();
         // dispose of the renderer (the OrthogonalTiledMapRenderer)
         renderer.dispose();
-        // dispose of the sound
-        soundAction.disposeAudio("Class2A Theme");
         // dispose the sprite
         batch.dispose();
     }
 
     @Override
     public void hide() {
-
+        // dispose of the sound
+        soundAction.disposeAudio("Class2A Theme");
     }
 
     @Override
@@ -105,7 +104,6 @@ public class Class2AScreen extends AbstractScreen {
         camera.zoom = 0.75f;
         // sound options
         soundAction.setAudioLooping("Class2A Theme", true);
-        soundAction.setAudioVolume("Class2A Theme", 0.5f);
         soundAction.setAudioPlaying("Class2A Theme");
         // Set our input processor
         Gdx.input.setInputProcessor(me.getInput());

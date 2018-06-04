@@ -42,19 +42,19 @@ public class SecondFloorScreen extends AbstractScreen {
         map.dispose();
         // dispose of the renderer
         renderer.dispose();
-        // if you don't dispose the music, it will never stop.
-        if (me.publicFutureMap.equalsIgnoreCase("Class 3A")) {
-            soundAction.disposeAudio("main theme");
-        } else if (me.publicFutureMap.equalsIgnoreCase("Class 5A")) {
-            soundAction.disposeAudio("main theme");
-        }
         // dispose the sprite
         batch.dispose();
     }
 
     @Override
     public void hide() {
-
+        if (me.publicFutureMap.equalsIgnoreCase("Class 3A")) {
+            soundAction.disposeAudio("main theme");
+        } else if (me.publicFutureMap.equalsIgnoreCase("Class 5A")) {
+            soundAction.disposeAudio("main theme");
+        } else if (me.publicFutureMap.equalsIgnoreCase("Class 2A")) {
+            soundAction.disposeAudio("main theme");
+        }
     }
 
     @Override

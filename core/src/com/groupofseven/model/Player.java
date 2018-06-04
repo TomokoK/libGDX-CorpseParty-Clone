@@ -211,14 +211,14 @@ public class Player implements Renderable {
                 changeSpriteLocation("Boys Bathroom", 48, 48);
             } else if (spriteX == 336 && spriteY == 1224) {
                 changeSpriteLocation("Bathroom Hallway", 48, 48);
-            } else if (spriteX == 336 && spriteY == 720) {
+            } else if (spriteX == 408 && spriteY == 1536) {
                 changeSpriteLocation("Class 2A", 360, 48);
             } else if (spriteX == 1224 && spriteY == 1560) {
                 changeSpriteLocation("Class 3A", 384, 384);
             } else if (spriteX == 312 && spriteY == 600) {
                 changeSpriteLocation("Class 5A", 48, 48);
-            } else if (spriteX == 240 && spriteY == 1560) {
-                changeSpriteLocation("StairCase2-3", 288, 240);
+            } else if ((spriteX == 240 && spriteY == 1560) || (spriteX == 264 && spriteY == 1560)) {
+                changeSpriteLocation("StairCase2-3", 288, 264);
             } else if (spriteX == 168 && spriteY == 480) {
                 changeSpriteLocation("StairCase2-3Bathrooms", 168, 216);
             } else if (spriteX == 264 && spriteY == 432) {
@@ -235,6 +235,22 @@ public class Player implements Renderable {
         } else if (this.getApp().getScreen().getClass() == Class3AScreen.class) {
             if (spriteX == 408 && spriteY == 384) {
                 changeSpriteLocation("Second floor", 1224, 1536);
+                direction = 0;
+            }
+        } else if (this.getApp().getScreen().getClass() == StairCase2_3Screen.class) {
+            if (spriteX == 264 && spriteY == 288) {
+                changeSpriteLocation("Second floor", 240, 1536);
+                direction = 0;
+            } else if (spriteX == 288 && spriteY == 288) {
+                changeSpriteLocation("Second floor", 240, 1536);
+                direction = 0;
+            } else if (spriteX == 312 && spriteY == 288) {
+                changeSpriteLocation("Second floor", 240, 1536);
+                direction = 0;
+            }
+        } else if (this.getApp().getScreen().getClass() == Class2AScreen.class) {
+            if (spriteX == 384 && spriteY == 48) {
+                changeSpriteLocation("Second floor", 408, 1512);
                 direction = 0;
             }
         }
@@ -325,7 +341,7 @@ public class Player implements Renderable {
             this.getApp().setScreen(new StairCase2_3Screen(this.getApp()));
             tempMap = new TmxMapLoader().load("maps/StairCase2-3.tmx");
             collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
-            direction = 1;
+            direction = 0;
         } else if (futureMap.equalsIgnoreCase("StairCase2-3Bathrooms")) {
             publicFutureMap = "StairCase2-3Bathrooms";
             tempMap.dispose();
