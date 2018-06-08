@@ -11,8 +11,6 @@ public class SoundActions {
     private Music Class2ATheme = Gdx.audio.newMusic(Gdx.files.internal("music/09Fear.mp3"));
 
     public void disposeAudio(String passedAudio) {
-        String callerClassName = new Exception().getStackTrace()[1].getClassName();
-        System.out.println("Called by: " + callerClassName);
         if (passedAudio.equalsIgnoreCase("Main theme")) {
             fadeOutMusic(mainTheme);
         } else if (passedAudio.equalsIgnoreCase("Class5A Theme")) {
@@ -69,7 +67,6 @@ public class SoundActions {
     }
 
     private void fadeInMusic(Music passedAudio) {
-        System.out.println("fadeInMusic started with: " + passedAudio);
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
@@ -83,7 +80,6 @@ public class SoundActions {
     }
 
     private void fadeOutMusic(Music passedAudio) {
-        System.out.println("fadeOutMusic started with: " + passedAudio);
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {

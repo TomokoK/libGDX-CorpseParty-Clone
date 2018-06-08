@@ -15,7 +15,6 @@ import com.groupofseven.screen.Class1AScreen;
 
 public class Seven extends Game implements ApplicationListener {
     // init objects
-    private Screen screen;
     public TiledMap map;
     public SpriteBatch batch;
     public Player me;
@@ -35,7 +34,7 @@ public class Seven extends Game implements ApplicationListener {
         me.spriteX = 168;
         me.spriteY = 96;
         // set the screen to be Class1AScreen
-        screen = new Class1AScreen(this);
+        Screen screen = new Class1AScreen(this);
         this.setScreen(screen);
     }
 

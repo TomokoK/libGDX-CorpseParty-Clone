@@ -14,6 +14,7 @@
  * 		Exit
  * 		Credits
  * 	Dialog boxes
+ * 	Fade in/out screen when switching maps
  * 	Make use of the objects layer (look into this)
  * 		Pick up items, use them in areas
  * 	Change script from edited version -> original CP rip (?)

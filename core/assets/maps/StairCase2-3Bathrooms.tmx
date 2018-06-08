@@ -2,11 +2,6 @@
 <map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="right-down" width="11" height="15" tilewidth="24" tileheight="24" infinite="0" nextobjectid="1">
  <tileset firstgid="1" name="StairCase2-3BathroomsTileset" tilewidth="24" tileheight="24" tilecount="80" columns="8">
   <image source="StairCase2-3BathroomsTileset.png" width="192" height="240"/>
-  <tile id="0">
-   <properties>
-    <property name="blocked" value=""/>
-   </properties>
-  </tile>
   <tile id="1">
    <properties>
     <property name="blocked" value=""/>
