@@ -220,7 +220,7 @@ public class Player implements Renderable {
             } else if (spriteX == 1224 && spriteY == 1560) {
                 changeSpriteLocation("Class 3A", 384, 384);
             } else if (spriteX == 312 && spriteY == 600) {
-                changeSpriteLocation("Class 5A", 48, 48);
+                changeSpriteLocation("Class 5A", 48, 48); // test point
             } else if ((spriteX == 240 && spriteY == 1560) || (spriteX == 264 && spriteY == 1560)) {
                 changeSpriteLocation("StairCase2-3", 288, 264);
             } else if ((spriteX == 1656 || spriteX == 1632) && spriteY == 1680) {
