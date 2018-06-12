@@ -231,6 +231,8 @@ public class Player implements Renderable {
             } else if (spriteX == 648 && spriteY == 1536) {
                 changeSpriteLocation("Class 2A", 360, 360);
                 direction = 1;
+            } else if ((spriteX == 1632 || spriteX == 1656) && spriteY == 312) {
+                changeSpriteLocation("SecondFloorStairCase2", 72, 264);
             }
         } else if (this.getApp().getScreen().getClass() == SecondFloorStairCaseScreen.class) {
             if (spriteX == 144 && spriteY == 264) {
@@ -272,10 +274,10 @@ public class Player implements Renderable {
                 changeSpriteLocation("Second floor", 1728, 696);
             }
         } else if (this.getApp().getScreen().getClass() == FirstFloorScreen.class) {
-            if (spriteX == 192 && spriteY == 192) {
+            if ((spriteX == 192 || spriteX == 216) && spriteY == 192) {
                 changeSpriteLocation("SecondFloorStaircase", 168, 240);
-            } else if (spriteX == 216 && spriteY == 192) {
-                changeSpriteLocation("SecondFloorStaircase", 168, 240);
+            } else if ((spriteX == 1680 || spriteX == 1704) && spriteY == 240) {
+                changeSpriteLocation("SecondFloorStairCase2", 168, 240);
             }
         } else if (this.getApp().getScreen().getClass() == StairCase2_3BathroomsScreen.class) {
             if (spriteX == 48 && spriteY == 288) {
@@ -304,6 +306,36 @@ public class Player implements Renderable {
             } else if (spriteX == 552 && spriteY == 240) {
                 changeSpriteLocation("StairCase2-3Bathrooms", 72, 264);
                 direction = 0;
+            } else if (spriteX == 288 && spriteY == 216) {
+                changeSpriteLocation("Boys Bathroom", 312, 72);
+                direction = 1;
+            } else if (spriteX == 96 && spriteY == 216) {
+                changeSpriteLocation("Girls Bathroom", 312, 72);
+                direction = 1;
+            }
+        } else if (this.getApp().getScreen().getClass() == BoysBathroomScreen.class) {
+            if (spriteX == 336 && spriteY == 72) {
+                changeSpriteLocation("Bathroom hallway", 288, 192);
+                direction = 0;
+            }
+        } else if (this.getApp().getScreen().getClass() == GirlsBathroomScreen.class) {
+            if (spriteX == 336 && spriteY == 72) {
+                changeSpriteLocation("Bathroom hallway", 96, 192);
+                direction = 0;
+            }
+        } else if (this.getApp().getScreen().getClass() == SecondFloorStairCase2Screen.class) {
+            if (spriteX == 144 && spriteY == 264) {
+                changeSpriteLocation("first floor", 1680, 288);
+            } else if (spriteX == 168 && spriteY == 264) {
+                changeSpriteLocation("first floor", 1680, 288);
+            } else if (spriteX == 192 && spriteY == 264) {
+                changeSpriteLocation("first floor", 1680, 288);
+            } else if (spriteX == 48 && spriteY == 288) {
+                changeSpriteLocation("second floor", 1632, 360);
+            } else if (spriteX == 72 && spriteY == 288) {
+                changeSpriteLocation("second floor", 1632, 360);
+            } else if (spriteX == 96 && spriteY == 288) {
+                changeSpriteLocation("second floor", 1632, 360);
             }
         }
     }
@@ -416,6 +448,12 @@ public class Player implements Renderable {
             publicFutureMap = "SecondFloorStairCase";
             tempMap.dispose();
             this.getApp().setScreen(new SecondFloorStairCaseScreen(this.getApp()));
+            tempMap = new TmxMapLoader().load("maps/SecondFloorStairCase.tmx");
+            collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
+        } else if (futureMap.equalsIgnoreCase("SecondFloorStairCase2")) {
+            publicFutureMap = "SecondFloorStairCase2";
+            tempMap.dispose();
+            this.getApp().setScreen(new SecondFloorStairCase2Screen(this.getApp()));
             tempMap = new TmxMapLoader().load("maps/SecondFloorStairCase.tmx");
             collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get(0);
         } else {
