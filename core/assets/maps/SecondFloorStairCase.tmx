@@ -39,6 +39,7 @@
   </tile>
   <tile id="24">
    <properties>
+    <property name="blocked" value=""/>
     <property name="saveCandle" value=""/>
    </properties>
   </tile>

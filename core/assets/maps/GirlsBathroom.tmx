@@ -187,6 +187,16 @@
     <property name="blocked" value=""/>
    </properties>
   </tile>
+  <tile id="38">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="blocked" value=""/>
+   </properties>
+  </tile>
   <tile id="40">
    <properties>
     <property name="blocked" value=""/>

@@ -26,6 +26,7 @@
  */
 package com.seven.game.desktop;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.groupofseven.game.Seven;
@@ -38,6 +39,9 @@ public class DesktopLauncher {
 		int displayHeight = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
 
 		config.title = "Corpse Party";
+		config.addIcon("icon_128.jpg", Files.FileType.Internal);
+		config.addIcon("icon_64.jpg", Files.FileType.Internal);
+		config.addIcon("icon_32.jpg", Files.FileType.Internal);
 		if (displayWidth <= 1366 && displayHeight <= 768) {
 			config.width = 640;
 			config.height = 480;

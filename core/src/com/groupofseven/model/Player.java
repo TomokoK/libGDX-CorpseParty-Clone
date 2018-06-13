@@ -219,8 +219,6 @@ public class Player implements Renderable {
                 changeSpriteLocation("Class 2A", 360, 48);
             } else if (spriteX == 1224 && spriteY == 1560) {
                 changeSpriteLocation("Class 3A", 384, 384);
-            } else if (spriteX == 312 && spriteY == 600) {
-                changeSpriteLocation("Class 5A", 48, 48); // test point
             } else if ((spriteX == 240 && spriteY == 1560) || (spriteX == 264 && spriteY == 1560)) {
                 changeSpriteLocation("StairCase2-3", 288, 264);
             } else if ((spriteX == 1656 || spriteX == 1632) && spriteY == 1680) {
@@ -278,6 +276,12 @@ public class Player implements Renderable {
                 changeSpriteLocation("SecondFloorStaircase", 168, 240);
             } else if ((spriteX == 1680 || spriteX == 1704) && spriteY == 240) {
                 changeSpriteLocation("SecondFloorStairCase2", 168, 240);
+            } else if (spriteX == 1320 && spriteY == 1344) {
+                changeSpriteLocation("Class 5A", 360, 72);
+                direction = 1;
+            } else if (spriteX == 1560 && spriteY == 1344) {
+                changeSpriteLocation("Class 5A", 360, 384);
+                direction = 1;
             }
         } else if (this.getApp().getScreen().getClass() == StairCase2_3BathroomsScreen.class) {
             if (spriteX == 48 && spriteY == 288) {
@@ -336,6 +340,14 @@ public class Player implements Renderable {
                 changeSpriteLocation("second floor", 1632, 360);
             } else if (spriteX == 96 && spriteY == 288) {
                 changeSpriteLocation("second floor", 1632, 360);
+            }
+        } else if (this.getApp().getScreen().getClass() == Class5AScreen.class) {
+            if (spriteX == 384 && spriteY == 384) {
+                changeSpriteLocation("first floor", 1560, 1320);
+                direction = 0;
+            } else if (spriteX == 384 && spriteY == 72) {
+                changeSpriteLocation("first floor", 1320, 1320);
+                direction = 0;
             }
         }
     }
