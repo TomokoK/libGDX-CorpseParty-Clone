@@ -362,8 +362,6 @@ public class Player implements Renderable {
                 currentSpeed = 0f;
                 lastMoveHappened = true;
                 elapsedTime = 0f;
-                System.out.println("X:" + spriteX);
-                System.out.println("Y:" + spriteY);
                 checkForDoor();
             }
         } else if (yAxisMovement) {
@@ -371,8 +369,6 @@ public class Player implements Renderable {
                 currentSpeed = 0f;
                 lastMoveHappened = true;
                 elapsedTime = 0f;
-                System.out.println("X:" + spriteX);
-                System.out.println("Y:" + spriteY);
                 checkForDoor();
             }
         }

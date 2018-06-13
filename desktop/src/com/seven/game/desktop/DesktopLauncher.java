@@ -3,24 +3,17 @@
  * @AUTHOR
  * 
  * TODO:
- *  Add doors to the correct area
- * 	Remove objects (e.g. desks, buckets) from main map and add them as an object layer (look into this)
- * 	Add/improve collision properties to tiled maps
  * 	Add tile layers to each map for better collision detection (e.g. sprite behind podium)
  * 	Add more voice acting lines
  * 	Main menu
- * 	    Fullscreen/Screen Resolution
  * 		Save/Load
  * 		Exit
  * 		Credits
  * 	Dialog boxes
  * 	Fade in/out screen when switching maps
- * 	Make use of the objects layer (look into this)
+ * 	Make use of objects
  * 		Pick up items, use them in areas
- * 	Change script from edited version -> original CP rip (?)
  * 	Add vignette effect shaders as a scene2d overlay
- * 	Tune the volume via menu screen
- * 	Clean up all debug lines when they are no longer needed
  * 	Fix/Implement cross screen music
  *
  */
