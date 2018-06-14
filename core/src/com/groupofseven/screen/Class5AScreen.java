@@ -50,6 +50,7 @@ public class Class5AScreen extends AbstractScreen {
     public void hide() {
         // dispose of the sound
         soundAction.disposeAudio("Class5A Theme");
+        soundAction.setAudioPlaying("main theme");
     }
 
     @Override
@@ -103,7 +104,6 @@ public class Class5AScreen extends AbstractScreen {
         camera.zoom = 0.75f;
         // sound options
         soundAction.setAudioLooping("class5a theme", true);
-        soundAction.setAudioVolume("class5a theme", 0.5f);
         soundAction.setAudioPlaying("class5a theme");
         // Set our input processor
         Gdx.input.setInputProcessor(me.getInput());

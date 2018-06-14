@@ -50,8 +50,6 @@ public class SecondFloorScreen extends AbstractScreen {
     public void hide() {
         if (me.publicFutureMap.equalsIgnoreCase("Class 3A")) {
             soundAction.disposeAudio("main theme");
-        } else if (me.publicFutureMap.equalsIgnoreCase("Class 5A")) {
-            soundAction.disposeAudio("main theme");
         } else if (me.publicFutureMap.equalsIgnoreCase("Class 2A")) {
             soundAction.disposeAudio("main theme");
         }

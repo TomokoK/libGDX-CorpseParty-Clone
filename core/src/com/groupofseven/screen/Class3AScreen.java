@@ -48,7 +48,8 @@ public class Class3AScreen extends AbstractScreen {
 
     @Override
     public void hide() {
-
+        soundAction.disposeAudio("Class3A Theme");
+        soundAction.setAudioPlaying("main theme");
     }
 
     @Override
@@ -100,6 +101,9 @@ public class Class3AScreen extends AbstractScreen {
         camera.viewportWidth = 640;
         camera.viewportHeight = 480;
         camera.zoom = 0.75f;
+        // sound options
+        soundAction.setAudioLooping("class3a theme", true);
+        soundAction.setAudioPlaying("class3a theme");
         // Set our input processor
         Gdx.input.setInputProcessor(me.getInput());
     }

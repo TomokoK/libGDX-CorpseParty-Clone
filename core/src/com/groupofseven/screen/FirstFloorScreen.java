@@ -48,7 +48,9 @@ public class FirstFloorScreen extends AbstractScreen {
 
     @Override
     public void hide() {
-
+        if (me.publicFutureMap.equalsIgnoreCase("Class 5A")) {
+            soundAction.disposeAudio("main theme");
+        }
     }
 
     @Override

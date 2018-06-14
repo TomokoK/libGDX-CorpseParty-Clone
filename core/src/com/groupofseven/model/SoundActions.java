@@ -8,6 +8,7 @@ public class SoundActions {
 
     private Music mainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11Chapter1MainTheme.mp3"));
     private Music Class5ATheme = Gdx.audio.newMusic(Gdx.files.internal("music/07HauntedRoom.mp3"));
+    private Music Class3ATheme = Gdx.audio.newMusic(Gdx.files.internal("music/25Fear3.mp3"));
     private Music Class2ATheme = Gdx.audio.newMusic(Gdx.files.internal("music/09Fear.mp3"));
 
     public void disposeAudio(String passedAudio) {
@@ -17,6 +18,8 @@ public class SoundActions {
             fadeOutMusic(Class5ATheme);
         } else if (passedAudio.equalsIgnoreCase("Class2A Theme")) {
             fadeOutMusic(Class2ATheme);
+        } else if (passedAudio.equalsIgnoreCase("Class3A Theme")) {
+            fadeOutMusic(Class3ATheme);
         }
     }
 
@@ -27,6 +30,8 @@ public class SoundActions {
             Class5ATheme.pause();
         } else if (passedAudio.equalsIgnoreCase("class2a theme")) {
             Class2ATheme.pause();
+        } else if (passedAudio.equalsIgnoreCase("class3a theme")) {
+            Class3ATheme.pause();
         }
     }
 
@@ -37,6 +42,8 @@ public class SoundActions {
             Class5ATheme.setLooping(looping);
         } else if (passedAudio.equalsIgnoreCase("class2a theme")) {
             Class2ATheme.setLooping(looping);
+        } else if (passedAudio.equalsIgnoreCase("class3a theme")) {
+            Class3ATheme.setLooping(looping);
         }
     }
 
@@ -47,6 +54,8 @@ public class SoundActions {
             Class5ATheme.setVolume(num);
         } else if (passedAudio.equalsIgnoreCase("class2a theme")) {
             Class2ATheme.setVolume(num);
+        } else if (passedAudio.equalsIgnoreCase("class3a theme")) {
+            Class3ATheme.setVolume(num);
         }
     }
 
@@ -63,6 +72,10 @@ public class SoundActions {
             Class2ATheme.setVolume(0f);
             Class2ATheme.play();
             fadeInMusic(Class2ATheme);
+        } else if (passedAudio.equalsIgnoreCase("class3a theme")) {
+            Class3ATheme.setVolume(0f);
+            Class3ATheme.play();
+            fadeInMusic(Class3ATheme);
         }
     }
 
