@@ -9,9 +9,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.groupofseven.model.Player;
 import com.groupofseven.model.SoundActions;
 import com.groupofseven.screen.Class1AScreen;
+
+import java.util.Random;
 
 public class Seven extends Game implements ApplicationListener {
     // init objects
@@ -20,8 +23,16 @@ public class Seven extends Game implements ApplicationListener {
     public Player me;
     public SoundActions soundAction;
 
+    // contains which body has the key
+    public String bodyWithKey;
+
+    // contains start time
+    public long startTime;
+
     @Override
     public void create() {
+        // log time elapsed
+        long startTime = System.nanoTime();
         // set map for our player
         map = new TmxMapLoader().load("maps/Class1A.tmx");
         // start the sound controller object
@@ -33,6 +44,35 @@ public class Seven extends Game implements ApplicationListener {
         // set sprite position to a # divisible by the tile size
         me.spriteX = 168;
         me.spriteY = 96;
+        // place the key randomly
+        Random randomInt = new Random();
+        int bodySelector = randomInt.nextInt(5);
+        switch (bodySelector) {
+            case 0:
+                //bodyA
+                bodyWithKey = "bodyA";
+                break;
+            case 1:
+                //bodyB
+                bodyWithKey = "bodyB";
+                break;
+            case 2:
+                //bodyC
+                bodyWithKey = "bodyC";
+                break;
+            case 3:
+                //bodyD
+                bodyWithKey = "bodyD";
+                break;
+            case 4:
+                //bodyE
+                bodyWithKey = "bodyE";
+                break;
+            default:
+                Gdx.app.exit();
+                System.exit(0);
+                break;
+        }
         // set the screen to be Class1AScreen
         Screen screen = new Class1AScreen(this);
         this.setScreen(screen);

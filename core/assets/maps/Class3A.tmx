@@ -380,6 +380,7 @@
   <tile id="103">
    <properties>
     <property name="blocked" value=""/>
+    <property name="bodyB" value=""/>
    </properties>
   </tile>
   <tile id="105">

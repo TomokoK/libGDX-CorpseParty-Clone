@@ -451,6 +451,7 @@
   <tile id="126">
    <properties>
     <property name="blocked" value=""/>
+    <property name="bodyA" value=""/>
    </properties>
   </tile>
   <tile id="127">

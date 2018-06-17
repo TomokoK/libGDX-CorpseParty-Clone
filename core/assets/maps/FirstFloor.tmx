@@ -990,6 +990,7 @@
   <tile id="247">
    <properties>
     <property name="blocked" value=""/>
+    <property name="bodyD" value=""/>
    </properties>
   </tile>
   <tile id="252">
@@ -1545,6 +1546,7 @@
   <tile id="378">
    <properties>
     <property name="blocked" value=""/>
+    <property name="bodyC" value=""/>
    </properties>
   </tile>
   <tile id="379">
@@ -2325,6 +2327,7 @@
   <tile id="538">
    <properties>
     <property name="blocked" value=""/>
+    <property name="bodyE" value=""/>
    </properties>
   </tile>
   <tile id="539">
@@ -2555,11 +2558,13 @@
   <tile id="588">
    <properties>
     <property name="blocked" value=""/>
+    <property name="exitDoor" value=""/>
    </properties>
   </tile>
   <tile id="589">
    <properties>
     <property name="blocked" value=""/>
+    <property name="exitDoor" value=""/>
    </properties>
   </tile>
   <tile id="590">

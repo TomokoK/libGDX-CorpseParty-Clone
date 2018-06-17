@@ -3,7 +3,7 @@
  * @AUTHOR
  * 
  * TODO:
- * 	Add tile layers to each map for better collision detection (e.g. sprite behind podium)
+ * 	Add tile layers to each map (e.g. sprite behind podium)
  * 	Add more voice acting lines
  * 	Main menu
  * 		Save/Load
@@ -14,7 +14,6 @@
  * 	Make use of objects
  * 		Pick up items, use them in areas
  * 	Add vignette effect shaders as a scene2d overlay
- * 	Fix/Implement cross screen music
  *
  */
 package com.seven.game.desktop;
@@ -47,6 +46,7 @@ public class DesktopLauncher {
 		}
 		config.vSyncEnabled = true;
 		config.resizable = false;
+		config.forceExit = false;
 
 		new LwjglApplication(new Seven(), config);
 	}

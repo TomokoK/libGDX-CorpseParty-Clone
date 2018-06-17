@@ -1,5 +1,6 @@
 package com.groupofseven.model;
 
+import java.io.*;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
@@ -27,13 +29,14 @@ public class Player implements Renderable {
 
     private TiledMapTileLayer collisionLayer; // reference to the map layer
 
-    // x and y are used for sprite position
+    // sprite attributes
     public float spriteX;
     public float spriteY;
     private float futureX;
     private float futureY;
     private boolean yAxisMovement, xAxisMovement;
     private boolean collide;
+    public boolean hasKey;
 
     // booleans handled by the PlayerInput class, used for movement
     public boolean movingUp = false;
@@ -198,6 +201,57 @@ public class Player implements Renderable {
             if (facingCell.getTile().getProperties().containsKey("SecondFloorDoor")) {
                 changeSpriteLocation("Second Floor", 648, 1512);
                 direction = 0;
+            } else if (facingCell.getTile().getProperties().containsKey("bodyA") && app.bodyWithKey.equals("bodyA")) {
+                hasKey = true;
+                System.out.println("key obtained. get out.");
+            }
+        } else if (this.getApp().getScreen().getClass() == Class3AScreen.class) {
+            if (facingCell.getTile().getProperties().containsKey("bodyB") && app.bodyWithKey.equals("bodyB")) {
+                hasKey = true;
+                System.out.println("key obtained. get out.");
+            }
+        } else if (this.getApp().getScreen().getClass() == FirstFloorScreen.class) {
+            if (facingCell.getTile().getProperties().containsKey("exitDoor")) {
+                if (hasKey) {
+                    //log time it took to escape
+                    long totalTime = ((System.nanoTime() - app.startTime) / 1000);
+                    //print how long it took your run
+                    System.out.println("you escaped in: " + totalTime);
+                    // I/O for recording/reading times
+                    // attempt to read previous time if it exists
+                    try {
+                        // get previous time
+                        File inputFile = new File("time");
+                        BufferedReader parser = new BufferedReader(new FileReader(inputFile));
+                        String parseLine = parser.readLine();
+                        System.out.println("Your previous best time was: " + parseLine);
+                        parser.close();
+                    } catch (Exception e) {
+                        System.out.println("ERROR: " + e);
+                    }
+                    // attempt to print time to `time`
+                    try {
+                        File outputFile = new File("time");
+                        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(outputFile));
+                        fileWriter.write(Long.toString(totalTime));
+                        fileWriter.close();
+                    } catch (Exception e) {
+                        System.out.println("ERROR: " + e);
+                    }
+                    //exit
+                    Gdx.app.exit();
+                } else {
+                    System.out.println("locked");
+                }
+            } else if (facingCell.getTile().getProperties().containsKey("bodyC") && app.bodyWithKey.equals("bodyC")) {
+                hasKey = true;
+                System.out.println("key obtained. get out.");
+            } else if (facingCell.getTile().getProperties().containsKey("bodyD") && app.bodyWithKey.equals("bodyD")) {
+                hasKey = true;
+                System.out.println("key obtained. get out.");
+            } else if (facingCell.getTile().getProperties().containsKey("bodyE") && app.bodyWithKey.equals("bodyE")) {
+                hasKey = true;
+                System.out.println("key obtained. get out.");
             }
         }
     }
