@@ -9,7 +9,7 @@ public class SoundActions {
     private Music mainTheme = Gdx.audio.newMusic(Gdx.files.internal("music/11Chapter1MainTheme.mp3"));
     private Music Class5ATheme = Gdx.audio.newMusic(Gdx.files.internal("music/07HauntedRoom.mp3"));
     private Music Class3ATheme = Gdx.audio.newMusic(Gdx.files.internal("music/25Fear3.mp3"));
-    private Music Class2ATheme = Gdx.audio.newMusic(Gdx.files.internal("music/09Fear.mp3"));
+    private Music Class2ATheme = Gdx.audio.newMusic(Gdx.files.internal("music/22BecomingTurbid.mp3"));
 
     public void disposeAudio(String passedAudio) {
         if (passedAudio.equalsIgnoreCase("Main theme")) {

@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,7 +15,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.groupofseven.game.Settings;
 import com.groupofseven.game.Seven;
 import com.groupofseven.input.PlayerInput;
@@ -66,6 +66,9 @@ public class Player implements Renderable {
 
     // this float is used to track elapsed animation time
     private float stateTime;
+
+    // sound effect for key pickup
+    Sound pickupEffect = Gdx.audio.newSound(Gdx.files.internal("SFX/COP-SE_k017.wav"));
 
     // get future map
     public String publicFutureMap;
@@ -203,11 +206,13 @@ public class Player implements Renderable {
                 direction = 0;
             } else if (facingCell.getTile().getProperties().containsKey("bodyA") && app.bodyWithKey.equals("bodyA")) {
                 hasKey = true;
+                pickupEffect.play(1.0f);
                 System.out.println("key obtained. get out.");
             }
         } else if (this.getApp().getScreen().getClass() == Class3AScreen.class) {
             if (facingCell.getTile().getProperties().containsKey("bodyB") && app.bodyWithKey.equals("bodyB")) {
                 hasKey = true;
+                pickupEffect.play(1.0f);
                 System.out.println("key obtained. get out.");
             }
         } else if (this.getApp().getScreen().getClass() == FirstFloorScreen.class) {
@@ -245,12 +250,15 @@ public class Player implements Renderable {
                 }
             } else if (facingCell.getTile().getProperties().containsKey("bodyC") && app.bodyWithKey.equals("bodyC")) {
                 hasKey = true;
+                pickupEffect.play(1.0f);
                 System.out.println("key obtained. get out.");
             } else if (facingCell.getTile().getProperties().containsKey("bodyD") && app.bodyWithKey.equals("bodyD")) {
                 hasKey = true;
+                pickupEffect.play(1.0f);
                 System.out.println("key obtained. get out.");
             } else if (facingCell.getTile().getProperties().containsKey("bodyE") && app.bodyWithKey.equals("bodyE")) {
                 hasKey = true;
+                pickupEffect.play(1.0f);
                 System.out.println("key obtained. get out.");
             }
         }
